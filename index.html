@@ -4,431 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ezion Ltd</title>
-  <meta name="description" content="Ezion Ltd is a UK-registered company building practical products and digital solutions." />
+  <meta name="description" content="Ezion Ltd — quietly building useful ventures." />
 
   <style>
     :root{
-      --bg:#fbfbfc;
-      --text:#0b1220;
-      --muted:#5b6475;
-      --line:rgba(15,23,42,.10);
-      --card:rgba(255,255,255,.78);
-      --shadow: 0 18px 50px rgba(2,6,23,.08);
-      --ring: 0 0 0 5px rgba(15,23,42,.08);
-      --radius:20px;
-      --max:980px;
-    }
-    [data-theme="dark"]{
-      --bg:#070a12;
-      --text:#eef2ff;
-      --muted:#a7b0c0;
-      --line:rgba(226,232,240,.12);
-      --card:rgba(14,18,30,.66);
-      --shadow: 0 30px 80px rgba(0,0,0,.45);
-      --ring: 0 0 0 5px rgba(226,232,240,.10);
+      --bg: #0b0f14;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --hair: rgba(255,255,255,.16);
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
-      margin:0;
-      color:var(--text);
-      line-height:1.6;
+      margin: 0;
       background: var(--bg);
-      overflow-x:hidden;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
-    a{color:inherit}
 
-    /* Quiet luxury background */
+    /* Full-bleed background */
     .bg{
-      position:fixed; inset:-80px; z-index:-2; pointer-events:none;
+      position: fixed;
+      inset: 0;
       background:
-        radial-gradient(800px 500px at 18% 10%, rgba(17,24,39,.06), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(17,24,39,.045), transparent 60%),
-        radial-gradient(800px 600px at 50% 90%, rgba(17,24,39,.04), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.6), transparent 35%);
-      filter:saturate(1.02);
-    }
-    [data-theme="dark"] .bg{
-      background:
-        radial-gradient(900px 600px at 18% 10%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(255,255,255,.04), transparent 60%),
-        radial-gradient(900px 700px at 50% 90%, rgba(255,255,255,.03), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.45), transparent 35%);
-      filter:saturate(1.0);
+        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.40) 40%, rgba(0,0,0,.65)),
+        radial-gradient(1200px 800px at 70% 30%, rgba(0,0,0,.15), rgba(0,0,0,.75)),
+        url("assets/hero.jpg") center/cover no-repeat;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.02);
     }
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 68px;}
+    /* Soft vignette + subtle film grain */
+    .fx{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(900px 500px at 50% 45%, rgba(255,255,255,.06), rgba(0,0,0,.0) 55%),
+        radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.55));
+      mix-blend-mode: overlay;
+      opacity: .55;
+    }
+    .grain{
+      position: fixed;
+      inset: -40%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity: .10;
+      transform: rotate(6deg);
+    }
 
-    /* Minimal top bar */
-    .topbar{
-      position:sticky; top:0; z-index:20;
-      backdrop-filter: blur(14px) saturate(1.1);
-      background: color-mix(in oklab, var(--bg) 78%, transparent);
-      border-bottom:1px solid color-mix(in oklab, var(--line) 80%, transparent);
+    /* Layout */
+    .wrap{
+      position: relative;
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
     }
-    .topbar-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:12px 18px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
+
+    /* Center wordmark */
+    .center{
+      text-align: center;
+      user-select: none;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      text-decoration:none;
-      min-width:220px;
+    .domain{
+      font-size: clamp(22px, 2.8vw, 34px);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      font-weight: 500;
+      opacity: .92;
     }
+
+    /* Footer line */
+    .footer{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      display: flex;
+      justify-content: center;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: var(--muted);
+    }
+    .footer a{
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hair);
+      padding-bottom: 1px;
+    }
+    .footer a:hover{
+      border-bottom-color: rgba(255,255,255,.45);
+    }
+
+    /* Optional top-left tiny mark */
     .mark{
-      width:38px; height:38px; border-radius:999px;
-      border:1px solid color-mix(in oklab, var(--line) 100%, transparent);
-      background: color-mix(in oklab, var(--card) 80%, transparent);
-      box-shadow: var(--shadow);
-      display:grid; place-items:center;
-      font-size:12px; letter-spacing:.14em;
-      font-weight:700;
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
-    .brand-meta{display:flex; flex-direction:column; gap:1px}
-    .brand-meta strong{font-size:13px; letter-spacing:.02em}
-    .brand-meta span{font-size:12px; color:var(--muted)}
-
-    nav{
-      display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-      justify-content:center;
-    }
-    .navlink{
-      font-size:12px;
-      color:var(--muted);
-      text-decoration:none;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-      transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
-    }
-    .navlink:hover{
-      color:var(--text);
-      border-color: color-mix(in oklab, var(--line) 100%, transparent);
-      background: color-mix(in oklab, var(--card) 70%, transparent);
-      transform: translateY(-1px);
-    }
-    .navlink[aria-current="true"]{
-      color:var(--text);
-      border-color: color-mix(in oklab, var(--line) 100%, transparent);
-      background: color-mix(in oklab, var(--card) 78%, transparent);
-    }
-
-    .actions{display:flex; align-items:center; gap:10px; min-width:220px; justify-content:flex-end;}
-    .btn{
-      border:1px solid color-mix(in oklab, var(--line) 100%, transparent);
-      background: color-mix(in oklab, var(--card) 80%, transparent);
-      color:var(--text);
-      border-radius:999px;
-      padding:9px 12px;
-      font-size:12px;
-      cursor:pointer;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow)}
-    .btn:focus{outline:none; box-shadow: var(--ring)}
-    .ghost{background:transparent}
-
-    /* Luxury hero */
-    header.hero{padding:54px 0 18px;}
-    .eyebrow{
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      display:inline-block;
-    }
-    h1{
-      margin:14px 0 0;
-      font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      font-size: clamp(44px, 6vw, 66px);
-      letter-spacing:-0.04em;
-      line-height:1.05;
-      font-weight:600;
-    }
-    .tagline{
-      margin:16px 0 0;
-      max-width:68ch;
-      color:var(--muted);
-      font-size:16px;
-    }
-    .hairline{
-      margin-top:24px;
-      height:1px; width:100%;
-      background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--line) 100%, transparent), transparent);
-    }
-
-    /* Sections */
-    .grid{display:grid; gap:18px; grid-template-columns:1fr;}
-    @media(min-width:960px){ .grid{grid-template-columns:1.2fr .8fr;} }
-
-    .card{
-      border:1px solid color-mix(in oklab, var(--line) 100%, transparent);
-      background: var(--card);
-      border-radius:var(--radius);
-      padding:20px;
-      box-shadow: var(--shadow);
-      transition: transform .18s ease;
-    }
-    .card:hover{transform: translateY(-2px);}
-    h2{
-      margin:0 0 8px;
-      font-size:14px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color: color-mix(in oklab, var(--text) 70%, var(--muted));
-    }
-    .muted{color:var(--muted); font-size:14px}
-
-    .list{display:grid; gap:10px; margin-top:14px}
-    .item{
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid color-mix(in oklab, var(--line) 90%, transparent);
-      background: color-mix(in oklab, var(--bg) 55%, transparent);
-      transition: transform .18s ease;
-    }
-    .item:hover{transform: translateY(-1px);}
-    .item strong{font-size:14px}
-    .item p{margin:4px 0 0; color:var(--muted); font-size:13px}
-
-    .contact{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid color-mix(in oklab, var(--line) 90%, transparent);
-      background: color-mix(in oklab, var(--bg) 55%, transparent);
-      margin-top:12px;
-    }
-    .contact a{font-weight:650; text-decoration:none}
-    .mini{font-size:12px; color:var(--muted); margin-top:3px}
-
-    footer{
-      margin-top:24px;
-      padding-top:20px;
-      border-top:1px solid color-mix(in oklab, var(--line) 100%, transparent);
-      color:var(--muted);
-      font-size:13px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    }
-
-    /* Subtle reveal */
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease;}
-    .reveal.is-visible{opacity:1; transform:none;}
-
-    /* Toast */
-    .toast{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
-      background: color-mix(in oklab, var(--card) 90%, rgba(0,0,0,.12));
-      border:1px solid color-mix(in oklab, var(--line) 100%, transparent);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:999px;
-      box-shadow: var(--shadow);
-      opacity:0; pointer-events:none;
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
-
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .reveal{transition:none}
-      .btn,.navlink,.card,.item{transition:none}
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
     }
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
+  <div class="fx" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#home" aria-label="Ezion Home">
-        <div class="mark">EZ</div>
-        <div class="brand-meta">
-          <strong>Ezion Ltd</strong>
-          <span id="taglineMini">UK-registered company</span>
-        </div>
-      </a>
+  <div class="mark" aria-hidden="true">
+    <span class="dot"></span><span>Ezion Ltd</span>
+  </div>
 
-      <nav aria-label="Primary">
-        <a class="navlink" href="#about">About</a>
-        <a class="navlink" href="#work">Focus</a>
-        <a class="navlink" href="#contact">Contact</a>
-      </nav>
-
-      <div class="actions">
-        <button class="btn ghost" id="themeBtn" type="button" aria-label="Toggle theme">Theme</button>
-        <a class="btn" href="#contact">Email</a>
-      </div>
+  <main class="wrap">
+    <div class="center">
+      <div class="domain">ezion.uk</div>
     </div>
-  </div>
+  </main>
 
-  <div class="wrap">
-    <header class="hero" id="home">
-      <span class="eyebrow reveal">Ezion Ltd</span>
-      <h1 class="reveal">Quietly building<br/>useful ventures.</h1>
-      <p class="tagline reveal" id="tagline">
-        Ezion Ltd is a UK-registered company developing practical products and digital solutions — designed to be simple, durable, and scalable.
-      </p>
-      <div class="hairline reveal" aria-hidden="true"></div>
-    </header>
-
-    <main class="grid">
-      <section class="card reveal" id="about">
-        <h2>About</h2>
-        <p class="muted" id="aboutText"></p>
-
-        <h2 style="margin-top:18px;">Principles</h2>
-        <div class="list" id="principles"></div>
-      </section>
-
-      <aside class="card reveal" id="contact">
-        <h2>Contact</h2>
-
-        <div class="contact">
-          <div>
-            <div><a id="contactLink" href="mailto:contact@ezion.uk">contact@ezion.uk</a></div>
-            <div class="mini">General enquiries</div>
-          </div>
-          <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
-        </div>
-
-        <div class="hairline" style="margin:18px 0 12px;"></div>
-
-        <h2>Company</h2>
-        <p class="muted" id="companyInfo" style="margin:10px 0 0;"></p>
-
-        <p class="muted" style="margin:12px 0 0;">
-          Optional: add your Company Number + Registered Office later for maximum credibility.
-        </p>
-      </aside>
-
-      <section class="card reveal" id="work" style="grid-column:1/-1;">
-        <h2>Focus</h2>
-        <p class="muted">A concise snapshot (broad by design).</p>
-        <div class="list" id="workList"></div>
-      </section>
-    </main>
-
-    <footer class="reveal">
-      <span>© <span id="year"></span> Ezion Ltd. All rights reserved.</span>
-      <span class="muted">Minimal • Professional • Fast</span>
-    </footer>
-  </div>
-
-  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
-
-  <script>
-    // ---- Edit content here ----
-    const CONTENT = {
-      taglineMini: "UK-registered company",
-      aboutText:
-        "Ezion Ltd develops and manages consumer brands, digital tools, and operational systems. We prefer small teams, clear processes, and products that earn their place through usefulness.",
-      companyInfo: [
-        ["Legal name", "Ezion Ltd"],
-        ["Jurisdiction", "United Kingdom"],
-        ["Status", "Active"]
-        // Add later if you want:
-        // ["Company No.", "XXXXXXXX"],
-        // ["Registered office", "Your registered office address"]
-      ],
-      principles: [
-        { title: "Clarity", desc: "Simple positioning, clean execution, minimal maintenance." },
-        { title: "Durability", desc: "Fewer moving parts. Systems that keep working." },
-        { title: "Leverage", desc: "Repeatable processes and compounding improvements." }
-      ],
-      focus: [
-        { title: "Brand & product incubation", desc: "From concept to early validation and launch readiness." },
-        { title: "Digital tools and internal systems", desc: "Automation, operations tooling, and lightweight software." },
-        { title: "Operations, logistics, and process design", desc: "Reducing friction and increasing reliability." },
-        { title: "Research & development", desc: "Iterating and testing ideas for consumer applications." }
-      ]
-    };
-
-    // ---- Theme toggle (remember) ----
-    const themeBtn = document.getElementById("themeBtn");
-    const savedTheme = localStorage.getItem("ez_theme");
-    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
-
-    themeBtn.addEventListener("click", () => {
-      const cur = document.documentElement.getAttribute("data-theme");
-      const next = cur === "dark" ? "" : "dark";
-      if (next) document.documentElement.setAttribute("data-theme", next);
-      else document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("ez_theme", next);
-    });
-
-    // ---- Fill content ----
-    document.getElementById("taglineMini").textContent = CONTENT.taglineMini;
-    document.getElementById("aboutText").textContent = CONTENT.aboutText;
-
-    const companyInfo = document.getElementById("companyInfo");
-    companyInfo.innerHTML = CONTENT.companyInfo.map(([k,v]) =>
-      `<div><strong>${k}:</strong> <span class="muted">${v}</span></div>`
-    ).join("");
-
-    const principles = document.getElementById("principles");
-    CONTENT.principles.forEach(item => {
-      const el = document.createElement("div");
-      el.className = "item";
-      el.innerHTML = `<strong>${item.title}</strong><p>${item.desc}</p>`;
-      principles.appendChild(el);
-    });
-
-    const workList = document.getElementById("workList");
-    CONTENT.focus.forEach(item => {
-      const el = document.createElement("div");
-      el.className = "item";
-      el.innerHTML = `<strong>${item.title}</strong><p>${item.desc}</p>`;
-      workList.appendChild(el);
-    });
-
-    // ---- Active nav link ----
-    const links = [...document.querySelectorAll(".navlink")];
-    const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-
-    const setCurrent = (id) => {
-      links.forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false"));
-    };
-
-    const navObs = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setCurrent(visible.target.id);
-    }, { rootMargin: "-40% 0px -55% 0px", threshold: [0.05, 0.2, 0.35, 0.5] });
-
-    sections.forEach(s => navObs.observe(s));
-
-    // ---- Reveal ----
-    const revealEls = document.querySelectorAll(".reveal");
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("is-visible"); });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => revealObs.observe(el));
-
-    // ---- Copy + toast ----
-    const toast = document.getElementById("toast");
-    let toastTimer;
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
-    }
-    document.addEventListener("click", async (e) => {
-      const btn = e.target.closest("[data-copy]");
-      if (!btn) return;
-      const text = btn.getAttribute("data-copy");
-      try { await navigator.clipboard.writeText(text); showToast("Copied"); }
-      catch { showToast("Copy failed"); }
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <footer class="footer">
+    <div>
+      We’re under construction. Please check back soon. &nbsp;·&nbsp;
+      <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,24 +6,15 @@
   <title>Ezion UK</title>
   <meta name="description" content="Ezion Ltd — quietly building useful ventures." />
 
-  <!-- Snipcart (checkout) -->
-  <!-- 1) Create Snipcart account, paste your PUBLIC API key below -->
-  <link rel="preconnect" href="https://cdn.snipcart.com" />
-  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.6.1/default/snipcart.css" />
-  <meta name="snipcart-api-key" content="PASTE_YOUR_SNIPCART_PUBLIC_API_KEY_HERE" />
-
   <style>
     :root{
       --bg: #0b0f14;
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --hair: rgba(255,255,255,.16);
-      --card: rgba(15,18,24,.62);
-      --card2: rgba(10,12,16,.56);
       --shadow: 0 28px 70px rgba(0,0,0,.55);
       --radius: 22px;
       --max: 980px;
-      --accent: rgba(255,255,255,.88);
     }
 
     * { box-sizing: border-box; }
@@ -37,7 +28,6 @@
     }
     a{ color: inherit; }
 
-    /* Full-bleed background */
     .bg{
       position: fixed;
       inset: 0;
@@ -50,7 +40,6 @@
       z-index: -3;
     }
 
-    /* Vignette + subtle grain */
     .vignette{
       position: fixed;
       inset: 0;
@@ -72,7 +61,6 @@
       z-index: -1;
     }
 
-    /* Minimal top-left mark */
     .mark{
       position: fixed;
       top: 18px;
@@ -95,18 +83,19 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.18);
     }
 
-    /* Center stage */
     .wrap{
       min-height: 100%;
       display: grid;
       place-items: center;
       padding: 28px;
     }
+
     .center{
       text-align: center;
       user-select: none;
       max-width: 70ch;
     }
+
     .domain{
       font-size: clamp(22px, 2.8vw, 34px);
       letter-spacing: 0.18em;
@@ -118,11 +107,10 @@
       margin-top: 14px;
       font-size: 14px;
       letter-spacing: .02em;
-      color: var(--muted);
+      color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
 
-    /* Footer line */
     .footer{
       position: fixed;
       left: 0;
@@ -134,20 +122,19 @@
       text-align: center;
       font-size: 13px;
       letter-spacing: .02em;
-      color: var(--muted);
+      color: rgba(255,255,255,.70);
       z-index: 5;
     }
     .footer a{
-      color: var(--text);
+      color: rgba(255,255,255,.92);
       text-decoration: none;
-      border-bottom: 1px solid var(--hair);
+      border-bottom: 1px solid rgba(255,255,255,.16);
       padding-bottom: 1px;
     }
     .footer a:hover{
       border-bottom-color: rgba(255,255,255,.45);
     }
 
-    /* Action buttons (minimal) */
     .actions{
       margin-top: 18px;
       display: inline-flex;
@@ -156,10 +143,11 @@
       justify-content: center;
       flex-wrap: wrap;
     }
+
     .btn{
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
-      color: var(--text);
+      color: rgba(255,255,255,.92);
       border-radius: 999px;
       padding: 10px 14px;
       font-size: 12px;
@@ -172,22 +160,12 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      user-select: none;
     }
     .btn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
-    }
-    .btn:focus{ outline: none; box-shadow: 0 0 0 4px rgba(255,255,255,.12); }
-    .pill{
-      display:inline-flex; align-items:center; justify-content:center;
-      min-width: 18px; height: 18px; padding: 0 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-      font-size: 11px;
-      letter-spacing: .02em;
-      color: rgba(255,255,255,.85);
     }
 
     /* Slide-over info panel */
@@ -234,11 +212,6 @@
       padding: 6px 6px 12px;
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
-    .sheet-title{
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
     .sheet-title strong{
       font-size: 13px;
       letter-spacing: .12em;
@@ -246,13 +219,12 @@
     }
     .sheet-title span{
       font-size: 13px;
-      color: var(--muted);
+      color: rgba(255,255,255,.70);
     }
-
     .close{
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.20);
-      color: var(--text);
+      color: rgba(255,255,255,.92);
       border-radius: 999px;
       padding: 9px 12px;
       font-size: 12px;
@@ -268,7 +240,6 @@
     @media (min-width: 920px){
       .grid{ grid-template-columns: 1.2fr .8fr; }
     }
-
     .card{
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.18);
@@ -288,63 +259,12 @@
       color: rgba(255,255,255,.74);
       line-height: 1.7;
     }
-    .list{
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .item{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      padding: 12px 12px;
-      background: rgba(0,0,0,.14);
-    }
-    .item strong{
-      display: block;
-      font-size: 14px;
-      color: rgba(255,255,255,.88);
-    }
-    .item span{
-      display: block;
-      margin-top: 4px;
-      font-size: 13px;
-      color: rgba(255,255,255,.70);
-    }
 
-    .contactRow{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      margin-top: 10px;
-    }
-    .contactRow a{ text-decoration: none; font-weight: 650; }
-    .mini{ font-size: 12px; color: rgba(255,255,255,.62); margin-top: 2px; }
-
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.16);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(12px) saturate(1.15);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-      z-index: 20;
-    }
-    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
-
-    /* -------- Catalog view -------- */
+    /* Products view */
     .view { display: none; }
     .view.active { display: block; }
 
-    .catalog{
+    .products{
       width: min(var(--max), 100%);
       margin: 0 auto;
       text-align: left;
@@ -371,14 +291,14 @@
       color: rgba(255,255,255,.70);
       line-height: 1.5;
     }
-    .catalogGrid{
+    .productsGrid{
       display:grid;
       grid-template-columns: 1fr;
       gap: 14px;
       margin-top: 10px;
     }
     @media (min-width: 720px){
-      .catalogGrid{ grid-template-columns: repeat(2, 1fr); }
+      .productsGrid{ grid-template-columns: repeat(2, 1fr); }
     }
     .product{
       border: 1px solid rgba(255,255,255,.14);
@@ -422,18 +342,6 @@
     .btn.secondary{
       background: rgba(255,255,255,.06);
     }
-
-    @media (prefers-reduced-motion: reduce){
-      .panel, .sheet, .btn { transition: none; }
-    }
-
-    /* Snipcart visual tweak to match dark theme a bit */
-    .snipcart-modal__container,
-    .snipcart-cart__content,
-    .snipcart-cart-header,
-    .snipcart-cart__footer{
-      color-scheme: dark;
-    }
   </style>
 </head>
 
@@ -457,41 +365,29 @@
 
       <div class="actions">
         <button class="btn" type="button" id="openInfo">Open Info</button>
-
-        <!-- Catalog route -->
-        <a class="btn" href="#catalog" aria-label="Open catalog">Catalog</a>
-
-        <!-- Snipcart cart + checkout -->
-        <button class="btn snipcart-checkout" type="button" aria-label="Open cart">
-          Cart <span class="pill snipcart-items-count">0</span>
-        </button>
-
+        <a class="btn" href="#products" aria-label="Open products">Products</a>
         <a class="btn" href="mailto:contact@ezion.uk" aria-label="Email contact@ezion.uk">Email</a>
       </div>
     </section>
 
-    <!-- CATALOG VIEW -->
-    <section class="catalog view" id="view-catalog" aria-label="Product catalog">
+    <!-- PRODUCTS VIEW -->
+    <section class="products view" id="view-products" aria-label="Products">
       <div class="topbar">
         <div class="titleRow">
-          <strong>Catalog</strong>
-          <span>Small, practical releases. Simple checkout.</span>
+          <strong>Products</strong>
+          <span>Individual product pages with Stripe checkout links.</span>
         </div>
         <div class="actions" style="margin-top:0;">
           <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
-          <button class="btn snipcart-checkout" type="button">
-            Cart <span class="pill snipcart-items-count">0</span>
-          </button>
         </div>
       </div>
 
-      <div class="catalogGrid" id="catalogGrid"></div>
+      <div class="productsGrid" id="productsGrid"></div>
 
       <div class="card" style="margin-top:14px;">
         <div class="h">Notes</div>
         <p class="p">
-          Prices shown are examples. Replace product data and images.
-          Checkout is handled by Snipcart (connect Stripe/PayPal inside Snipcart).
+          Each product goes to its own page. Paste your Stripe Payment Link on the product page.
         </p>
       </div>
     </section>
@@ -499,7 +395,6 @@
 
   <footer class="footer">
     <div>
-      We’re under construction. Please check back soon. &nbsp;·&nbsp;
       <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
     </div>
   </footer>
@@ -511,14 +406,15 @@
     <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
       <div class="sheet-header">
         <div class="sheet-title">
-          <strong>Ezion Ltd</strong>
-          <span>Minimal information, maximum clarity.</span>
+          <div>
+            <strong>Ezion Ltd</strong><br/>
+            <span style="font-size:13px; color: rgba(255,255,255,.70);">Minimal information, maximum clarity.</span>
+          </div>
         </div>
         <button class="close" type="button" id="closeInfo">Close</button>
       </div>
 
       <div class="grid">
-        <!-- About + Principles -->
         <div class="card">
           <div class="h">About</div>
           <p class="p">
@@ -527,30 +423,28 @@
           </p>
 
           <div class="h" style="margin-top:14px;">Principles</div>
-          <div class="list">
-            <div class="item">
-              <strong>Clarity</strong>
-              <span>Simple positioning, clean execution, minimal maintenance.</span>
+          <div class="list" style="display:grid; gap:10px; margin-top:10px;">
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Clarity</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Simple positioning, clean execution, minimal maintenance.</span>
             </div>
-            <div class="item">
-              <strong>Durability</strong>
-              <span>Fewer moving parts. Systems that keep working.</span>
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Durability</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Fewer moving parts. Systems that keep working.</span>
             </div>
-            <div class="item">
-              <strong>Leverage</strong>
-              <span>Repeatable processes and compounding improvements.</span>
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Leverage</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Repeatable processes and compounding improvements.</span>
             </div>
           </div>
         </div>
 
-        <!-- Contact + Company -->
         <div class="card">
           <div class="h">Contact</div>
-
-          <div class="contactRow">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
             <div>
-              <div><a href="mailto:contact@ezion.uk">contact@ezion.uk</a></div>
-              <div class="mini">General enquiries</div>
+              <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;">General enquiries</div>
             </div>
             <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
           </div>
@@ -567,33 +461,6 @@
           </p>
         </div>
 
-        <!-- Focus -->
-        <div class="card" style="grid-column: 1 / -1;">
-          <div class="h">Focus</div>
-          <p class="p" style="color: rgba(255,255,255,.70); margin-bottom:10px;">
-            A concise snapshot (broad by design).
-          </p>
-
-          <div class="list">
-            <div class="item">
-              <strong>Brand & product incubation</strong>
-              <span>From concept to early validation and launch readiness.</span>
-            </div>
-            <div class="item">
-              <strong>Digital tools and internal systems</strong>
-              <span>Automation, operations tooling, and lightweight software.</span>
-            </div>
-            <div class="item">
-              <strong>Operations, logistics, and process design</strong>
-              <span>Reducing friction and increasing reliability.</span>
-            </div>
-            <div class="item">
-              <strong>Research & development</strong>
-              <span>Iterating and testing ideas for consumer applications.</span>
-            </div>
-          </div>
-        </div>
-
         <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
           <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
             © <span id="year"></span> Ezion Ltd. All rights reserved.
@@ -604,11 +471,6 @@
   </section>
 
   <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
-
-  <!-- Snipcart script -->
-  <script async src="https://cdn.snipcart.com/themes/v3.6.1/default/snipcart.js"></script>
-
-  <div hidden id="snipcart" data-config-modal-style="side"></div>
 
   <script>
     // Panel open/close
@@ -654,109 +516,73 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // -------- Simple hash router: #catalog / home --------
+    // Router: #products / home
     const viewHome = document.getElementById("view-home");
-    const viewCatalog = document.getElementById("view-catalog");
+    const viewProducts = document.getElementById("view-products");
 
     function setView(name){
-      const isCatalog = name === "catalog";
-      viewHome.classList.toggle("active", !isCatalog);
-      viewCatalog.classList.toggle("active", isCatalog);
-      // close info panel if open
+      const isProducts = name === "products";
+      viewHome.classList.toggle("active", !isProducts);
+      viewProducts.classList.toggle("active", isProducts);
       if (panel.classList.contains("open")) closePanel();
-      // restore scrolling on view change
       document.body.style.overflow = "";
     }
 
     function onRoute(){
       const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
-      if (hash === "catalog") setView("catalog");
+      if (hash === "products") setView("products");
       else setView("home");
     }
     window.addEventListener("hashchange", onRoute);
 
-    // -------- Catalog data (edit these) --------
+    // Products list (edit these)
     const PRODUCTS = [
       {
-        id: "ezion-workmate-pro",
         name: "Workmate — Professional Edition",
-        price: 29.00,
-        currency: "GBP",
+        priceText: "£9.99",
         sku: "WM-PRO-001",
         description: "Time tracking + invoicing workbook (Excel).",
-        image: "products/workmate-pro.jpg",
-        url: location.origin + location.pathname + "#catalog"
+        page: "products/workmate-pro.html"
       },
       {
-        id: "ezion-yada-lifetime",
         name: "Yada — Lifetime Unlock",
-        price: 0.99,
-        currency: "GBP",
+        priceText: "£0.99",
         sku: "YADA-LIFE-001",
         description: "Minimalist daily journaling app unlock.",
-        image: "products/yada.jpg",
-        url: location.origin + location.pathname + "#catalog"
+        page: "products/yada-lifetime.html"
       },
       {
-        id: "ezion-ezdrain-tabs",
         name: "EzDrain — Enzymatic Tablets (Trial Pack)",
-        price: 8.50,
-        currency: "GBP",
+        priceText: "£8.50",
         sku: "EZD-TRIAL-001",
         description: "Consumer drain maintenance tablets (trial pack).",
-        image: "products/ezdrain.jpg",
-        url: location.origin + location.pathname + "#catalog"
+        page: "products/ezdrain-trial.html"
       },
       {
-        id: "ezion-consulting-ops",
         name: "Ops Automation Setup (Discovery Call)",
-        price: 49.00,
-        currency: "GBP",
+        priceText: "£49.00",
         sku: "OPS-CALL-001",
         description: "30-minute discovery call for automation + ops workflows.",
-        image: "products/ops-call.jpg",
-        url: location.origin + location.pathname + "#catalog"
+        page: "products/ops-call.html"
       }
     ];
 
-    // -------- Render catalog --------
-    const catalogGrid = document.getElementById("catalogGrid");
+    const productsGrid = document.getElementById("productsGrid");
 
-    function money(n, ccy){
-      try {
-        return new Intl.NumberFormat(undefined, { style: "currency", currency: ccy }).format(n);
-      } catch {
-        return `${ccy} ${n.toFixed(2)}`;
-      }
-    }
-
-    function renderCatalog(){
-      catalogGrid.innerHTML = PRODUCTS.map(p => `
+    function renderProducts(){
+      productsGrid.innerHTML = PRODUCTS.map(p => `
         <div class="product">
-          <div class="name">${p.name}</div>
-          <div class="desc">${p.description}</div>
+          <div class="name">${escapeHtml(p.name)}</div>
+          <div class="desc">${escapeHtml(p.description)}</div>
 
           <div class="meta">
-            <div>${money(p.price, p.currency)}</div>
-            <div class="sku">${p.sku}</div>
+            <div>${escapeHtml(p.priceText)}</div>
+            <div class="sku">${escapeHtml(p.sku)}</div>
           </div>
 
           <div class="btnRow">
-            <!-- Snipcart "Add to cart" -->
-            <button class="btn snipcart-add-item"
-              data-item-id="${p.id}"
-              data-item-price="${p.price}"
-              data-item-url="${p.url}"
-              data-item-description="${escapeHtml(p.description)}"
-              data-item-image="${p.image}"
-              data-item-name="${escapeHtml(p.name)}"
-              data-item-currency="${p.currency}"
-              data-item-sku="${escapeHtml(p.sku)}"
-            >
-              Add to cart
-            </button>
-
-            <button class="btn secondary snipcart-checkout" type="button">Checkout</button>
+            <a class="btn" href="${p.page}">View product</a>
+            <a class="btn secondary" href="${p.page}#buy">Buy</a>
           </div>
         </div>
       `).join("");
@@ -771,7 +597,7 @@
         .replaceAll("'", "&#039;");
     }
 
-    renderCatalog();
+    renderProducts();
     onRoute();
   </script>
 </body>

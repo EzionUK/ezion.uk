@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minimalist Diary — Lifetime | Ezion UK</title>
+  <meta name="description" content="Minimalist Diary — Lifetime unlock. A quiet, lightweight journaling app designed for daily use." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 28px;
+    }
+
+    .card{
+      width: min(var(--max), 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .topRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin: 0 0 10px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin: 0 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .badge{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.86);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .videoWrap{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0,0,0,.35);
+      aspect-ratio: 16 / 9;
+    }
+    .videoWrap iframe{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin: 14px 0;
+    }
+
+    .price{
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 6px;
+      color: rgba(255,255,255,.90);
+    }
+    .fine{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      line-height: 1.6;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor: pointer;
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
+    .btn.secondary{ background: rgba(255,255,255,.06); }
+
+    .callout{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: rgba(0,0,0,.10);
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .linksRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <article class="card">
+      <div class="topRow">
+        <div>
+          <p class="kicker">Ezion Products</p>
+          <h1>Minimalist Diary — Lifetime</h1>
+          <p class="sub">
+            A quiet journaling app for daily use. Minimal friction, clean writing space,
+            and a simple routine you can keep.
+          </p>
+        </div>
+
+        <div class="badge">Lifetime Unlock</div>
+      </div>
+
+      <!-- Demo video -->
+      <div class="videoWrap" aria-label="Minimalist Diary demo video">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/tJIAtrTavPE"
+          title="Minimalist Diary demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div class="grid">
+        <section class="box">
+          <div class="h">What it is</div>
+          <ul>
+            <li>Minimal, distraction-free diary designed for daily entries</li>
+            <li>Fast open → write → done workflow</li>
+            <li>Made for consistency rather than “features”</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h">Lifetime unlock includes</div>
+          <ul>
+            <li>One-time purchase (no subscription)</li>
+            <li>Unlocks Pro/Lifetime features for this app</li>
+            <li>Future updates included (within the Lifetime tier)</li>
+          </ul>
+
+          <div class="callout">
+            Tip: Use this as a “one-sentence-a-day” diary if you want the lowest possible effort habit.
+          </div>
+
+          <div class="linksRow">
+            <a class="btn secondary" href="https://youtu.be/tJIAtrTavPE" target="_blank" rel="noopener">Watch on YouTube</a>
+            <a class="btn secondary" href="../index.html#products">Back to Products</a>
+          </div>
+        </section>
+
+        <aside class="box" id="buy">
+          <div class="h">Purchase</div>
+          <div class="price">£0.99</div>
+          <div class="fine">SKU: MD-LIFE-001</div>
+
+          <div class="btnRow">
+            <!-- Replace href with your Stripe Payment Link -->
+            <a class="btn" href="PASTE_STRIPE_PAYMENT_LINK_HERE" target="_blank" rel="noopener">
+              Checkout
+            </a>
+          </div>
+
+          <p class="fine">
+            Checkout opens in Stripe. After payment, follow the on-screen confirmation instructions.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h">Support</div>
+          <p class="fine" style="margin-top:6px;">
+            Questions: <a href="mailto:contact@ezion.uk" style="color: rgba(255,255,255,.90); text-decoration:none; border-bottom: 1px solid rgba(255,255,255,.16);">contact@ezion.uk</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

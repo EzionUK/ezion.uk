@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workmate — Professional Edition | Ezion UK</title>
+  <meta name="description" content="Workmate — Professional Edition. Time tracking + invoicing workbook (Excel)." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 28px;
+    }
+    .card{
+      width: min(var(--max), 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin: 0 0 10px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+    .box{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    ul{ margin: 0; padding-left: 18px; color: rgba(255,255,255,.74); line-height:1.7; }
+    .price{
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 6px;
+      color: rgba(255,255,255,.90);
+    }
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
+    .btn.secondary{ background: rgba(255,255,255,.06); }
+    .fine{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      line-height: 1.6;
+    }
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin: 14px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker">Ezion Products</p>
+      <h1>Workmate — Professional Edition</h1>
+      <p class="sub">
+        A practical Excel workbook for tracking sessions and turning them into invoices quickly.
+        Built for freelancers, creatives, and small teams who want simple, reliable admin.
+      </p>
+
+      <div class="grid">
+        <section class="box">
+          <div class="h">What you get</div>
+          <ul>
+            <li>Time tracking + session log</li>
+            <li>Client/project organisation</li>
+            <li>Invoice export / totals</li>
+            <li>Simple workflow, minimal setup</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h">Ideal for</div>
+          <ul>
+            <li>Consultants, designers, developers</li>
+            <li>Anyone billing by hours/projects</li>
+          </ul>
+        </section>
+
+        <aside class="box">
+          <div class="h">Purchase</div>
+          <div class="price">£29.00</div>
+          <div class="fine">SKU: WM-PRO-001</div>
+
+          <div class="btnRow" id="buy">
+            <!-- Replace href with your Stripe Payment Link -->
+            <a class="btn" href="PASTE_STRIPE_PAYMENT_LINK_HERE" target="_blank" rel="noopener">
+              Checkout
+            </a>
+            <a class="btn secondary" href="../index.html#products">Back to Products</a>
+          </div>
+
+          <p class="fine">
+            Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

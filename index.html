@@ -6,6 +6,12 @@
   <title>Ezion UK</title>
   <meta name="description" content="Ezion Ltd — quietly building useful ventures." />
 
+  <!-- Snipcart (checkout) -->
+  <!-- 1) Create Snipcart account, paste your PUBLIC API key below -->
+  <link rel="preconnect" href="https://cdn.snipcart.com" />
+  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.6.1/default/snipcart.css" />
+  <meta name="snipcart-api-key" content="PASTE_YOUR_SNIPCART_PUBLIC_API_KEY_HERE" />
+
   <style>
     :root{
       --bg: #0b0f14;
@@ -17,6 +23,7 @@
       --shadow: 0 28px 70px rgba(0,0,0,.55);
       --radius: 22px;
       --max: 980px;
+      --accent: rgba(255,255,255,.88);
     }
 
     * { box-sizing: border-box; }
@@ -98,7 +105,7 @@
     .center{
       text-align: center;
       user-select: none;
-      max-width: 62ch;
+      max-width: 70ch;
     }
     .domain{
       font-size: clamp(22px, 2.8vw, 34px);
@@ -161,6 +168,10 @@
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -168,6 +179,16 @@
       border-color: rgba(255,255,255,.22);
     }
     .btn:focus{ outline: none; box-shadow: 0 0 0 4px rgba(255,255,255,.12); }
+    .pill{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width: 18px; height: 18px; padding: 0 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      font-size: 11px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.85);
+    }
 
     /* Slide-over info panel */
     .panel{
@@ -319,8 +340,99 @@
     }
     .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
 
+    /* -------- Catalog view -------- */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .catalog{
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      text-align: left;
+      user-select: text;
+    }
+    .topbar{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .titleRow{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .titleRow strong{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .titleRow span{
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.5;
+    }
+    .catalogGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    @media (min-width: 720px){
+      .catalogGrid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .product{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .product .name{
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(255,255,255,.90);
+    }
+    .product .desc{
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    .product .meta{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin-top: 4px;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+    }
+    .product .sku{
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .06em;
+    }
+    .product .btnRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+    }
+
     @media (prefers-reduced-motion: reduce){
       .panel, .sheet, .btn { transition: none; }
+    }
+
+    /* Snipcart visual tweak to match dark theme a bit */
+    .snipcart-modal__container,
+    .snipcart-cart__content,
+    .snipcart-cart-header,
+    .snipcart-cart__footer{
+      color-scheme: dark;
     }
   </style>
 </head>
@@ -335,7 +447,8 @@
   </div>
 
   <main class="wrap">
-    <section class="center" aria-label="Under construction">
+    <!-- HOME VIEW -->
+    <section class="center view active" id="view-home" aria-label="Under construction">
       <div class="domain">ezion.uk</div>
       <div class="sub">
         Quietly building useful ventures.<br/>
@@ -344,7 +457,42 @@
 
       <div class="actions">
         <button class="btn" type="button" id="openInfo">Open Info</button>
+
+        <!-- Catalog route -->
+        <a class="btn" href="#catalog" aria-label="Open catalog">Catalog</a>
+
+        <!-- Snipcart cart + checkout -->
+        <button class="btn snipcart-checkout" type="button" aria-label="Open cart">
+          Cart <span class="pill snipcart-items-count">0</span>
+        </button>
+
         <a class="btn" href="mailto:contact@ezion.uk" aria-label="Email contact@ezion.uk">Email</a>
+      </div>
+    </section>
+
+    <!-- CATALOG VIEW -->
+    <section class="catalog view" id="view-catalog" aria-label="Product catalog">
+      <div class="topbar">
+        <div class="titleRow">
+          <strong>Catalog</strong>
+          <span>Small, practical releases. Simple checkout.</span>
+        </div>
+        <div class="actions" style="margin-top:0;">
+          <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
+          <button class="btn snipcart-checkout" type="button">
+            Cart <span class="pill snipcart-items-count">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="catalogGrid" id="catalogGrid"></div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="h">Notes</div>
+        <p class="p">
+          Prices shown are examples. Replace product data and images.
+          Checkout is handled by Snipcart (connect Stripe/PayPal inside Snipcart).
+        </p>
       </div>
     </section>
   </main>
@@ -457,6 +605,11 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
 
+  <!-- Snipcart script -->
+  <script async src="https://cdn.snipcart.com/themes/v3.6.1/default/snipcart.js"></script>
+
+  <div hidden id="snipcart" data-config-modal-style="side"></div>
+
   <script>
     // Panel open/close
     const panel = document.getElementById("panel");
@@ -467,7 +620,6 @@
     function openPanel(){
       panel.classList.add("open");
       panel.setAttribute("aria-hidden", "false");
-      // prevent background scroll on mobile
       document.body.style.overflow = "hidden";
     }
     function closePanel(){
@@ -501,6 +653,126 @@
     });
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // -------- Simple hash router: #catalog / home --------
+    const viewHome = document.getElementById("view-home");
+    const viewCatalog = document.getElementById("view-catalog");
+
+    function setView(name){
+      const isCatalog = name === "catalog";
+      viewHome.classList.toggle("active", !isCatalog);
+      viewCatalog.classList.toggle("active", isCatalog);
+      // close info panel if open
+      if (panel.classList.contains("open")) closePanel();
+      // restore scrolling on view change
+      document.body.style.overflow = "";
+    }
+
+    function onRoute(){
+      const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
+      if (hash === "catalog") setView("catalog");
+      else setView("home");
+    }
+    window.addEventListener("hashchange", onRoute);
+
+    // -------- Catalog data (edit these) --------
+    const PRODUCTS = [
+      {
+        id: "ezion-workmate-pro",
+        name: "Workmate — Professional Edition",
+        price: 29.00,
+        currency: "GBP",
+        sku: "WM-PRO-001",
+        description: "Time tracking + invoicing workbook (Excel).",
+        image: "products/workmate-pro.jpg",
+        url: location.origin + location.pathname + "#catalog"
+      },
+      {
+        id: "ezion-yada-lifetime",
+        name: "Yada — Lifetime Unlock",
+        price: 0.99,
+        currency: "GBP",
+        sku: "YADA-LIFE-001",
+        description: "Minimalist daily journaling app unlock.",
+        image: "products/yada.jpg",
+        url: location.origin + location.pathname + "#catalog"
+      },
+      {
+        id: "ezion-ezdrain-tabs",
+        name: "EzDrain — Enzymatic Tablets (Trial Pack)",
+        price: 8.50,
+        currency: "GBP",
+        sku: "EZD-TRIAL-001",
+        description: "Consumer drain maintenance tablets (trial pack).",
+        image: "products/ezdrain.jpg",
+        url: location.origin + location.pathname + "#catalog"
+      },
+      {
+        id: "ezion-consulting-ops",
+        name: "Ops Automation Setup (Discovery Call)",
+        price: 49.00,
+        currency: "GBP",
+        sku: "OPS-CALL-001",
+        description: "30-minute discovery call for automation + ops workflows.",
+        image: "products/ops-call.jpg",
+        url: location.origin + location.pathname + "#catalog"
+      }
+    ];
+
+    // -------- Render catalog --------
+    const catalogGrid = document.getElementById("catalogGrid");
+
+    function money(n, ccy){
+      try {
+        return new Intl.NumberFormat(undefined, { style: "currency", currency: ccy }).format(n);
+      } catch {
+        return `${ccy} ${n.toFixed(2)}`;
+      }
+    }
+
+    function renderCatalog(){
+      catalogGrid.innerHTML = PRODUCTS.map(p => `
+        <div class="product">
+          <div class="name">${p.name}</div>
+          <div class="desc">${p.description}</div>
+
+          <div class="meta">
+            <div>${money(p.price, p.currency)}</div>
+            <div class="sku">${p.sku}</div>
+          </div>
+
+          <div class="btnRow">
+            <!-- Snipcart "Add to cart" -->
+            <button class="btn snipcart-add-item"
+              data-item-id="${p.id}"
+              data-item-price="${p.price}"
+              data-item-url="${p.url}"
+              data-item-description="${escapeHtml(p.description)}"
+              data-item-image="${p.image}"
+              data-item-name="${escapeHtml(p.name)}"
+              data-item-currency="${p.currency}"
+              data-item-sku="${escapeHtml(p.sku)}"
+            >
+              Add to cart
+            </button>
+
+            <button class="btn secondary snipcart-checkout" type="button">Checkout</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    renderCatalog();
+    onRoute();
   </script>
 </body>
 </html>

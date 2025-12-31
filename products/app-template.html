@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APP_NAME | Ezion UK</title>
+  <meta name="description" content="APP_DESCRIPTION" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 28px;
+    }
+
+    .card{
+      width: min(var(--max), 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .topRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin: 0 0 10px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .badge{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.86);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .videoWrap{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0,0,0,.35);
+      aspect-ratio: 16 / 9;
+    }
+    .videoWrap iframe{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin: 14px 0;
+    }
+
+    .fine{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      line-height: 1.6;
+    }
+
+    /* Store badges */
+    .storeRow{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      align-items: center;
+    }
+    .storeBadge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      text-decoration:none;
+      user-select:none;
+    }
+    .storeBadge:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(0,0,0,.28);
+    }
+    .storeBadge svg{
+      display:block;
+      height: 44px;        /* badge height */
+      width: auto;
+    }
+
+    .backLink{
+      color: rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color: rgba(255,255,255,.34); }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <article class="card">
+      <div class="topRow">
+        <div>
+          <p class="kicker">Ezion Apps</p>
+          <h1 id="appName">APP_NAME</h1>
+          <p class="sub" id="appTagline">APP_TAGLINE</p>
+        </div>
+        <div class="badge" id="appBadge">BADGE_TEXT</div>
+      </div>
+
+      <!-- Demo video (optional) -->
+      <div class="videoWrap" aria-label="App demo video" id="videoWrap">
+        <iframe
+          id="ytFrame"
+          src=""
+          title="App demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div class="grid">
+        <!-- Left: details -->
+        <section class="box">
+          <div class="h">What it is</div>
+          <ul id="listWhat"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h">Why it works</div>
+          <ul id="listWhy"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h">Demo</div>
+          <p class="fine" style="margin-top:6px;">
+            <a id="ytLink" class="backLink" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
+          </p>
+        </section>
+
+        <!-- Right: store buttons + support -->
+        <aside class="box">
+          <div class="h">Get the app</div>
+
+          <div class="storeRow">
+            <!-- App Store badge -->
+            <a class="storeBadge" id="appStoreLink" href="#" target="_blank" rel="noopener" aria-label="Download on the App Store">
+              <!-- Inline SVG badge (minimal, official-style) -->
+              <svg viewBox="0 0 135 40" role="img" aria-label="Download on the App Store">
+                <rect x="0.5" y="0.5" width="134" height="39" rx="8" ry="8" fill="#000"/>
+                <rect x="0.5" y="0.5" width="134" height="39" rx="8" ry="8" fill="none" stroke="#FFFFFF" opacity="0.18"/>
+                <!-- Apple mark (simple) -->
+                <path fill="#fff" d="M28.6 20.7c0-2.5 2-3.7 2.1-3.8-1.1-1.6-2.9-1.8-3.5-1.8-1.5-.1-2.9.9-3.7.9-.7 0-1.9-.9-3.1-.9-1.6 0-3.1.9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.5 1.2 0 1.7-.8 3.1-.8 1.4 0 1.8.8 3.1.8 1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.2-2.6 1.2-2.7-.1 0-2.4-.9-2.5-3.5zm-2.1-7.0c.6-.8 1-2 .9-3.1-1 .0-2.3.7-3 1.5-.6.7-1.1 1.9-.9 3.0 1.1.1 2.4-.6 3.0-1.4z"/>
+                <text x="44" y="16" fill="#fff" font-size="9" font-family="system-ui, -apple-system, Segoe UI, Roboto">Download on the</text>
+                <text x="44" y="29" fill="#fff" font-size="15" font-weight="700" font-family="system-ui, -apple-system, Segoe UI, Roboto">App Store</text>
+              </svg>
+            </a>
+
+            <!-- Google Play badge -->
+            <a class="storeBadge" id="playStoreLink" href="#" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+              <!-- Inline SVG badge (minimal, official-style) -->
+              <svg viewBox="0 0 150 40" role="img" aria-label="Get it on Google Play">
+                <rect x="0.5" y="0.5" width="149" height="39" rx="8" ry="8" fill="#000"/>
+                <rect x="0.5" y="0.5" width="149" height="39" rx="8" ry="8" fill="none" stroke="#FFFFFF" opacity="0.18"/>
+                <!-- Play icon (triangles) -->
+                <g transform="translate(12,8)">
+                  <path d="M2 2v20l12-10z" fill="#3DDC84"/>
+                  <path d="M14 12l4-3 6 3-6 3z" fill="#00B0FF"/>
+                  <path d="M2 2l12 10 4-3z" fill="#FFEA00"/>
+                  <path d="M2 22l16-13 6 3-20 10z" fill="#FF5252"/>
+                </g>
+                <text x="50" y="16" fill="#fff" font-size="9" font-family="system-ui, -apple-system, Segoe UI, Roboto">GET IT ON</text>
+                <text x="50" y="29" fill="#fff" font-size="15" font-weight="700" font-family="system-ui, -apple-system, Segoe UI, Roboto">Google Play</text>
+              </svg>
+            </a>
+          </div>
+
+          <p class="fine" id="iapNote">
+            The Lifetime unlock is available as an in-app purchase inside the app.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h">Support</div>
+          <p class="fine" style="margin-top:6px;">
+            Questions: <a class="backLink" href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+          </p>
+          <p class="fine">
+            <a class="backLink" href="../index.html#products">← Back to Products</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    /**
+     * TEMPLATE CONFIG — edit only this object for a new app page
+     */
+    const APP = {
+      name: "Minimalist Diary",
+      tagline: "A quiet journaling app for daily use. Minimal friction, clean writing space, and a simple habit you can keep.",
+      badge: "Lifetime Unlock",
+      youtubeId: "tJIAtrTavPE", // set to "" to hide video
+      appStoreUrl: "PASTE_APP_STORE_LINK_HERE",
+      playStoreUrl: "PASTE_GOOGLE_PLAY_LINK_HERE",
+      iapNote: "The Lifetime unlock is available as an in-app purchase inside the app.",
+      whatItIs: [
+        "Minimal, distraction-free daily diary",
+        "Open → write → close workflow",
+        "Designed for consistency, not feature overload"
+      ],
+      whyItWorks: [
+        "No feeds, no prompts, no noise",
+        "Fast launch, instant writing",
+        "Encourages small, repeatable entries"
+      ]
+    };
+
+    // Apply config
+    document.title = `${APP.name} | Ezion UK`;
+    document.getElementById("appName").textContent = APP.name;
+    document.getElementById("appTagline").textContent = APP.tagline;
+    document.getElementById("appBadge").textContent = APP.badge;
+    document.getElementById("iapNote").textContent = APP.iapNote;
+
+    // Lists
+    const listWhat = document.getElementById("listWhat");
+    const listWhy = document.getElementById("listWhy");
+    listWhat.innerHTML = APP.whatItIs.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    listWhy.innerHTML  = APP.whyItWorks.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+
+    // Store links
+    const appStoreLink = document.getElementById("appStoreLink");
+    const playStoreLink = document.getElementById("playStoreLink");
+    appStoreLink.href = APP.appStoreUrl;
+    playStoreLink.href = APP.playStoreUrl;
+
+    // YouTube
+    const videoWrap = document.getElementById("videoWrap");
+    const ytFrame = document.getElementById("ytFrame");
+    const ytLink = document.getElementById("ytLink");
+    if (!APP.youtubeId) {
+      videoWrap.style.display = "none";
+      ytLink.parentElement.style.display = "none";
+    } else {
+      ytFrame.src = `https://www.youtube-nocookie.com/embed/${APP.youtubeId}`;
+      ytLink.href = `https://youtu.be/${APP.youtubeId}`;
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>

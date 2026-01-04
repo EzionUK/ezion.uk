@@ -260,6 +260,41 @@
       line-height: 1.7;
     }
 
+
+    /* About panel: Focus block */
+    .focusSub{
+      margin: 0 0 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    
+    .focusList{
+      display: grid;
+      gap: 10px;
+    }
+    
+    .focusItem{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    
+    .focusItem strong{
+      display: block;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+    }
+    
+    .focusItem span{
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    
     /* Products view */
     .view { display: none; }
     .view.active { display: block; }
@@ -463,31 +498,41 @@
         </div>
 
                 <!-- Focus -->
+        <div class="grid">
+        <div class="card">...About...</div>
+        <div class="card">...Contact...</div>
+      
+        <!-- INSERT HERE -->
         <div class="card" style="grid-column: 1 / -1;">
           <div class="h">Focus</div>
-          <p class="p" style="color: rgba(255,255,255,.70); margin-bottom:10px;">
-            A concise snapshot (broad by design).
-          </p>
-
-          <div class="list">
-            <div class="item">
+          <p class="focusSub">A concise snapshot (broad by design).</p>
+      
+          <div class="focusList">
+            <div class="focusItem">
               <strong>Brand & product incubation</strong>
               <span>From concept to early validation and launch readiness.</span>
             </div>
-            <div class="item">
+      
+            <div class="focusItem">
               <strong>Digital tools and internal systems</strong>
               <span>Automation, operations tooling, and lightweight software.</span>
             </div>
-            <div class="item">
+      
+            <div class="focusItem">
               <strong>Operations, logistics, and process design</strong>
               <span>Reducing friction and increasing reliability.</span>
             </div>
-            <div class="item">
+      
+            <div class="focusItem">
               <strong>Research & development</strong>
               <span>Iterating and testing ideas for consumer applications.</span>
             </div>
           </div>
         </div>
+        <!-- END INSERT -->
+      
+        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">...copyright...</div>
+      </div>
 
         
         <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">

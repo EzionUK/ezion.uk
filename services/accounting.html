@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>App Development | Ezion UK</title>
-  <meta name="description" content="iOS & Android app development — pricing tiers and quote request." />
+  <title>Accounting Services | Ezion UK</title>
+  <meta name="description" content="Accounting services — pricing tiers and quote request." />
 
   <style>
     :root{
@@ -207,9 +207,9 @@
   <main class="wrap">
     <article class="card">
       <p class="kicker">Services</p>
-      <h1>iOS & Android app development</h1>
+      <h1>Accounting services</h1>
       <p class="sub">
-        Flutter builds, release support, and pragmatic delivery. Choose a tier, or request a scoped quote.
+        Bookkeeping support, reporting, and finance ops. Choose a tier, or request a scoped quote.
       </p>
 
       <div class="grid">
@@ -217,23 +217,23 @@
         <section class="box">
           <div class="h">What we do</div>
           <p class="p">
-            We build and ship cross-platform apps with clean UI, sensible architecture, and clear handover.
+            We help keep accounts clean and usable: reconciliations, reporting, controls, and automation where it reduces errors.
           </p>
 
           <div class="divider"></div>
 
           <div class="h">Typical deliverables</div>
           <ul>
-            <li>App build + source repository (if required)</li>
-            <li>Deployment guidance (TestFlight / Internal testing)</li>
-            <li>Release checklist and handover notes</li>
+            <li>Setup or cleanup of bookkeeping systems</li>
+            <li>Monthly reconciliations and reporting packs</li>
+            <li>Process improvements and automation options</li>
           </ul>
 
           <div class="divider"></div>
 
           <div class="h" id="quote">Request a quote</div>
           <p class="p">
-            Email a brief and we’ll respond with feasibility, scope, and next steps.
+            Email what system you use (Xero/Zoho/others), current volume, and what you need done.
           </p>
 
           <div class="btnRow">
@@ -250,18 +250,18 @@
         <aside class="box">
           <div class="h">Pricing tiers</div>
           <p class="p" style="color:rgba(255,255,255,.70);">
-            Starting prices. Final quote depends on scope and timeline.
+            Starting prices. Final quote depends on transaction volume and complexity.
           </p>
 
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Starter</div>
-              <div class="tierPrice">From £499</div>
+              <div class="tierPrice">From £149</div>
             </div>
             <ul>
-              <li>1 screen / simple flow</li>
-              <li>Basic UI implementation</li>
-              <li>Build + install guide</li>
+              <li>1-off review / cleanup</li>
+              <li>P&L / balance sheet checks</li>
+              <li>Issue list + recommended actions</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
@@ -271,12 +271,12 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Standard</div>
-              <div class="tierPrice">From £1,499</div>
+              <div class="tierPrice">From £499/mo</div>
             </div>
             <ul>
-              <li>Multi-screen app</li>
-              <li>Auth / basic data storage</li>
-              <li>Testing setup (TestFlight/Internal)</li>
+              <li>Monthly bookkeeping support</li>
+              <li>Reconciliation + reporting</li>
+              <li>Basic process improvements</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
@@ -286,12 +286,12 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Pro</div>
-              <div class="tierPrice">From £3,999</div>
+              <div class="tierPrice">From £999/mo</div>
             </div>
             <ul>
-              <li>Release-ready build</li>
-              <li>Analytics / crash reporting setup</li>
-              <li>Store submission support</li>
+              <li>Full finance ops support</li>
+              <li>Automation + controls</li>
+              <li>Management reporting pack</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
@@ -299,7 +299,7 @@
           </div>
 
           <p class="fine">
-            Need something custom (payments, subscriptions, iCloud/CloudKit, admin panel)? We’ll scope it.
+            If you already have messy books, we can start with a cleanup and move to monthly support after.
           </p>
         </aside>
       </div>
@@ -313,12 +313,13 @@
 
 I'd like to request a quote for:
 
-- Service: iOS & Android app development
+- Service: Accounting services
 - Tier: ${tier || "Custom / Not sure"}
-- Brief description:
+- Current accounting system (Xero/Zoho/Other):
+- Approx. monthly transactions:
+- What you need done:
 - Timeline:
 - Budget range (optional):
-- Links/screenshots (optional):
 
 Thanks.`;
       return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -326,15 +327,14 @@ Thanks.`;
 
     // Main quote button
     const btnQuote = document.getElementById("btnQuote");
-    btnQuote.href = mailto("Quote: App development (Custom)", "");
+    btnQuote.href = mailto("Quote: Accounting (Custom)", "");
 
     // Tier buttons
     document.addEventListener("click", (e) => {
       const a = e.target.closest("a[data-tier]");
       if (!a) return;
       const tier = a.getAttribute("data-tier") || "";
-      a.href = mailto(`Quote: App development (${tier})`, tier);
-      // allow navigation to mailto after href is set
+      a.href = mailto(`Quote: Accounting (${tier})`, tier);
     });
   </script>
 </body>

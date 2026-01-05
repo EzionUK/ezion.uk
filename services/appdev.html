@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App Development | Ezion UK</title>
+  <meta name="description" content="iOS & Android app development — pricing tiers and quote request." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .mark{
+      position:fixed; top:18px; left:18px;
+      display:flex; gap:10px; align-items:center;
+      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      z-index:5;
+      user-select:none;
+    }
+    .dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.62); }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .kicker{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(22px,2.4vw,30px);
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      max-width:70ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.78);
+    }
+    .p{
+      margin:0;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
+
+    .tier{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:12px;
+      margin-top:10px;
+    }
+    .tierTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+    }
+    .tierName{
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.88);
+    }
+    .tierPrice{
+      font-size:13px;
+      color:rgba(255,255,255,.78);
+    }
+    ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    .backLink{
+      color:rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color:rgba(255,255,255,.34); }
+
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="mark" aria-hidden="true">
+    <span class="dot"></span><span>Ezion Ltd</span>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker">Services</p>
+      <h1>iOS & Android app development</h1>
+      <p class="sub">
+        Flutter builds, release support, and pragmatic delivery. Choose a tier, or request a scoped quote.
+      </p>
+
+      <div class="grid">
+        <!-- Left: what you get -->
+        <section class="box">
+          <div class="h">What we do</div>
+          <p class="p">
+            We build and ship cross-platform apps with clean UI, sensible architecture, and clear handover.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h">Typical deliverables</div>
+          <ul>
+            <li>App build + source repository (if required)</li>
+            <li>Deployment guidance (TestFlight / Internal testing)</li>
+            <li>Release checklist and handover notes</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="quote">Request a quote</div>
+          <p class="p">
+            Email a brief and we’ll respond with feasibility, scope, and next steps.
+          </p>
+
+          <div class="btnRow">
+            <a class="btn" id="btnQuote" href="#">Request a quote</a>
+            <a class="btn secondary" href="../index.html#services">Back to Services</a>
+          </div>
+
+          <p class="fine">
+            Prefer a quick call? <a class="backLink" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Request a discovery call</a>.
+          </p>
+        </section>
+
+        <!-- Right: tiers -->
+        <aside class="box">
+          <div class="h">Pricing tiers</div>
+          <p class="p" style="color:rgba(255,255,255,.70);">
+            Starting prices. Final quote depends on scope and timeline.
+          </p>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName">Starter</div>
+              <div class="tierPrice">From £499</div>
+            </div>
+            <ul>
+              <li>1 screen / simple flow</li>
+              <li>Basic UI implementation</li>
+              <li>Build + install guide</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName">Standard</div>
+              <div class="tierPrice">From £1,499</div>
+            </div>
+            <ul>
+              <li>Multi-screen app</li>
+              <li>Auth / basic data storage</li>
+              <li>Testing setup (TestFlight/Internal)</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName">Pro</div>
+              <div class="tierPrice">From £3,999</div>
+            </div>
+            <ul>
+              <li>Release-ready build</li>
+              <li>Analytics / crash reporting setup</li>
+              <li>Store submission support</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
+            </div>
+          </div>
+
+          <p class="fine">
+            Need something custom (payments, subscriptions, iCloud/CloudKit, admin panel)? We’ll scope it.
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    function mailto(subject, tier){
+      const body =
+`Hello Ezion,
+
+I'd like to request a quote for:
+
+- Service: iOS & Android app development
+- Tier: ${tier || "Custom / Not sure"}
+- Brief description:
+- Timeline:
+- Budget range (optional):
+- Links/screenshots (optional):
+
+Thanks.`;
+      return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // Main quote button
+    const btnQuote = document.getElementById("btnQuote");
+    btnQuote.href = mailto("Quote: App development (Custom)", "");
+
+    // Tier buttons
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a[data-tier]");
+      if (!a) return;
+      const tier = a.getAttribute("data-tier") || "";
+      a.href = mailto(`Quote: App development (${tier})`, tier);
+      // allow navigation to mailto after href is set
+    });
+  </script>
+</body>
+</html>

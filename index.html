@@ -167,9 +167,6 @@
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-    .btn.secondary{
-      background: rgba(255,255,255,.06);
-    }
 
     /* Slide-over info panel */
     .panel{
@@ -372,28 +369,8 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
-
-    /* Toast */
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.16);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(12px) saturate(1.15);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-      z-index: 20;
-    }
-    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
-
-    @media (prefers-reduced-motion: reduce){
-      .panel, .sheet, .btn { transition: none; }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
     }
   </style>
 </head>
@@ -476,16 +453,16 @@
           </p>
 
           <div class="h" style="margin-top:14px;">Principles</div>
-          <div style="display:grid; gap:10px; margin-top:10px;">
-            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+          <div class="list" style="display:grid; gap:10px; margin-top:10px;">
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Clarity</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Simple positioning, clean execution, minimal maintenance.</span>
             </div>
-            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Durability</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Fewer moving parts. Systems that keep working.</span>
             </div>
-            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Leverage</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Repeatable processes and compounding improvements.</span>
             </div>
@@ -523,23 +500,67 @@
               <strong>Brand & product incubation</strong>
               <span>From concept to early validation and launch readiness.</span>
             </div>
-
             <div class="focusItem">
               <strong>Digital tools and internal systems</strong>
               <span>Automation, operations tooling, and lightweight software.</span>
             </div>
-
             <div class="focusItem">
               <strong>Operations, logistics, and process design</strong>
               <span>Reducing friction and increasing reliability.</span>
             </div>
-
             <div class="focusItem">
               <strong>Research & development</strong>
               <span>Iterating and testing ideas for consumer applications.</span>
             </div>
           </div>
         </div>
+
+        <!-- ADDED: SERVICES + REQUEST A QUOTE -->
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="h">Services</div>
+          <p class="focusSub">Practical help, scoped clearly.</p>
+
+          <div class="focusList">
+            <div class="focusItem">
+              <strong>iOS & Android app development</strong>
+              <span>Flutter builds, deployment support, and store release readiness.</span>
+            </div>
+            <div class="focusItem">
+              <strong>Process automation (Excel + Python)</strong>
+              <span>Excel templates, VBA, Python scripts, and workflow automation to reduce manual work.</span>
+            </div>
+            <div class="focusItem">
+              <strong>Accounting services</strong>
+              <span>Setup/cleanup, reporting, and automation support for recurring finance ops.</span>
+            </div>
+          </div>
+
+          <div style="height:1px; background: rgba(255,255,255,.12); margin: 14px 0;"></div>
+
+          <div class="h">Services enquiry</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+            <a
+              class="btn"
+              href="mailto:contact@ezion.uk?subject=Request%20a%20quote&body=Hello%20Ezion%2C%0A%0AI%27d%20like%20to%20request%20a%20quote%20for%3A%0A%0A-%20Service%3A%20(iOS%20%2F%20Android%20app%20development%20%2F%20automation%20%2F%20accounting)%0A-%20Brief%20description%3A%0A-%20Timeline%3A%0A-%20Budget%20range%20(optional)%3A%0A%0AThanks."
+              rel="noopener"
+            >
+              Request a quote
+            </a>
+
+            <a
+              class="btn secondary"
+              href="mailto:contact@ezion.uk?subject=Discovery%20call%20request"
+              rel="noopener"
+            >
+              Book discovery call
+            </a>
+          </div>
+
+          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62); font-size:13px;">
+            Short descriptions are enough. We’ll reply with next steps.
+          </p>
+        </div>
+        <!-- END SERVICES -->
 
         <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
           <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
@@ -641,7 +662,7 @@
       {
         name: "YADA",
         priceText: "FREE",
-        sku: "YADA-APP-001",
+        sku: "OPS-CALL-001",
         description: "A biblical insight a day keeps spirit awake.",
         page: "products/yada.html"
       }

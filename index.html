@@ -142,6 +142,178 @@
       margin:0 0 8px;
     }
     .p{ font-size:14px; color:rgba(255,255,255,.74); line-height:1.7; }
+    /* ---------- About Us panel ---------- */
+    .panel{
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: end center;
+      padding: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .20s ease;
+      z-index: 50;
+    }
+    .panel.open{ opacity: 1; pointer-events: auto; }
+    
+    .panel-backdrop{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.52);
+      backdrop-filter: blur(10px) saturate(1.1);
+    }
+    
+    .sheet{
+      position: relative;
+      width: min(var(--max), calc(100vw - 36px));
+      max-height: min(78vh, 720px);
+      overflow: auto;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(20,22,28,.68), rgba(8,10,14,.62));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      transform: translateY(10px);
+      transition: transform .20s ease;
+    }
+    .panel.open .sheet{ transform: translateY(0); }
+    
+    .sheet-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 6px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .sheet-title strong{
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .sheet-title span{
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .close{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    
+    .aboutGrid{
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      padding: 14px 6px 6px;
+    }
+    @media (min-width: 920px){
+      .aboutGrid{ grid-template-columns: 1.2fr .8fr; }
+    }
+    
+    .aboutCard{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    
+    .h2{
+      margin: 0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .p2{
+      margin: 0;
+      font-size: 14px;
+      color: rgba(255,255,255,.74);
+      line-height: 1.7;
+    }
+    
+    .list{
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .item{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(0,0,0,.14);
+    }
+    .item strong{
+      display: block;
+      font-size: 14px;
+      color: rgba(255,255,255,.88);
+    }
+    .item span{
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    
+    .contactRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      margin-top: 10px;
+    }
+    .contactRow a{ text-decoration:none; font-weight:650; }
+    .mini{ font-size: 12px; color: rgba(255,255,255,.62); margin-top: 2px; }
+    
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(12px) saturate(1.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 80;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
+    
+    /* Screenshot portion */
+    .shots{
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 920px){
+      .shots{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .shot{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .shot img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   </style>
 </head>
 
@@ -169,104 +341,115 @@
       </div>
     </section>
 
-      <!-- Info panel -->
-  <section class="panel" id="panel" aria-hidden="true">
-    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
-
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
-      <div class="sheet-header">
-        <div class="sheet-title">
-          <div>
+    <!-- About Us panel -->
+    <section class="panel" id="panel" aria-hidden="true">
+      <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
+    
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
+        <div class="sheet-header">
+          <div class="sheet-title">
             <strong>Ezion Ltd</strong><br/>
-            <span style="font-size:13px; color: rgba(255,255,255,.70);">Minimal information, maximum clarity.</span>
+            <span>Minimal information, maximum clarity.</span>
+          </div>
+          <button class="close" type="button" id="closeInfo">Close</button>
+        </div>
+    
+        <div class="aboutGrid">
+          <!-- Left -->
+          <div class="aboutCard">
+            <div class="h2">About</div>
+            <p class="p2">
+              Ezion Ltd develops and manages consumer brands, digital tools, and operational systems.
+              We prefer small teams, clear processes, and products that earn their place through usefulness.
+            </p>
+    
+            <div class="h2" style="margin-top:14px;">Principles</div>
+            <div class="list">
+              <div class="item">
+                <strong>Clarity</strong>
+                <span>Simple positioning, clean execution, minimal maintenance.</span>
+              </div>
+              <div class="item">
+                <strong>Durability</strong>
+                <span>Fewer moving parts. Systems that keep working.</span>
+              </div>
+              <div class="item">
+                <strong>Leverage</strong>
+                <span>Repeatable processes and compounding improvements.</span>
+              </div>
+            </div>
+    
+            <!-- Screenshot portion (add back) -->
+            <div class="h2" style="margin-top:14px;">Screenshots</div>
+            <p class="p2" style="color:rgba(255,255,255,.70); margin-bottom:10px;">
+              Product snapshots and demos (examples).
+            </p>
+    
+            <div class="shots">
+              <!-- Replace these file paths with your real images -->
+              <div class="shot">
+                <img src="products/screenshots/workmate-1.png" alt="Workmate screenshot 1">
+              </div>
+              <div class="shot">
+                <img src="products/screenshots/yada-1.png" alt="Yada screenshot 1">
+              </div>
+            </div>
+          </div>
+    
+          <!-- Right -->
+          <div class="aboutCard">
+            <div class="h2">Contact</div>
+    
+            <div class="contactRow">
+              <div>
+                <div><a href="mailto:contact@ezion.uk">contact@ezion.uk</a></div>
+                <div class="mini">General enquiries</div>
+              </div>
+              <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
+            </div>
+    
+            <div class="h2" style="margin-top:14px;">Company</div>
+            <p class="p2" style="margin-top:10px;">
+              <strong>Legal name:</strong> Ezion Ltd<br/>
+              <strong>Jurisdiction:</strong> United Kingdom<br/>
+              <strong>Status:</strong> Active
+            </p>
+    
+            <p class="p2" style="margin-top:10px; color: rgba(255,255,255,.62);">
+              Company Number: 16929156
+            </p>
+    
+            <div class="h2" style="margin-top:14px;">Focus</div>
+            <div class="list">
+              <div class="item">
+                <strong>Brand & product incubation</strong>
+                <span>From concept to early validation and launch readiness.</span>
+              </div>
+              <div class="item">
+                <strong>Digital tools and internal systems</strong>
+                <span>Automation, operations tooling, and lightweight software.</span>
+              </div>
+              <div class="item">
+                <strong>Operations, logistics, and process design</strong>
+                <span>Reducing friction and increasing reliability.</span>
+              </div>
+              <div class="item">
+                <strong>Research & development</strong>
+                <span>Iterating and testing ideas for consumer applications.</span>
+              </div>
+            </div>
+    
+            <div class="aboutCard" style="margin-top:14px; background: rgba(0,0,0,.10);">
+              <p class="p2" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
+                © <span id="year"></span> Ezion Ltd. All rights reserved.
+              </p>
+            </div>
           </div>
         </div>
-        <button class="close" type="button" id="closeInfo">Close</button>
       </div>
-
-      <div class="grid">
-        <div class="card">
-          <div class="h">About</div>
-          <p class="p">
-            Ezion Ltd develops and manages consumer brands, digital tools, and operational systems.
-            We prefer small teams, clear processes, and products that earn their place through usefulness.
-          </p>
-
-          <div class="h" style="margin-top:14px;">Principles</div>
-          <div class="list" style="display:grid; gap:10px; margin-top:10px;">
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
-              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Clarity</strong>
-              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Simple positioning, clean execution, minimal maintenance.</span>
-            </div>
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
-              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Durability</strong>
-              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Fewer moving parts. Systems that keep working.</span>
-            </div>
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
-              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Leverage</strong>
-              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Repeatable processes and compounding improvements.</span>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="card">
-          <div class="h">Contact</div>
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
-            <div>
-              <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
-              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;">General enquiries</div>
-            </div>
-            <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
-          </div>
-
-          <div class="h" style="margin-top:14px;">Company</div>
-          <p class="p" style="margin-top:10px;">
-            <strong>Legal name:</strong> Ezion Ltd<br/>
-            <strong>Jurisdiction:</strong> United Kingdom<br/>
-            <strong>Status:</strong> Active
-          </p>
-
-          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);">
-            Company Number: 16929156
-          </p>
-        </div>
-        
-        <div class="card" style="grid-column: 1 / -1;">
-          <div class="h">Focus</div>
-          <p class="focusSub">A concise snapshot (broad by design).</p>
-      
-          <div class="focusList">
-            <div class="focusItem">
-              <strong>Brand & product incubation</strong>
-              <span>From concept to early validation and launch readiness.</span>
-            </div>
-      
-            <div class="focusItem">
-              <strong>Digital tools and internal systems</strong>
-              <span>Automation, operations tooling, and lightweight software.</span>
-            </div>
-      
-            <div class="focusItem">
-              <strong>Operations, logistics, and process design</strong>
-              <span>Reducing friction and increasing reliability.</span>
-            </div>
-      
-            <div class="focusItem">
-              <strong>Research & development</strong>
-              <span>Iterating and testing ideas for consumer applications.</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
-          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
-            © <span id="year"></span> Ezion Ltd. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+    
+    <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
 
     <!-- PRODUCTS -->
     <section class="products view" id="view-products">
@@ -320,6 +503,8 @@
       viewHome.classList.toggle("active", name==="home");
       viewProducts.classList.toggle("active", name==="products");
       viewServices.classList.toggle("active", name==="services");
+      // close About on route changes
+      if (panel && panel.classList.contains("open")) closePanel();
     }
 
     function onRoute(){

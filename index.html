@@ -162,11 +162,111 @@
       </div>
 
       <div class="actions">
+        <button class="btn" type="button" id="openInfo">About Us</button>
         <a class="btn" href="#products">Products</a>
         <a class="btn" href="#services">Services</a>
         <a class="btn" href="mailto:contact@ezion.uk">Email us</a>
       </div>
     </section>
+
+      <!-- Info panel -->
+  <section class="panel" id="panel" aria-hidden="true">
+    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
+
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
+      <div class="sheet-header">
+        <div class="sheet-title">
+          <div>
+            <strong>Ezion Ltd</strong><br/>
+            <span style="font-size:13px; color: rgba(255,255,255,.70);">Minimal information, maximum clarity.</span>
+          </div>
+        </div>
+        <button class="close" type="button" id="closeInfo">Close</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="h">About</div>
+          <p class="p">
+            Ezion Ltd develops and manages consumer brands, digital tools, and operational systems.
+            We prefer small teams, clear processes, and products that earn their place through usefulness.
+          </p>
+
+          <div class="h" style="margin-top:14px;">Principles</div>
+          <div class="list" style="display:grid; gap:10px; margin-top:10px;">
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Clarity</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Simple positioning, clean execution, minimal maintenance.</span>
+            </div>
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Durability</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Fewer moving parts. Systems that keep working.</span>
+            </div>
+            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+              <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Leverage</strong>
+              <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Repeatable processes and compounding improvements.</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="h">Contact</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
+            <div>
+              <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;">General enquiries</div>
+            </div>
+            <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
+          </div>
+
+          <div class="h" style="margin-top:14px;">Company</div>
+          <p class="p" style="margin-top:10px;">
+            <strong>Legal name:</strong> Ezion Ltd<br/>
+            <strong>Jurisdiction:</strong> United Kingdom<br/>
+            <strong>Status:</strong> Active
+          </p>
+
+          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);">
+            Company Number: 16929156
+          </p>
+        </div>
+        
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="h">Focus</div>
+          <p class="focusSub">A concise snapshot (broad by design).</p>
+      
+          <div class="focusList">
+            <div class="focusItem">
+              <strong>Brand & product incubation</strong>
+              <span>From concept to early validation and launch readiness.</span>
+            </div>
+      
+            <div class="focusItem">
+              <strong>Digital tools and internal systems</strong>
+              <span>Automation, operations tooling, and lightweight software.</span>
+            </div>
+      
+            <div class="focusItem">
+              <strong>Operations, logistics, and process design</strong>
+              <span>Reducing friction and increasing reliability.</span>
+            </div>
+      
+            <div class="focusItem">
+              <strong>Research & development</strong>
+              <span>Iterating and testing ideas for consumer applications.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
+          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
+            © <span id="year"></span> Ezion Ltd. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- PRODUCTS -->
     <section class="products view" id="view-products">
@@ -237,65 +337,184 @@
     ];
 
     const SERVICES = [
-      {
-        name:"iOS & Android app development",
-        sku:"SVC-APP-001",
-        desc:"Flutter apps, store setup, and deployment support.",
-        subject:"Quote: iOS/Android app development"
-      },
-      {
-        name:"Process automation (Excel & Python)",
-        sku:"SVC-AUTO-001",
-        desc:"Excel VBA, Python scripts, and workflow automation.",
-        subject:"Quote: automation services"
-      },
-      {
-        name:"Accounting services",
-        sku:"SVC-ACC-001",
-        desc:"Setup, cleanup, reporting, and automation support.",
-        subject:"Quote: accounting services"
-      }
-    ];
+    {
+      name: "iOS & Android app development",
+      sku: "SVC-APP-001",
+      desc: "Flutter apps, store setup, and deployment support.",
+      tiers: [
+        {
+          tier: "Starter",
+          price: "From £499",
+          bullets: [
+            "1 screen / simple flow",
+            "Basic UI implementation",
+            "Build + install guide"
+          ],
+          subject: "Quote: App dev (Starter)"
+        },
+        {
+          tier: "Standard",
+          price: "From £1,499",
+          bullets: [
+            "Multi-screen app",
+            "Auth / basic data storage",
+            "TestFlight / Internal testing setup"
+          ],
+          subject: "Quote: App dev (Standard)"
+        },
+        {
+          tier: "Pro",
+          price: "From £3,999",
+          bullets: [
+            "Polished release-ready build",
+            "Analytics / crash reporting setup",
+            "App Store + Play Store submission support"
+          ],
+          subject: "Quote: App dev (Pro)"
+        }
+      ]
+    },
 
-    function mailto(subject){
-      const body =
+    {
+      name: "Process automation (Excel & Python)",
+      sku: "SVC-AUTO-001",
+      desc: "Excel VBA, Python scripts, and workflow automation.",
+      tiers: [
+        {
+          tier: "Starter",
+          price: "From £199",
+          bullets: [
+            "1 automation task",
+            "Input/output templates",
+            "Quick handover notes"
+          ],
+          subject: "Quote: Automation (Starter)"
+        },
+        {
+          tier: "Standard",
+          price: "From £699",
+          bullets: [
+            "Up to 3 automations",
+            "Error handling + logging",
+            "Documentation + minor revisions"
+          ],
+          subject: "Quote: Automation (Standard)"
+        },
+        {
+          tier: "Pro",
+          price: "From £1,999",
+          bullets: [
+            "End-to-end workflow automation",
+            "Integration with files/APIs where feasible",
+            "Maintenance plan options"
+          ],
+          subject: "Quote: Automation (Pro)"
+        }
+      ]
+    },
+
+    {
+      name: "Accounting services",
+      sku: "SVC-ACC-001",
+      desc: "Setup, cleanup, reporting, and automation support.",
+      tiers: [
+        {
+          tier: "Starter",
+          price: "From £149",
+          bullets: [
+            "1-off review / cleanup",
+            "P&L / balance sheet checks",
+            "Issue list + actions"
+          ],
+          subject: "Quote: Accounting (Starter)"
+        },
+        {
+          tier: "Standard",
+          price: "From £499/mo",
+          bullets: [
+            "Monthly bookkeeping support",
+            "Reconciliation + reporting",
+            "Basic process improvements"
+          ],
+          subject: "Quote: Accounting (Standard)"
+        },
+        {
+          tier: "Pro",
+          price: "From £999/mo",
+          bullets: [
+            "Full finance ops support",
+            "Automation + controls",
+            "Management reporting pack"
+          ],
+          subject: "Quote: Accounting (Pro)"
+        }
+      ]
+    }
+  ];
+
+  function mailto(subject){
+    const body =
 `Hello Ezion,
 
 I'd like to request a quote for:
 
-- Service:
+- Service & tier: ${subject.replace("Quote: ", "")}
 - Brief description:
 - Timeline:
-- Budget range (optional)
+- Budget range (optional):
+- Links/screenshots (optional):
 
 Thanks.`;
-      return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
+    return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
 
-    document.getElementById("productsGrid").innerHTML = PRODUCTS.map(p=>`
-      <div class="product">
-        <div class="name">${p.name}</div>
-        <div class="desc">${p.desc}</div>
-        <div class="meta"><div>${p.price}</div><div class="sku">${p.sku}</div></div>
-        <div class="btnRow">
-          <a class="btn" href="${p.page}">View</a>
-        </div>
+  function esc(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  const servicesGrid = document.getElementById("servicesGrid");
+
+  servicesGrid.innerHTML = SERVICES.map(s => `
+    <div class="product">
+      <div class="name">${esc(s.name)}</div>
+      <div class="desc">${esc(s.desc)}</div>
+      <div class="meta">
+        <div>Pricing tiers</div>
+        <div class="sku">${esc(s.sku)}</div>
       </div>
-    `).join("");
 
-    document.getElementById("servicesGrid").innerHTML = SERVICES.map(s=>`
-      <div class="product">
-        <div class="name">${s.name}</div>
-        <div class="desc">${s.desc}</div>
-        <div class="meta"><div>Quote</div><div class="sku">${s.sku}</div></div>
-        <div class="btnRow">
-          <a class="btn" href="${mailto(s.subject)}">Request a quote</a>
-          <a class="btn secondary" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Discovery call</a>
-        </div>
+      <div style="display:grid; gap:10px; margin-top:6px;">
+        ${s.tiers.map(t => `
+          <div style="border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.14); border-radius:16px; padding:12px;">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:baseline;">
+              <div style="font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.88);">
+                ${esc(t.tier)}
+              </div>
+              <div style="font-size:13px; color:rgba(255,255,255,.78);">
+                ${esc(t.price)}
+              </div>
+            </div>
+
+            <div style="margin-top:8px; color:rgba(255,255,255,.70); font-size:13px; line-height:1.6;">
+              <ul style="margin:0; padding-left:18px;">
+                ${t.bullets.map(b => `<li style="margin:6px 0;">${esc(b)}</li>`).join("")}
+              </ul>
+            </div>
+
+            <div class="btnRow" style="margin-top:10px;">
+              <a class="btn" href="${mailto(t.subject)}">Request a quote</a>
+              <a class="btn secondary" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Discovery call</a>
+            </div>
+          </div>
+        `).join("")}
       </div>
-    `).join("");
-
-    onRoute();
-  </script>
+    </div>
+  `).join("");
+</script>
 </body>
 </html>

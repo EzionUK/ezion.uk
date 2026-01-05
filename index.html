@@ -167,6 +167,9 @@
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+    }
 
     /* Slide-over info panel */
     .panel{
@@ -260,7 +263,6 @@
       line-height: 1.7;
     }
 
-
     /* About panel: Focus block */
     .focusSub{
       margin: 0 0 12px;
@@ -268,25 +270,21 @@
       color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
-    
     .focusList{
       display: grid;
       gap: 10px;
     }
-    
     .focusItem{
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
       padding: 14px;
       background: rgba(0,0,0,.14);
     }
-    
     .focusItem strong{
       display: block;
       font-size: 14px;
       color: rgba(255,255,255,.90);
     }
-    
     .focusItem span{
       display: block;
       margin-top: 6px;
@@ -294,7 +292,7 @@
       color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
-    
+
     /* Products view */
     .view { display: none; }
     .view.active { display: block; }
@@ -374,8 +372,28 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
-    .btn.secondary{
-      background: rgba(255,255,255,.06);
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(12px) saturate(1.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 20;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
+
+    @media (prefers-reduced-motion: reduce){
+      .panel, .sheet, .btn { transition: none; }
     }
   </style>
 </head>
@@ -458,22 +476,21 @@
           </p>
 
           <div class="h" style="margin-top:14px;">Principles</div>
-          <div class="list" style="display:grid; gap:10px; margin-top:10px;">
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+          <div style="display:grid; gap:10px; margin-top:10px;">
+            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Clarity</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Simple positioning, clean execution, minimal maintenance.</span>
             </div>
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Durability</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Fewer moving parts. Systems that keep working.</span>
             </div>
-            <div class="item" style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
+            <div style="border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px; background: rgba(0,0,0,.14);">
               <strong style="display:block; font-size:14px; color: rgba(255,255,255,.88);">Leverage</strong>
               <span style="display:block; margin-top:4px; font-size:13px; color: rgba(255,255,255,.70);">Repeatable processes and compounding improvements.</span>
             </div>
           </div>
         </div>
-
 
         <div class="card">
           <div class="h">Contact</div>
@@ -496,34 +513,34 @@
             Company Number: 16929156
           </p>
         </div>
-        
+
         <div class="card" style="grid-column: 1 / -1;">
           <div class="h">Focus</div>
           <p class="focusSub">A concise snapshot (broad by design).</p>
-      
+
           <div class="focusList">
             <div class="focusItem">
               <strong>Brand & product incubation</strong>
               <span>From concept to early validation and launch readiness.</span>
             </div>
-      
+
             <div class="focusItem">
               <strong>Digital tools and internal systems</strong>
               <span>Automation, operations tooling, and lightweight software.</span>
             </div>
-      
+
             <div class="focusItem">
               <strong>Operations, logistics, and process design</strong>
               <span>Reducing friction and increasing reliability.</span>
             </div>
-      
+
             <div class="focusItem">
               <strong>Research & development</strong>
               <span>Iterating and testing ideas for consumer applications.</span>
             </div>
           </div>
         </div>
-        
+
         <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
           <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
             © <span id="year"></span> Ezion Ltd. All rights reserved.
@@ -624,7 +641,7 @@
       {
         name: "YADA",
         priceText: "FREE",
-        sku: "OPS-CALL-001",
+        sku: "YADA-APP-001",
         description: "A biblical insight a day keeps spirit awake.",
         page: "products/yada.html"
       }

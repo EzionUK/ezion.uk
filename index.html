@@ -8,141 +8,170 @@
 
   <style>
     :root{
-      --bg:#0b0f14;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
-      --hair:rgba(255,255,255,.16);
-      --shadow:0 28px 70px rgba(0,0,0,.55);
-      --radius:22px;
-      --max:980px;
+      --bg: #0b0f14;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --hair: rgba(255,255,255,.16);
+      --shadow: 0 28px 70px rgba(0,0,0,.55);
+      --radius: 22px;
+      --max: 980px;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      overflow-x:hidden;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x: hidden;
     }
-    a{ color:inherit; }
+    a{ color: inherit; }
 
     .bg{
-      position:fixed; inset:0;
+      position: fixed;
+      inset: 0;
       background:
         linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
         radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
         url("hero.jpg") center/cover no-repeat;
-      z-index:-3;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.02);
+      z-index: -3;
     }
-    .vignette,.grain{ position:fixed; inset:0; pointer-events:none; z-index:-2; }
+
     .vignette{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
-      opacity:.55;
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), rgba(0,0,0,.0) 55%),
+        radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,.0), rgba(0,0,0,.60));
+      mix-blend-mode: overlay;
+      opacity: .55;
+      z-index: -2;
     }
     .grain{
-      inset:-40%;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
-      opacity:.10;
-      transform:rotate(6deg);
+      position: fixed;
+      inset: -40%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity: .10;
+      transform: rotate(6deg);
+      z-index: -1;
     }
 
     .mark{
-      position:fixed; top:18px; left:18px;
-      display:flex; gap:10px; align-items:center;
-      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      color:rgba(255,255,255,.62);
-      z-index:5;
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.62);
+      user-select: none;
+      z-index: 5;
     }
-    .dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.62); }
-
-    .wrap{ min-height:100%; display:grid; place-items:center; padding:28px; }
-
-    .center{ text-align:center; max-width:70ch; }
-    .domain{ font-size:clamp(22px,2.8vw,34px); letter-spacing:.18em; text-transform:lowercase; }
-    .sub{ margin-top:14px; font-size:14px; color:var(--muted); line-height:1.6; }
-
-    .actions{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
-
-    .btn{
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.18);
-      color:var(--text);
-      border-radius:999px;
-      padding:10px 14px;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      cursor:pointer;
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
     }
-    .btn:hover{ background:rgba(0,0,0,.26); border-color:rgba(255,255,255,.22); }
-    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    .wrap{
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .center{
+      text-align: center;
+      user-select: none;
+      max-width: 70ch;
+    }
+
+    .domain{
+      font-size: clamp(22px, 2.8vw, 34px);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      font-weight: 520;
+      opacity: .94;
+    }
+    .sub{
+      margin-top: 14px;
+      font-size: 14px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
 
     .footer{
-      position:fixed; bottom:18px; left:0; right:0;
-      text-align:center; font-size:13px; color:var(--muted);
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      display: flex;
+      justify-content: center;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.70);
+      z-index: 5;
+    }
+    .footer a{
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      padding-bottom: 1px;
+    }
+    .footer a:hover{
+      border-bottom-color: rgba(255,255,255,.45);
     }
 
-    /* Views */
-    .view{ display:none; }
-    .view.active{ display:block; }
-
-    .products{
-      width:min(var(--max),100%);
-      margin:0 auto;
-      text-align:left;
-    }
-    .topbar{
-      display:flex; justify-content:space-between; align-items:center;
-      gap:10px; margin-bottom:14px;
-    }
-    .titleRow strong{
-      font-size:12px; letter-spacing:.18em; text-transform:uppercase;
-    }
-    .titleRow span{ font-size:14px; color:var(--muted); }
-
-    .productsGrid{
-      display:grid; grid-template-columns:1fr; gap:14px;
-    }
-    @media(min-width:720px){
-      .productsGrid{ grid-template-columns:repeat(2,1fr); }
+    .actions{
+      margin-top: 18px;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .product{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      border-radius:18px;
-      padding:16px;
-      display:flex; flex-direction:column; gap:10px;
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
     }
-    .product .name{ font-size:14px; font-weight:650; }
-    .product .desc{ font-size:13px; color:var(--muted); line-height:1.6; }
-    .product .meta{
-      display:flex; justify-content:space-between;
-      font-size:13px; color:rgba(255,255,255,.78);
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
     }
-    .sku{ font-size:12px; color:rgba(255,255,255,.55); }
-    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+    }
 
-    .card{
-      margin-top:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      border-radius:18px;
-      padding:16px;
-    }
-    .h{
-      font-size:12px; letter-spacing:.18em; text-transform:uppercase;
-      margin:0 0 8px;
-    }
-    .p{ font-size:14px; color:rgba(255,255,255,.74); line-height:1.7; }
-    /* ---------- About Us panel ---------- */
+    /* Slide-over info panel */
     .panel{
       position: fixed;
       inset: 0;
@@ -152,17 +181,17 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .20s ease;
-      z-index: 50;
+      z-index: 10;
     }
     .panel.open{ opacity: 1; pointer-events: auto; }
-    
+
     .panel-backdrop{
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,.52);
       backdrop-filter: blur(10px) saturate(1.1);
     }
-    
+
     .sheet{
       position: relative;
       width: min(var(--max), calc(100vw - 36px));
@@ -177,7 +206,7 @@
       transition: transform .20s ease;
     }
     .panel.open .sheet{ transform: translateY(0); }
-    
+
     .sheet-header{
       display: flex;
       justify-content: space-between;
@@ -193,88 +222,163 @@
     }
     .sheet-title span{
       font-size: 13px;
-      color: var(--muted);
+      color: rgba(255,255,255,.70);
     }
-    
     .close{
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.20);
-      color: var(--text);
+      color: rgba(255,255,255,.92);
       border-radius: 999px;
       padding: 9px 12px;
       font-size: 12px;
       cursor: pointer;
     }
-    
-    .aboutGrid{
+
+    .grid{
       display: grid;
       gap: 14px;
       grid-template-columns: 1fr;
       padding: 14px 6px 6px;
     }
     @media (min-width: 920px){
-      .aboutGrid{ grid-template-columns: 1.2fr .8fr; }
+      .grid{ grid-template-columns: 1.2fr .8fr; }
     }
-    
-    .aboutCard{
+    .card{
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.18);
       border-radius: 18px;
       padding: 16px;
     }
-    
-    .h2{
+    .h{
       margin: 0 0 8px;
       font-size: 12px;
       letter-spacing: .18em;
       text-transform: uppercase;
       color: rgba(255,255,255,.78);
     }
-    .p2{
+    .p{
       margin: 0;
       font-size: 14px;
       color: rgba(255,255,255,.74);
       line-height: 1.7;
     }
-    
-    .list{
+
+    /* About panel: Focus block */
+    .focusSub{
+      margin: 0 0 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+
+    .focusList{
       display: grid;
       gap: 10px;
-      margin-top: 10px;
     }
-    .item{
+
+    .focusItem{
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
-      padding: 12px;
+      padding: 14px;
       background: rgba(0,0,0,.14);
     }
-    .item strong{
+
+    .focusItem strong{
       display: block;
       font-size: 14px;
-      color: rgba(255,255,255,.88);
+      color: rgba(255,255,255,.90);
     }
-    .item span{
+
+    .focusItem span{
       display: block;
-      margin-top: 4px;
+      margin-top: 6px;
       font-size: 13px;
       color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
-    
-    .contactRow{
+
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Panels like Products */
+    .products{
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      text-align: left;
+      user-select: text;
+    }
+    .topbar{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .titleRow{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .titleRow strong{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .titleRow span{
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.5;
+    }
+    .productsGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
       margin-top: 10px;
     }
-    .contactRow a{ text-decoration:none; font-weight:650; }
-    .mini{ font-size: 12px; color: rgba(255,255,255,.62); margin-top: 2px; }
-    
+    @media (min-width: 720px){
+      .productsGrid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .product{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .product .name{
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(255,255,255,.90);
+    }
+    .product .desc{
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    .product .meta{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin-top: 4px;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+    }
+    .product .sku{
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .06em;
+    }
+    .product .btnRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* Toast */
     .toast{
       position: fixed;
       left: 50%;
@@ -289,417 +393,364 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .2s ease, transform .2s ease;
-      z-index: 80;
+      z-index: 20;
     }
     .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
-    
-    /* Screenshot portion */
-    .shots{
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media (min-width: 920px){
-      .shots{ grid-template-columns: repeat(2, 1fr); }
-    }
-    .shot{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    .shot img{
-      width: 100%;
-      height: auto;
-      display: block;
-    }
   </style>
 </head>
 
 <body>
-  <div class="bg"></div>
-  <div class="vignette"></div>
-  <div class="grain"></div>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <div class="mark"><span class="dot"></span><span>Ezion Ltd</span></div>
+  <div class="mark" aria-hidden="true">
+    <span class="dot"></span><span>Ezion Ltd</span>
+  </div>
 
   <main class="wrap">
-    <!-- HOME -->
-    <section class="center view active" id="view-home">
+    <!-- HOME VIEW -->
+    <section class="center view active" id="view-home" aria-label="Under construction">
       <div class="domain">ezion.uk</div>
       <div class="sub">
         Quietly building useful ventures.<br/>
-        Practical products, software, and automation.
+        A UK-registered company developing practical products and digital solutions — designed to be simple, durable, and scalable.
       </div>
 
       <div class="actions">
         <button class="btn" type="button" id="openInfo">About Us</button>
-        <a class="btn" href="#products">Products</a>
-        <a class="btn" href="#services">Services</a>
-        <a class="btn" href="mailto:contact@ezion.uk">Email us</a>
+        <a class="btn" href="#products" aria-label="Open products">Products</a>
+        <a class="btn" href="#services" aria-label="Open services">Services</a>
+        <a class="btn" href="mailto:contact@ezion.uk" aria-label="Email contact@ezion.uk">EMAIL US</a>
       </div>
     </section>
 
-    <!-- About Us panel -->
-    <section class="panel" id="panel" aria-hidden="true">
-      <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
-    
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
-        <div class="sheet-header">
-          <div class="sheet-title">
-            <strong>Ezion Ltd</strong><br/>
-            <span>Minimal information, maximum clarity.</span>
-          </div>
-          <button class="close" type="button" id="closeInfo">Close</button>
-        </div>
-    
-        <div class="aboutGrid">
-          <!-- Left -->
-          <div class="aboutCard">
-            <div class="h2">About</div>
-            <p class="p2">
-              Ezion Ltd develops and manages consumer brands, digital tools, and operational systems.
-              We prefer small teams, clear processes, and products that earn their place through usefulness.
-            </p>
-    
-            <div class="h2" style="margin-top:14px;">Principles</div>
-            <div class="list">
-              <div class="item">
-                <strong>Clarity</strong>
-                <span>Simple positioning, clean execution, minimal maintenance.</span>
-              </div>
-              <div class="item">
-                <strong>Durability</strong>
-                <span>Fewer moving parts. Systems that keep working.</span>
-              </div>
-              <div class="item">
-                <strong>Leverage</strong>
-                <span>Repeatable processes and compounding improvements.</span>
-              </div>
-            </div>
-    
-            <!-- Screenshot portion (add back) -->
-            <div class="h2" style="margin-top:14px;">Screenshots</div>
-            <p class="p2" style="color:rgba(255,255,255,.70); margin-bottom:10px;">
-              Product snapshots and demos (examples).
-            </p>
-    
-            <div class="shots">
-              <!-- Replace these file paths with your real images -->
-              <div class="shot">
-                <img src="products/screenshots/workmate-1.png" alt="Workmate screenshot 1">
-              </div>
-              <div class="shot">
-                <img src="products/screenshots/yada-1.png" alt="Yada screenshot 1">
-              </div>
-            </div>
-          </div>
-    
-          <!-- Right -->
-          <div class="aboutCard">
-            <div class="h2">Contact</div>
-    
-            <div class="contactRow">
-              <div>
-                <div><a href="mailto:contact@ezion.uk">contact@ezion.uk</a></div>
-                <div class="mini">General enquiries</div>
-              </div>
-              <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
-            </div>
-    
-            <div class="h2" style="margin-top:14px;">Company</div>
-            <p class="p2" style="margin-top:10px;">
-              <strong>Legal name:</strong> Ezion Ltd<br/>
-              <strong>Jurisdiction:</strong> United Kingdom<br/>
-              <strong>Status:</strong> Active
-            </p>
-    
-            <p class="p2" style="margin-top:10px; color: rgba(255,255,255,.62);">
-              Company Number: 16929156
-            </p>
-    
-            <div class="h2" style="margin-top:14px;">Focus</div>
-            <div class="list">
-              <div class="item">
-                <strong>Brand & product incubation</strong>
-                <span>From concept to early validation and launch readiness.</span>
-              </div>
-              <div class="item">
-                <strong>Digital tools and internal systems</strong>
-                <span>Automation, operations tooling, and lightweight software.</span>
-              </div>
-              <div class="item">
-                <strong>Operations, logistics, and process design</strong>
-                <span>Reducing friction and increasing reliability.</span>
-              </div>
-              <div class="item">
-                <strong>Research & development</strong>
-                <span>Iterating and testing ideas for consumer applications.</span>
-              </div>
-            </div>
-    
-            <div class="aboutCard" style="margin-top:14px; background: rgba(0,0,0,.10);">
-              <p class="p2" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
-                © <span id="year"></span> Ezion Ltd. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
-
-    <!-- PRODUCTS -->
-    <section class="products view" id="view-products">
+    <!-- PRODUCTS VIEW -->
+    <section class="products view" id="view-products" aria-label="Products">
       <div class="topbar">
         <div class="titleRow">
           <strong>Products</strong>
-          <span>Individual product pages.</span>
+          <span>Individual product pages with App Store / Google Play links.</span>
         </div>
-        <a class="btn secondary" href="#">Home</a>
+        <div class="actions" style="margin-top:0;">
+          <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
+        </div>
       </div>
 
       <div class="productsGrid" id="productsGrid"></div>
 
-      <div class="card">
+      <div class="card" style="margin-top:14px;">
         <div class="h">Notes</div>
         <p class="p">More products in the pipeline.</p>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="products view" id="view-services">
+    <!-- SERVICES VIEW -->
+    <section class="products view" id="view-services" aria-label="Services">
       <div class="topbar">
         <div class="titleRow">
           <strong>Services</strong>
-          <span>Clear scope. Direct communication.</span>
+          <span>Individual service pages with pricing tiers and quote request.</span>
         </div>
-        <a class="btn secondary" href="#">Home</a>
+        <div class="actions" style="margin-top:0;">
+          <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
+        </div>
       </div>
 
       <div class="productsGrid" id="servicesGrid"></div>
 
-      <div class="card">
-        <div class="h">How it works</div>
-        <p class="p">
-          Send a short brief and timeline. We’ll respond with feasibility, scope, and next steps.
-        </p>
+      <div class="card" style="margin-top:14px;">
+        <div class="h">Notes</div>
+        <p class="p">For custom scopes, request a quote on the service page.</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+    <div>
+      <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+    </div>
   </footer>
 
+  <!-- About Us panel -->
+  <section class="panel" id="panel" aria-hidden="true">
+    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
+
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
+      <div class="sheet-header">
+        <div class="sheet-title">
+          <div>
+            <strong>Ezion Ltd</strong><br/>
+            <span style="font-size:13px; color: rgba(255,255,255,.70);">Minimal information, maximum clarity.</span>
+          </div>
+        </div>
+        <button class="close" type="button" id="closeInfo">Close</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="h">About</div>
+          <p class="p">
+            Ezion Ltd develops and manages consumer brands, digital tools, and operational systems.
+            We prefer small teams, clear processes, and products that earn their place through usefulness.
+          </p>
+
+          <div class="h" style="margin-top:14px;">Principles</div>
+          <div class="focusList">
+            <div class="focusItem">
+              <strong>Clarity</strong>
+              <span>Simple positioning, clean execution, minimal maintenance.</span>
+            </div>
+            <div class="focusItem">
+              <strong>Durability</strong>
+              <span>Fewer moving parts. Systems that keep working.</span>
+            </div>
+            <div class="focusItem">
+              <strong>Leverage</strong>
+              <span>Repeatable processes and compounding improvements.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="h">Contact</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
+            <div>
+              <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;">General enquiries</div>
+            </div>
+            <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
+          </div>
+
+          <div class="h" style="margin-top:14px;">Company</div>
+          <p class="p" style="margin-top:10px;">
+            <strong>Legal name:</strong> Ezion Ltd<br/>
+            <strong>Jurisdiction:</strong> United Kingdom<br/>
+            <strong>Status:</strong> Active
+          </p>
+
+          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);">
+            Company Number: 16929156
+          </p>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="h">Focus</div>
+          <p class="focusSub">A concise snapshot (broad by design).</p>
+
+          <div class="focusList">
+            <div class="focusItem">
+              <strong>Brand & product incubation</strong>
+              <span>From concept to early validation and launch readiness.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong>Digital tools and internal systems</strong>
+              <span>Automation, operations tooling, and lightweight software.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong>Operations, logistics, and process design</strong>
+              <span>Reducing friction and increasing reliability.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong>Research & development</strong>
+              <span>Iterating and testing ideas for consumer applications.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
+          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
+            © <span id="year"></span> Ezion Ltd. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
   <script>
+    // About panel open/close
+    const panel = document.getElementById("panel");
+    const openInfo = document.getElementById("openInfo");
+    const closeInfo = document.getElementById("closeInfo");
+    const backdrop = document.getElementById("backdrop");
+
+    function openPanel(){
+      panel.classList.add("open");
+      panel.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closePanel(){
+      panel.classList.remove("open");
+      panel.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    openInfo.addEventListener("click", openPanel);
+    closeInfo.addEventListener("click", closePanel);
+    backdrop.addEventListener("click", closePanel);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closePanel();
+    });
+
+    // Copy + toast
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
+    }
+    document.addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-copy]");
+      if (!btn) return;
+      const text = btn.getAttribute("data-copy");
+      try { await navigator.clipboard.writeText(text); showToast("Copied"); }
+      catch { showToast("Copy failed"); }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Router: #products / #services / home
     const viewHome = document.getElementById("view-home");
     const viewProducts = document.getElementById("view-products");
     const viewServices = document.getElementById("view-services");
 
     function setView(name){
-      viewHome.classList.toggle("active", name==="home");
-      viewProducts.classList.toggle("active", name==="products");
-      viewServices.classList.toggle("active", name==="services");
-      // close About on route changes
-      if (panel && panel.classList.contains("open")) closePanel();
+      const isProducts = name === "products";
+      const isServices = name === "services";
+
+      viewHome.classList.toggle("active", !(isProducts || isServices));
+      viewProducts.classList.toggle("active", isProducts);
+      viewServices.classList.toggle("active", isServices);
+
+      if (panel.classList.contains("open")) closePanel();
+      document.body.style.overflow = "";
     }
 
     function onRoute(){
-      const h = (location.hash||"").replace("#","").toLowerCase();
-      if(h==="products") setView("products");
-      else if(h==="services") setView("services");
+      const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
+      if (hash === "products") setView("products");
+      else if (hash === "services") setView("services");
       else setView("home");
     }
     window.addEventListener("hashchange", onRoute);
 
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // Products list (edit these)
     const PRODUCTS = [
-      { name:"Workmate — Professional Edition", price:"£9.99", sku:"WM-PRO-001", desc:"Time tracking + invoicing workbook.", page:"products/workmate-pro.html" },
-      { name:"TODAY", price:"FREE / £3.99", sku:"MD-LIFE-001", desc:"Minimalist daily journaling app.", page:"products/MD-lifetime.html" },
-      { name:"YADA", price:"FREE", sku:"YADA-001", desc:"A biblical insight a day keeps spirit awake.", page:"products/yada.html" }
+      {
+        name: "Workmate — Professional Edition",
+        priceText: "£9.99",
+        sku: "WM-PRO-001",
+        description: "Time tracking + invoicing workbook (Excel).",
+        page: "products/workmate-pro.html"
+      },
+      {
+        name: "TODAY",
+        priceText: "FREE - £3.99",
+        sku: "MD-LIFE-001",
+        description: "Minimalist daily journaling app.",
+        page: "products/MD-lifetime.html"
+      },
+      {
+        name: "EzDrain — Enzymatic Tablets (Trial Pack)",
+        priceText: "£8.50",
+        sku: "EZD-TRIAL-001",
+        description: "Consumer drain maintenance tablets (trial pack).",
+        page: "products/ezdrain.html"
+      },
+      {
+        name: "YADA",
+        priceText: "FREE",
+        sku: "YADA-APP-001",
+        description: "A biblical insight a day keeps spirit awake.",
+        page: "products/yada.html"
+      }
     ];
 
+    // Services list (each links to its own page)
     const SERVICES = [
-    {
-      name: "iOS & Android app development",
-      sku: "SVC-APP-001",
-      desc: "Flutter apps, store setup, and deployment support.",
-      tiers: [
-        {
-          tier: "Starter",
-          price: "From £499",
-          bullets: [
-            "1 screen / simple flow",
-            "Basic UI implementation",
-            "Build + install guide"
-          ],
-          subject: "Quote: App dev (Starter)"
-        },
-        {
-          tier: "Standard",
-          price: "From £1,499",
-          bullets: [
-            "Multi-screen app",
-            "Auth / basic data storage",
-            "TestFlight / Internal testing setup"
-          ],
-          subject: "Quote: App dev (Standard)"
-        },
-        {
-          tier: "Pro",
-          price: "From £3,999",
-          bullets: [
-            "Polished release-ready build",
-            "Analytics / crash reporting setup",
-            "App Store + Play Store submission support"
-          ],
-          subject: "Quote: App dev (Pro)"
-        }
-      ]
-    },
+      {
+        name: "iOS & Android app development",
+        priceText: "From £499",
+        sku: "SVC-APP-001",
+        description: "Flutter apps, store setup, deployment support.",
+        page: "services/appdev.html"
+      },
+      {
+        name: "Process automation (Excel & Python)",
+        priceText: "From £199",
+        sku: "SVC-AUTO-001",
+        description: "Excel VBA, Python scripts, workflow automation.",
+        page: "services/automation.html"
+      },
+      {
+        name: "Accounting services",
+        priceText: "From £149",
+        sku: "SVC-ACC-001",
+        description: "Setup, cleanup, reporting, and finance ops support.",
+        page: "services/accounting.html"
+      }
+    ];
 
-    {
-      name: "Process automation (Excel & Python)",
-      sku: "SVC-AUTO-001",
-      desc: "Excel VBA, Python scripts, and workflow automation.",
-      tiers: [
-        {
-          tier: "Starter",
-          price: "From £199",
-          bullets: [
-            "1 automation task",
-            "Input/output templates",
-            "Quick handover notes"
-          ],
-          subject: "Quote: Automation (Starter)"
-        },
-        {
-          tier: "Standard",
-          price: "From £699",
-          bullets: [
-            "Up to 3 automations",
-            "Error handling + logging",
-            "Documentation + minor revisions"
-          ],
-          subject: "Quote: Automation (Standard)"
-        },
-        {
-          tier: "Pro",
-          price: "From £1,999",
-          bullets: [
-            "End-to-end workflow automation",
-            "Integration with files/APIs where feasible",
-            "Maintenance plan options"
-          ],
-          subject: "Quote: Automation (Pro)"
-        }
-      ]
-    },
+    const productsGrid = document.getElementById("productsGrid");
+    const servicesGrid = document.getElementById("servicesGrid");
 
-    {
-      name: "Accounting services",
-      sku: "SVC-ACC-001",
-      desc: "Setup, cleanup, reporting, and automation support.",
-      tiers: [
-        {
-          tier: "Starter",
-          price: "From £149",
-          bullets: [
-            "1-off review / cleanup",
-            "P&L / balance sheet checks",
-            "Issue list + actions"
-          ],
-          subject: "Quote: Accounting (Starter)"
-        },
-        {
-          tier: "Standard",
-          price: "From £499/mo",
-          bullets: [
-            "Monthly bookkeeping support",
-            "Reconciliation + reporting",
-            "Basic process improvements"
-          ],
-          subject: "Quote: Accounting (Standard)"
-        },
-        {
-          tier: "Pro",
-          price: "From £999/mo",
-          bullets: [
-            "Full finance ops support",
-            "Automation + controls",
-            "Management reporting pack"
-          ],
-          subject: "Quote: Accounting (Pro)"
-        }
-      ]
-    }
-  ];
+    function renderProducts(){
+      productsGrid.innerHTML = PRODUCTS.map(p => `
+        <div class="product">
+          <div class="name">${escapeHtml(p.name)}</div>
+          <div class="desc">${escapeHtml(p.description)}</div>
 
-  function mailto(subject){
-    const body =
-`Hello Ezion,
-
-I'd like to request a quote for:
-
-- Service & tier: ${subject.replace("Quote: ", "")}
-- Brief description:
-- Timeline:
-- Budget range (optional):
-- Links/screenshots (optional):
-
-Thanks.`;
-    return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-
-  function esc(s){
-    return String(s)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-  const servicesGrid = document.getElementById("servicesGrid");
-
-  servicesGrid.innerHTML = SERVICES.map(s => `
-    <div class="product">
-      <div class="name">${esc(s.name)}</div>
-      <div class="desc">${esc(s.desc)}</div>
-      <div class="meta">
-        <div>Pricing tiers</div>
-        <div class="sku">${esc(s.sku)}</div>
-      </div>
-
-      <div style="display:grid; gap:10px; margin-top:6px;">
-        ${s.tiers.map(t => `
-          <div style="border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.14); border-radius:16px; padding:12px;">
-            <div style="display:flex; justify-content:space-between; gap:10px; align-items:baseline;">
-              <div style="font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.88);">
-                ${esc(t.tier)}
-              </div>
-              <div style="font-size:13px; color:rgba(255,255,255,.78);">
-                ${esc(t.price)}
-              </div>
-            </div>
-
-            <div style="margin-top:8px; color:rgba(255,255,255,.70); font-size:13px; line-height:1.6;">
-              <ul style="margin:0; padding-left:18px;">
-                ${t.bullets.map(b => `<li style="margin:6px 0;">${esc(b)}</li>`).join("")}
-              </ul>
-            </div>
-
-            <div class="btnRow" style="margin-top:10px;">
-              <a class="btn" href="${mailto(t.subject)}">Request a quote</a>
-              <a class="btn secondary" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Discovery call</a>
-            </div>
+          <div class="meta">
+            <div>${escapeHtml(p.priceText)}</div>
+            <div class="sku">${escapeHtml(p.sku)}</div>
           </div>
-        `).join("")}
-      </div>
-    </div>
-  `).join("");
-</script>
+
+          <div class="btnRow">
+            <a class="btn" href="${p.page}">View product</a>
+            <a class="btn secondary" href="${p.page}#buy">Get</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderServices(){
+      servicesGrid.innerHTML = SERVICES.map(s => `
+        <div class="product">
+          <div class="name">${escapeHtml(s.name)}</div>
+          <div class="desc">${escapeHtml(s.description)}</div>
+
+          <div class="meta">
+            <div>${escapeHtml(s.priceText)}</div>
+            <div class="sku">${escapeHtml(s.sku)}</div>
+          </div>
+
+          <div class="btnRow">
+            <a class="btn" href="${s.page}">View service</a>
+            <a class="btn secondary" href="${s.page}#quote">Request a quote</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    renderProducts();
+    renderServices();
+    onRoute();
+  </script>
 </body>
 </html>

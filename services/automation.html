@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>App Development | Ezion UK</title>
-  <meta name="description" content="iOS & Android app development — pricing tiers and quote request." />
+  <title>Automation (Excel & Python) | Ezion UK</title>
+  <meta name="description" content="Process automation through Excel and Python — pricing tiers and quote request." />
 
   <style>
     :root{
@@ -207,9 +207,9 @@
   <main class="wrap">
     <article class="card">
       <p class="kicker">Services</p>
-      <h1>iOS & Android app development</h1>
+      <h1>Process automation (Excel & Python)</h1>
       <p class="sub">
-        Flutter builds, release support, and pragmatic delivery. Choose a tier, or request a scoped quote.
+        Reduce manual work with robust spreadsheets, scripts, and repeatable workflows. Choose a tier, or request a scoped quote.
       </p>
 
       <div class="grid">
@@ -217,16 +217,16 @@
         <section class="box">
           <div class="h">What we do</div>
           <p class="p">
-            We build and ship cross-platform apps with clean UI, sensible architecture, and clear handover.
+            We automate admin and ops tasks using Excel (including VBA) and Python—clean inputs, reliable outputs, and clear handover.
           </p>
 
           <div class="divider"></div>
 
           <div class="h">Typical deliverables</div>
           <ul>
-            <li>App build + source repository (if required)</li>
-            <li>Deployment guidance (TestFlight / Internal testing)</li>
-            <li>Release checklist and handover notes</li>
+            <li>Automated templates (Excel) and/or scripts (Python)</li>
+            <li>Error handling, logs, and sanity checks where needed</li>
+            <li>Documentation + handover notes for future edits</li>
           </ul>
 
           <div class="divider"></div>
@@ -250,18 +250,18 @@
         <aside class="box">
           <div class="h">Pricing tiers</div>
           <p class="p" style="color:rgba(255,255,255,.70);">
-            Starting prices. Final quote depends on scope and timeline.
+            Starting prices. Final quote depends on complexity and data quality.
           </p>
 
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Starter</div>
-              <div class="tierPrice">From £499</div>
+              <div class="tierPrice">From £199</div>
             </div>
             <ul>
-              <li>1 screen / simple flow</li>
-              <li>Basic UI implementation</li>
-              <li>Build + install guide</li>
+              <li>1 automation task (single workflow)</li>
+              <li>Input/output template included</li>
+              <li>Basic handover notes</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
@@ -271,12 +271,12 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Standard</div>
-              <div class="tierPrice">From £1,499</div>
+              <div class="tierPrice">From £699</div>
             </div>
             <ul>
-              <li>Multi-screen app</li>
-              <li>Auth / basic data storage</li>
-              <li>Testing setup (TestFlight/Internal)</li>
+              <li>Up to 3 automations (end-to-end)</li>
+              <li>Validation + error handling</li>
+              <li>Documentation + minor revisions</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
@@ -286,12 +286,12 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Pro</div>
-              <div class="tierPrice">From £3,999</div>
+              <div class="tierPrice">From £1,999</div>
             </div>
             <ul>
-              <li>Release-ready build</li>
-              <li>Analytics / crash reporting setup</li>
-              <li>Store submission support</li>
+              <li>Full workflow automation (multi-step)</li>
+              <li>Logging, monitoring, and structured outputs</li>
+              <li>Maintenance plan options</li>
             </ul>
             <div class="btnRow">
               <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
@@ -299,7 +299,7 @@
           </div>
 
           <p class="fine">
-            Need something custom (payments, subscriptions, iCloud/CloudKit, admin panel)? We’ll scope it.
+            Common use cases: invoice extraction, reconciliations, batch exports, reporting packs, and file-to-file transformations.
           </p>
         </aside>
       </div>
@@ -313,12 +313,13 @@
 
 I'd like to request a quote for:
 
-- Service: iOS & Android app development
+- Service: Process automation (Excel & Python)
 - Tier: ${tier || "Custom / Not sure"}
 - Brief description:
+- Inputs (files/sources):
+- Outputs (format needed):
 - Timeline:
 - Budget range (optional):
-- Links/screenshots (optional):
 
 Thanks.`;
       return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -326,15 +327,14 @@ Thanks.`;
 
     // Main quote button
     const btnQuote = document.getElementById("btnQuote");
-    btnQuote.href = mailto("Quote: App development (Custom)", "");
+    btnQuote.href = mailto("Quote: Automation (Custom)", "");
 
     // Tier buttons
     document.addEventListener("click", (e) => {
       const a = e.target.closest("a[data-tier]");
       if (!a) return;
       const tier = a.getAttribute("data-tier") || "";
-      a.href = mailto(`Quote: App development (${tier})`, tier);
-      // allow navigation to mailto after href is set
+      a.href = mailto(`Quote: Automation (${tier})`, tier);
     });
   </script>
 </body>

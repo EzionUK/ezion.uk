@@ -220,7 +220,8 @@
       <!-- Demo video (optional) -->
       <div class="videoWrap" aria-label="App demo video" id="videoWrap">
         <iframe
-          src="https://www.youtube-nocookie.com/embed/-BeskGuvUBA"
+          id="ytFrame"
+          src=""
           title="Yada Intro"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -242,7 +243,7 @@
           <div class="divider"></div>
 
           <div class="h">Pro</div>
-          <ul id"listPro"></ul>
+          <ul id="listPro"></ul>
         </section>
 
         <!-- Right: store badges + support -->
@@ -304,7 +305,7 @@
       name: "Yada - Know Deeply",
       tagline: "One biblical insight a day that goes a long a way.",
       badge: "Daily Insight",
-      youtubeId: "https://www.youtube.com/watch?v=-BeskGuvUBA",  // set to YouTube ID (e.g. "abcd1234") or keep "" to hide embed
+      youtubeId: "-BeskGuvUBA",  // set to YouTube ID (e.g. "abcd1234") or keep "" to hide embed
       appStoreUrl: "PASTE_APP_STORE_LINK_HERE",
       playStoreUrl: "PASTE_GOOGLE_PLAY_LINK_HERE",
       iapNote: "Simple daily reading. Optional upgrades may be offered inside the app.",
@@ -340,6 +341,7 @@
     // Lists
     const listWhat = document.getElementById("listWhat");
     const listWhy = document.getElementById("listWhy");
+    const listPro = document.getElementById("listPro");
     listWhat.innerHTML = APP.whatItIs.map(x => `<li>${escapeHtml(x)}</li>`).join("");
     listWhy.innerHTML  = APP.whyItWorks.map(x => `<li>${escapeHtml(x)}</li>`).join("");
     listPro.innerHTML  = APP.whyPro.map(x => `<li>${escapeHtml(x)}</li>`).join("");

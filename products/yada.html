@@ -237,15 +237,13 @@
 
           <div class="divider"></div>
 
-          <div class="h">How to use</div>
+          <div class="h">What you get</div>
           <ul id="listWhy"></ul>
 
           <div class="divider"></div>
 
-          <div class="h">Demo</div>
-          <p class="fine" style="margin-top:6px;">
-            <a id="ytLink" class="backLink" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
-          </p>
+          <div class="h">Pro</div>
+          <ul id"listPro"></ul>
         </section>
 
         <!-- Right: store badges + support -->
@@ -324,6 +322,12 @@
         "Clear “Read more” references for deeper reading",
         "Minimalist experience that stays out of your way",
         "A growing library across the Bible’s major sections",
+      ],
+      whyPro: [
+        "Access to End-Time category",
+        "All future new categories",
+        "Updates to existing categories",
+        "The library expands",
       ]
     };
 
@@ -339,6 +343,7 @@
     const listWhy = document.getElementById("listWhy");
     listWhat.innerHTML = APP.whatItIs.map(x => `<li>${escapeHtml(x)}</li>`).join("");
     listWhy.innerHTML  = APP.whyItWorks.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    listPro.innerHTML  = APP.whyPro.map(x => `<li>${escapeHtml(x)}</li>`).join("");
 
     // Store links
     document.getElementById("appStoreLink").href = APP.appStoreUrl;

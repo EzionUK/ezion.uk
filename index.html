@@ -389,6 +389,35 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
+    /* Section headers inside Products page */
+    .section{
+      margin-top: 18px;
+    }
+    .section:first-of-type{
+      margin-top: 0;
+    }
+    .sectionHeader{
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      border-radius: 16px;
+      backdrop-filter: blur(10px) saturate(1.05);
+    }
+    .sectionHeader strong{
+      display:block;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .sectionHeader span{
+      display:block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(255,255,255,.66);
+      line-height: 1.5;
+    }
 
     /* Toast */
     .toast{
@@ -449,7 +478,29 @@
         </div>
       </div>
 
-      <div class="productsGrid" id="productsGrid"></div>
+      <div class="section">
+        <div class="sectionHeader">
+          <strong>Products</strong>
+          <span>Physical and operational tools.</span>
+        </div>
+        <div class="productsGrid" id="productsGridProducts"></div>
+      </div>
+      
+      <div class="section">
+        <div class="sectionHeader">
+          <strong>Apps</strong>
+          <span>Quiet daily practice, shipped.</span>
+        </div>
+        <div class="productsGrid" id="productsGridApps"></div>
+      </div>
+      
+      <div class="section">
+        <div class="sectionHeader">
+          <strong>Productions</strong>
+          <span>Long-form work and publishing.</span>
+        </div>
+        <div class="productsGrid" id="productsGridProductions"></div>
+      </div>
     </section>
 
     <!-- SERVICES VIEW -->
@@ -656,7 +707,9 @@
 
     // Products list (edit these)
     const PRODUCTS = [
+      // Products
       {
+        category: "products",
         name: "Workmate — Professional Edition",
         priceText: "£9.99",
         sku: "WM-PRO-001",
@@ -664,33 +717,41 @@
         page: "products/workmate-pro.html"
       },
       {
-        name: "TODAY - Minimalist's diary",
-        priceText: "FREE - £3.99",
-        sku: "MD-LIFE-001",
-        description: "Minimalist daily journaling app.",
-        page: "products/MD-lifetime.html"
-      },
-      {
-        name: "EzDrain — Enzymatic Tablets (Trial Pack)",
+        category: "products",
+        name: "Enzydrain",
         priceText: "£8.50",
         sku: "EZD-TRIAL-001",
-        description: "Consumer drain maintenance tablets (trial pack).",
-        page: "products/workmate-pro.html"
+        description: "Enzymatic drain maintenance tablets.",
+        page: "products/enzydrain.html"
+      },
+    
+      // Apps
+      {
+        category: "apps",
+        name: "TODAY — Minimalist’s Diary",
+        priceText: "FREE – £3.99",
+        sku: "MD-LIFE-001",
+        description: "Minimalist daily journaling app.",
+        page: "products/today.html"
       },
       {
-        name: "YADA - Know Deeply",
-        priceText: "FREE - £0.99",
+        category: "apps",
+        name: "YADA — Know Deeply",
+        priceText: "FREE – £0.99",
         sku: "YADA-APP-001",
         description: "One biblical insight a day that goes a long way.",
         page: "products/yada.html"
       },
+    
+      // Productions
       {
-        name: "Certainty in Uncertainty: Preparing for Jesus' Return in These Last Days",
+        category: "productions",
+        name: "Certainty in Uncertainty",
         priceText: "£14.99",
         sku: "END-BOOK-001",
-        description: "An examination of biblical prophecy and present global realities, equipping the Church to understand the times and prepare faithfully for Christ’s return—sooner rather than later.",
-        page: "products/yada.html"
-      } 
+        description: "Preparing for Jesus’ return in these last days.",
+        page: "products/certainty-in-uncertainty.html"
+      }
     ];
 
     // Services list (each links to its own page)
@@ -718,26 +779,36 @@
       }
     ];
 
-    const productsGrid = document.getElementById("productsGrid");
+    const productsGridProducts = document.getElementById("productsGridProducts");
+    const productsGridApps = document.getElementById("productsGridApps");
+    const productsGridProductions = document.getElementById("productsGridProductions");
     const servicesGrid = document.getElementById("servicesGrid");
 
-    function renderProducts(){
-      productsGrid.innerHTML = PRODUCTS.map(p => `
+    function productCard(p){
+      return `
         <div class="product">
           <div class="name">${escapeHtml(p.name)}</div>
           <div class="desc">${escapeHtml(p.description)}</div>
-
+    
           <div class="meta">
             <div>${escapeHtml(p.priceText)}</div>
             <div class="sku">${escapeHtml(p.sku)}</div>
           </div>
-
+    
           <div class="btnRow">
-            <a class="btn" href="${p.page}">View product</a>
+            <a class="btn" href="${p.page}">View</a>
             <a class="btn secondary" href="${p.page}#buy">Get</a>
           </div>
         </div>
-      `).join("");
+      `;
+    }
+    
+    function renderProducts(){
+      const byCat = (cat) => PRODUCTS.filter(p => p.category === cat).map(productCard).join("");
+    
+      productsGridProducts.innerHTML = byCat("products");
+      productsGridApps.innerHTML = byCat("apps");
+      productsGridProductions.innerHTML = byCat("productions");
     }
 
     function renderServices(){

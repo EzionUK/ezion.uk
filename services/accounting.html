@@ -192,6 +192,94 @@
       color:rgba(255,255,255,.60);
       line-height:1.6;
     }
+
+    /* Top-right language/country switch (flag pill) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+    }
+    
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+    }
+    
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    
+    .lang.open .langMenu{ display: block; }
+    
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
   </style>
 </head>
 
@@ -199,6 +287,25 @@
   <div class="bg" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+  <!-- Top-right language/country switch -->
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+  
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+    </div>
+  </div>
 
   <!-- <div class="mark" aria-hidden="true">
     <span class="dot"></span><span>Ezion Ltd</span>
@@ -255,7 +362,7 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Starter</div>
-              <div class="tierPrice">From £149</div>
+              <div class="tierPrice" id="priceStarter"></div>
             </div>
             <ul>
               <li>1-off review / cleanup</li>
@@ -270,7 +377,7 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Standard</div>
-              <div class="tierPrice">From £499/mo</div>
+              <div class="tierPrice" id="priceStandard"></div>
             </div>
             <ul>
               <li>Monthly bookkeeping support</li>
@@ -285,7 +392,7 @@
           <div class="tier">
             <div class="tierTop">
               <div class="tierName">Pro</div>
-              <div class="tierPrice">From £999/mo</div>
+              <div class="tierPrice" id="pricePro"></div>
             </div>
             <ul>
               <li>Full finance ops support</li>
@@ -310,33 +417,54 @@
   <script src="../assets/locale.js"></script>
   <script>
     function mailto(subject, tier){
+      const ctx = EzionLocale.getContext();
       const body =
-`Hello Ezion,
-
-I'd like to request a quote for:
-
-- Service: Accounting services
-- Tier: ${tier || "Custom / Not sure"}
-- Current accounting system (Xero/Zoho/Other):
-- Approx. monthly transactions:
-- What you need done:
-- Timeline:
-- Budget range (optional):
-
-Thanks.`;
+  `Hello Ezion,
+  
+  I'd like to request a quote for:
+  
+  - Service: Accounting services
+  - Tier: ${tier || "Custom / Not sure"}
+  - Country: ${ctx.country}
+  - Preferred currency: ${ctx.currency}
+  - Current accounting system (Xero/Zoho/Other):
+  - Approx. monthly transactions:
+  - What you need done:
+  - Timeline:
+  - Budget range (optional):
+  
+  Thanks.`;
       return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
-
-    // Main quote button
-    const btnQuote = document.getElementById("btnQuote");
-    btnQuote.href = mailto("Quote: Accounting (Custom)", "");
-
-    // Tier buttons
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest("a[data-tier]");
-      if (!a) return;
-      const tier = a.getAttribute("data-tier") || "";
-      a.href = mailto(`Quote: Accounting (${tier})`, tier);
+  
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+  
+      // Prices (base in GBP)
+      const starter = EzionLocale.formatPrice({ type:"from", amount:149, currency:"GBP" }, ctx);
+      const standard = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
+      const pro = EzionLocale.formatPrice({ type:"from", amount:999, currency:"GBP" }, ctx);
+  
+      document.getElementById("priceStarter").textContent = starter;
+      document.getElementById("priceStandard").textContent = `${standard}/mo`;
+      document.getElementById("pricePro").textContent = `${pro}/mo`;
+  
+      // Main quote button
+      document.getElementById("btnQuote").href = mailto("Quote: Accounting (Custom)", "");
+  
+      // Tier buttons (set hrefs now; no need to mutate on click)
+      document.querySelectorAll("a[data-tier]").forEach(a => {
+        const tier = a.getAttribute("data-tier") || "";
+        a.href = mailto(`Quote: Accounting (${tier})`, tier);
+      });
+  
+      // Optional: update title per country
+      document.title = (ctx.country === "SG") ? "Accounting Services | Ezion (SG)" : "Accounting Services | Ezion UK";
+    }
+  
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
     });
   </script>
 </body>

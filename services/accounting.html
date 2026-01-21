@@ -687,7 +687,7 @@ Thanks.`;
       const standard = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
       const pro = EzionLocale.formatPrice({ type:"from", amount:999, currency:"GBP" }, ctx);
 
-      document.getElementById("priceStarter").textContent = starter;
+      document.getElementById("priceStarter").textContent = ${starter}${t.perMonth};
       document.getElementById("priceStandard").textContent = `${standard}${t.perMonth}`;
       document.getElementById("pricePro").textContent = `${pro}${t.perMonth}`;
 

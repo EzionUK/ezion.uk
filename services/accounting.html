@@ -182,38 +182,43 @@
       color:rgba(255,255,255,.60);
       line-height:1.6;
     }
-
-    /* Top-right language/country switch (flag pill) */
+    
+    /* Top-right language/country switch + Home pill */
     .lang{
       position: fixed;
       top: 18px;
       right: 18px;
       z-index: 6;
-      display:flex;
-      gap:10px;
-      align-items:center;
+    
+      /* NEW: make pills sit side-by-side */
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
-
+    
     .langBtn{
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-height: 44px;
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
       color: rgba(255,255,255,.92);
       border-radius: 999px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none; /* for <a> */
     }
-
+    
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-
+    
+    /* Flag bubble */
     .flag{
       width: 28px;
       height: 28px;
@@ -224,14 +229,18 @@
       font-size: 16px;
       background: rgba(255,255,255,.08);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
     }
-
+    
+    /* Text */
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
-
+    
+    /* Menu */
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -245,9 +254,9 @@
       padding: 8px;
       display: none;
     }
-
+    
     .lang.open .langMenu{ display: block; }
-
+    
     .langItem{
       width: 100%;
       display: grid;
@@ -262,17 +271,37 @@
       cursor: pointer;
       text-align: left;
     }
-
+    
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-
+    
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
       letter-spacing: .02em;
     }
+    
+    /* Spacer used when a pill needs "flag space" without a flag */
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
+    
+    /* Home pill: content-sized, same height, no reserved flag space */
+    .homeBtn{
+      padding: 0 14px;     /* keep same feel as langBtn */
+      gap: 8px;
+      min-width: unset;    /* IMPORTANT: stop it being overly wide */
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+    
+    /* Auto-hide home button when already on home */
+    .lang[data-route="home"] .homeBtn{ display:none; }
   </style>
 </head>
 
@@ -281,43 +310,41 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- Top-right language/country switch + Home button -->
-  <div class="lang" id="lang">
-
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="home">
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
       <span class="langText" id="langText">English</span>
     </button>
-
+  
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
       <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
         <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
       </button>
-
       <button class="langItem" role="menuitem" type="button" data-locale="us-en">
         <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
       </button>
-
       <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
         <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
-        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
       </button>
-
       <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
         <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
-        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
-        <span class="flag">🇨🇳</span><span>中文</span><span class="langMeta">CNY · CN</span>
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
       </button>
-      <a class="langbtn" href="../index.html" aria-label="Home">
-        <span class="langText" id="homeBtnText">Home</span>
-      </a>
     </div>
+  
+    <!-- Home pill (hide on home via data-route) -->
+    <a class="langBtn homeBtn" href="#" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">主页</span>
+    </a>
   </div>
 
   <main class="wrap">
@@ -575,6 +602,8 @@
       document.getElementById("quoteTitle").textContent = t.quoteTitle;
       document.getElementById("quoteBody").textContent = t.quoteBody;
       document.getElementById("btnQuote").textContent = t.btnQuote;
+
+      document.getElementById("lang").dataset.route = "other"
 
       // Discovery line text (keep existing <a> element)
       const discoveryLine = document.getElementById("discoveryLine");

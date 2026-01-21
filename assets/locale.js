@@ -79,6 +79,78 @@
         registrationLabel: "UEN",
         registrationValue: "待定"
       }
+    },
+
+    // -----------------------------
+    // NEW: Hong Kong (EN)
+    // -----------------------------
+    "hk-en": {
+      lang: "en",
+      country: "HK",
+      currency: "HKD",
+      numberLocale: "en-HK",
+
+      contact: {
+        email: "contact@ezion.uk",
+        phone: "+852 5704 4532/ +86 1717 0494 532",
+        whatsapp: null
+      },
+
+      company: {
+        legalName: "Ezion Pte Ltd",
+        jurisdiction: "Singapore",
+        status: "Operating",
+        registrationLabel: null,
+        registrationValue: null
+      }
+    },
+
+    // -----------------------------
+    // NEW: Hong Kong (中文)
+    // -----------------------------
+    "hk-zh": {
+      lang: "zh",
+      country: "HK",
+      currency: "HKD",
+      numberLocale: "zh-HK",
+
+      contact: {
+        email: "contact@ezion.uk",
+        phone: "+852 5704 4532/ +86 1717 0494 532",
+        whatsapp: null
+      },
+
+      company: {
+        legalName: "Ezion Ltd",
+        jurisdiction: "香港",
+        status: "运营中",
+        registrationLabel: null,
+        registrationValue: null
+      }
+    },
+
+    // -----------------------------
+    // NEW: United States (EN)
+    // -----------------------------
+    "us-en": {
+      lang: "en",
+      country: "US",
+      currency: "USD",
+      numberLocale: "en-US",
+
+      contact: {
+        email: "contact@ezion.uk",
+        phone: "+1 (864) 468-9899",
+        whatsapp: null
+      },
+
+      company: {
+        legalName: "Ezion Ltd",
+        jurisdiction: "United Kingdom",
+        status: "Operating",
+        registrationLabel: null,
+        registrationValue: null
+      }
     }
   };
 
@@ -87,7 +159,21 @@
   // -----------------------------
   const FX = {
     "GBP:SGD": 1.72,
-    "SGD:GBP": 1 / 1.72
+    "SGD:GBP": 1 / 1.72,
+
+    // Added for new currencies (placeholder rates; edit to your live rates)
+    "GBP:HKD": 9.90,
+    "HKD:GBP": 1 / 9.90,
+    "GBP:USD": 1.27,
+    "USD:GBP": 1 / 1.27,
+
+    // Convenience routes (optional)
+    "SGD:HKD": 9.90 / 1.72,
+    "HKD:SGD": 1.72 / 9.90,
+    "SGD:USD": 1.27 / 1.72,
+    "USD:SGD": 1.72 / 1.27,
+    "HKD:USD": 1.27 / 9.90,
+    "USD:HKD": 9.90 / 1.27
   };
 
   // -----------------------------
@@ -95,8 +181,11 @@
   // -----------------------------
   const PILL_MAP = {
     "uk-en": { flag: "🇬🇧", text: "English" },
+    "us-en": { flag: "🇺🇸", text: "English" },
     "sg-en": { flag: "🇸🇬", text: "English" },
-    "sg-zh": { flag: "🇸🇬", text: "中文" }
+    "sg-zh": { flag: "🇸🇬", text: "中文" },
+    "hk-en": { flag: "🇭🇰", text: "English" },
+    "hk-zh": { flag: "🇭🇰", text: "中文" },
   };
 
   const STORAGE_KEY = "ezion_locale";
@@ -143,9 +232,22 @@
   }
 
   function convertAmount(amount, from, to) {
-    if (from === to) return amount;
-    const rate = FX[`${from}:${to}`];
-    return rate ? amount * rate : amount;
+    const f = String(from || "").toUpperCase();
+    const tcur = String(to || "").toUpperCase();
+    if (!f || !tcur || f === tcur) return amount;
+
+    const direct = FX[`${f}:${tcur}`];
+    if (typeof direct === "number" && isFinite(direct)) return amount * direct;
+
+    // Fallback: try via GBP if available
+    if (f !== "GBP" && tcur !== "GBP") {
+      const toGBP = FX[`${f}:GBP`];
+      const fromGBP = FX[`GBP:${tcur}`];
+      if (typeof toGBP === "number" && typeof fromGBP === "number") {
+        return amount * toGBP * fromGBP;
+      }
+    }
+    return amount;
   }
 
   function formatPrice(price, ctxOverride) {
@@ -156,14 +258,14 @@
 
     const converted = convertAmount(
       price.amount,
-      price.currency || "GBP",
+      (price.currency || "GBP").toUpperCase(),
       ctx.currency
     );
 
     const val = money(converted, ctx.currency, ctx.numberLocale);
 
     return price.type === "from"
-      ? ctx.lang === "zh" ? `${val} ${t("from")} ` : `${t("from")} ${val}`
+      ? (ctx.lang === "zh" ? `${val} ${t("from")}` : `${t("from")} ${val}`)
       : val;
   }
 
@@ -203,7 +305,7 @@
 
     document.querySelectorAll("[data-phone]").forEach(el => {
       el.textContent = phone;
-      el.href = `tel:${phone.replace(/\s+/g, "")}`;
+      el.href = `tel:${String(phone).replace(/\s+/g, "")}`;
     });
 
     document.querySelectorAll("[data-whatsapp]").forEach(el => {
@@ -211,7 +313,7 @@
         el.style.display = "none";
       } else {
         el.style.display = "";
-        el.href = `https://wa.me/${wa.replace(/\D/g, "")}`;
+        el.href = `https://wa.me/${String(wa).replace(/\D/g, "")}`;
       }
     });
   }
@@ -234,7 +336,7 @@
   // Lang pill wiring
   // -----------------------------
   function setLangPill(key) {
-    const m = PILL_MAP[key];
+    const m = PILL_MAP[key] || PILL_MAP[DEFAULT_LOCALE];
     if ($("langFlag")) $("langFlag").textContent = m.flag;
     if ($("langText")) $("langText").textContent = m.text;
   }
@@ -254,10 +356,14 @@
       const item = e.target.closest("[data-locale]");
       if (!item) return;
       const key = item.dataset.locale;
+      if (!LOCALES[key]) return;
+
       setSavedLocaleKey(key);
       setLangPill(key);
+
       const ctx = getContext();
       document.documentElement.lang = ctx.lang === "zh" ? "zh-Hans" : "en";
+
       onChange && onChange(ctx);
       wrap.classList.remove("open");
     };

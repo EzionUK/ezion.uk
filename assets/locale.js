@@ -1,14 +1,6 @@
 /* assets/locale.js
    Shared locale + currency + i18n + contact helpers for ezion.uk
    Drop-in replacement (extends previous version)
-
-   Usage:
-     <script src="/assets/locale.js"></script>
-
-     EzionLocale.init({
-       onReady(ctx){ ... },
-       onChange(ctx){ ... }
-     });
 */
 
 (function () {
@@ -23,13 +15,7 @@
       country: "UK",
       currency: "GBP",
       numberLocale: "en-GB",
-
-      contact: {
-        email: "contact@ezion.uk",
-        phone: "+44 7733 9344449",
-        whatsapp: null
-      },
-
+      contact: { email: "contact@ezion.uk", phone: "+44 7733 9344449", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "United Kingdom",
@@ -44,13 +30,7 @@
       country: "SG",
       currency: "SGD",
       numberLocale: "en-SG",
-
-      contact: {
-        email: "ezionsg@gmail.com",
-        phone: "+65 9622 2887",
-        whatsapp: "+6596222887"
-      },
-
+      contact: { email: "ezionsg@gmail.com", phone: "+65 9622 2887", whatsapp: "+6596222887" },
       company: {
         legalName: "Ezion Pte Ltd",
         jurisdiction: "Singapore",
@@ -60,18 +40,13 @@
       }
     },
 
+    // Singapore - 中文 (Simplified)
     "sg-zh": {
       lang: "zh",
       country: "SG",
       currency: "SGD",
       numberLocale: "zh-SG",
-
-      contact: {
-        email: "ezionsg@gmail.com",
-        phone: "+65 9622 2887",
-        whatsapp: "+6596222887"
-      },
-
+      contact: { email: "ezionsg@gmail.com", phone: "+65 9622 2887", whatsapp: "+6596222887" },
       company: {
         legalName: "Ezion Pte Ltd",
         jurisdiction: "新加坡",
@@ -81,21 +56,13 @@
       }
     },
 
-    // -----------------------------
-    // NEW: Hong Kong (EN)
-    // -----------------------------
+    // Hong Kong (EN)
     "hk-en": {
       lang: "en",
       country: "HK",
       currency: "HKD",
       numberLocale: "en-HK",
-
-      contact: {
-        email: "contact@ezion.uk",
-        phone: "+852 5704 4532/ +86 1717 0494 532",
-        whatsapp: null
-      },
-
+      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532/ +86 1717 0494 532", whatsapp: null },
       company: {
         legalName: "Ezion Pte Ltd",
         jurisdiction: "Singapore",
@@ -105,49 +72,57 @@
       }
     },
 
-    // -----------------------------
-    // NEW: Hong Kong (中文)
-    // -----------------------------
+    // Hong Kong - 中文 (Traditional)
     "hk-zh": {
       lang: "zh",
       country: "HK",
       currency: "HKD",
       numberLocale: "zh-HK",
-
-      contact: {
-        email: "contact@ezion.uk",
-        phone: "+852 5704 4532/ +86 1717 0494 532",
-        whatsapp: null
-      },
-
+      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532/ +86 1717 0494 532", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "香港",
-        status: "运营中",
+        status: "營運中",
+        registrationLabel: null,
+        registrationValue: null
+      }
+    },
+
+    // United States (EN)
+    "us-en": {
+      lang: "en",
+      country: "US",
+      currency: "USD",
+      numberLocale: "en-US",
+      contact: { email: "contact@ezion.uk", phone: "+1 (864) 468-9899", whatsapp: null },
+      company: {
+        legalName: "Ezion Ltd",
+        jurisdiction: "United Kingdom",
+        status: "Operating",
         registrationLabel: null,
         registrationValue: null
       }
     },
 
     // -----------------------------
-    // NEW: United States (EN)
+    // NEW: China - 中文 (Simplified)
     // -----------------------------
-    "us-en": {
-      lang: "en",
-      country: "US",
-      currency: "USD",
-      numberLocale: "en-US",
+    "cn-zh": {
+      lang: "zh",
+      country: "CN",
+      currency: "CNY",
+      numberLocale: "zh-CN",
 
       contact: {
         email: "contact@ezion.uk",
-        phone: "+1 (864) 468-9899",
+        phone: "+86 1717 0494 532",
         whatsapp: null
       },
 
       company: {
         legalName: "Ezion Ltd",
-        jurisdiction: "United Kingdom",
-        status: "Operating",
+        jurisdiction: "英国",
+        status: "运营中",
         registrationLabel: null,
         registrationValue: null
       }
@@ -161,11 +136,15 @@
     "GBP:SGD": 1.72,
     "SGD:GBP": 1 / 1.72,
 
-    // Added for new currencies (placeholder rates; edit to your live rates)
     "GBP:HKD": 9.90,
     "HKD:GBP": 1 / 9.90,
+
     "GBP:USD": 1.27,
     "USD:GBP": 1 / 1.27,
+
+    // NEW: CNY placeholders (edit to live rates)
+    "GBP:CNY": 9.20,
+    "CNY:GBP": 1 / 9.20,
 
     // Convenience routes (optional)
     "SGD:HKD": 9.90 / 1.72,
@@ -173,7 +152,15 @@
     "SGD:USD": 1.27 / 1.72,
     "USD:SGD": 1.72 / 1.27,
     "HKD:USD": 1.27 / 9.90,
-    "USD:HKD": 9.90 / 1.27
+    "USD:HKD": 9.90 / 1.27,
+
+    // NEW convenience for CNY
+    "SGD:CNY": 9.20 / 1.72,
+    "CNY:SGD": 1.72 / 9.20,
+    "HKD:CNY": 9.20 / 9.90,
+    "CNY:HKD": 9.90 / 9.20,
+    "USD:CNY": 9.20 / 1.27,
+    "CNY:USD": 1.27 / 9.20
   };
 
   // -----------------------------
@@ -186,6 +173,7 @@
     "sg-zh": { flag: "🇸🇬", text: "中文" },
     "hk-en": { flag: "🇭🇰", text: "English" },
     "hk-zh": { flag: "🇭🇰", text: "中文" },
+    "cn-zh": { flag: "🇨🇳", text: "中文" }
   };
 
   const STORAGE_KEY = "ezion_locale";
@@ -341,6 +329,14 @@
     if ($("langText")) $("langText").textContent = m.text;
   }
 
+  function htmlLangFromCtx(ctx){
+    // Traditional: Hong Kong 中文
+    if (ctx.key === "hk-zh") return "zh-Hant";
+    // Simplified: SG/CN 中文
+    if (ctx.lang === "zh") return "zh-Hans";
+    return "en";
+  }
+
   function wireLangMenu(onChange) {
     const wrap = $("lang");
     const btn = $("langBtn");
@@ -362,7 +358,7 @@
       setLangPill(key);
 
       const ctx = getContext();
-      document.documentElement.lang = ctx.lang === "zh" ? "zh-Hans" : "en";
+      document.documentElement.lang = htmlLangFromCtx(ctx);
 
       onChange && onChange(ctx);
       wrap.classList.remove("open");
@@ -396,7 +392,7 @@
       const key = getSavedLocaleKey();
       setLangPill(key);
       const ctx = getContext();
-      document.documentElement.lang = ctx.lang === "zh" ? "zh-Hans" : "en";
+      document.documentElement.lang = (ctx.key === "hk-zh") ? "zh-Hant" : (ctx.lang === "zh" ? "zh-Hans" : "en");
       wireLangMenu(opts.onChange);
       opts.onReady && opts.onReady(ctx);
       return ctx;

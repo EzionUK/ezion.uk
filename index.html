@@ -195,6 +195,94 @@
       outline: none;
     }
 
+    /* Top-right language switch (flag pill) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+    }
+    
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+    }
+    
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    
+    .lang.open .langMenu{ display: block; }
+    
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
     /* Slide-over About panel */
     .panel{
       position: fixed;
@@ -421,6 +509,26 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- Top-right language/country switch -->
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+  
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+    </div>
+  </div>
+
   <main class="wrap">
     <!-- HOME VIEW -->
     <section class="center view active" id="view-home" aria-label="Home">
@@ -497,15 +605,6 @@
     <div>
       <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
     </div>
-    <!-- Locale selector -->
-      <div class="localeWrap" title="Country / Language">
-        <label for="localeSelect" id="localeLabel">Locale</label>
-        <select class="localeSelect" id="localeSelect" aria-label="Choose country and language">
-          <option value="uk-en">United Kingdom · English · GBP</option>
-          <option value="sg-en">Singapore · English · SGD</option>
-          <option value="sg-zh">新加坡 · 中文 · SGD</option>
-        </select>
-      </div>
   </footer>
 
   <!-- About Us panel -->
@@ -996,10 +1095,58 @@
       servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
     }
 
-    // Locale selector init
-    const localeSelect = document.getElementById("localeSelect");
-    localeSelect.value = getSavedLocaleKey();
-    localeSelect.addEventListener("change", () => {
+    // Top-right language menu wiring
+    const langWrap = document.getElementById("lang");
+    const langBtn = document.getElementById("langBtn");
+    const langMenu = document.getElementById("langMenu");
+    const langFlag = document.getElementById("langFlag");
+    const langText = document.getElementById("langText");
+    
+    function setLangPill(localeKey){
+      // Map locale -> pill appearance
+      const map = {
+        "uk-en": { flag: "🇬🇧", text: "English" },
+        "sg-en": { flag: "🇸🇬", text: "English" },
+        "sg-zh": { flag: "🇸🇬", text: "中文" }
+      };
+      const v = map[localeKey] || map["uk-en"];
+      langFlag.textContent = v.flag;
+      langText.textContent = v.text;
+    }
+    
+    function openLangMenu(){
+      langWrap.classList.add("open");
+      langBtn.setAttribute("aria-expanded", "true");
+    }
+    function closeLangMenu(){
+      langWrap.classList.remove("open");
+      langBtn.setAttribute("aria-expanded", "false");
+    }
+    
+    langBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (langWrap.classList.contains("open")) closeLangMenu();
+      else openLangMenu();
+    });
+    
+    langMenu.addEventListener("click", (e) => {
+      const item = e.target.closest("[data-locale]");
+      if (!item) return;
+      const key = item.getAttribute("data-locale");
+      setSavedLocaleKey(key);
+      setLangPill(key);
+      renderAll();
+      closeLangMenu();
+    });
+    
+    // Close on outside click / Esc
+    document.addEventListener("click", () => closeLangMenu());
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLangMenu();
+    });
+    
+    // Init pill from saved locale
+    setLangPill(getSavedLocaleKey());
       setSavedLocaleKey(localeSelect.value);
       renderAll();
     });

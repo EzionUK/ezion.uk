@@ -603,7 +603,7 @@
 
   <footer class="footer">
     <div>
-      <a data-contact-email href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+      <a data-contact-email href="#">contact@ezion.uk</a>
     </div>
   </footer>
 
@@ -649,10 +649,10 @@
           <div class="h" id="contactTitle">Contact</div>
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
             <div>
-              <div><a data-contact-email href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+              <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
               <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
             </div>
-            <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
+            <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email>Copy</button>
           </div>
 
           <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
@@ -882,6 +882,21 @@
         .replaceAll("'", "&#039;");
     }
 
+    function applyContactEmail(){
+      const email = EzionLocale.getContactEmail();
+    
+      // Update mailto links
+      document.querySelectorAll("[data-contact-email]").forEach(el => {
+        el.textContent = email;
+        el.href = `mailto:${email}`;
+      });
+    
+      // Update copy buttons
+      document.querySelectorAll("[data-copy-email]").forEach(btn => {
+        btn.setAttribute("data-copy", email);
+      });
+    }
+    
     function applyCompanyInfo(){
       const c = EzionLocale.getCompanyInfo();
       if (!c) return;
@@ -1060,11 +1075,13 @@
     EzionLocale.init({
       onReady(){
         renderAll();                // prices, text, etc.
+        applyContactEmail();
         applyCompanyInfo();
         EzionLocale.applyContactTargets();
       },
       onChange(){
         renderAll();
+        applyContactEmail();
         applyCompanyInfo();
         EzionLocale.applyContactTargets();
       }

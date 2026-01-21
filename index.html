@@ -818,7 +818,7 @@
       const converted = convertAmount(price.amount, baseCcy, targetCcy);
       const formatted = money(converted, targetCcy, localeInfo.numberLocale);
 
-      if (price.type === "from") return (localeInfo.lang === "zh") ? `起 ${formatted}` : `From ${formatted}`;
+      if (price.type === "from") return (localeInfo.lang === "zh") ? `${formatted} 起` : `From ${formatted}`;
       return formatted;
     }
 

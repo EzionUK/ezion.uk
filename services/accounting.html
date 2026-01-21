@@ -50,16 +50,6 @@
       z-index:-1;
     }
 
-    .mark{
-      position:fixed; top:18px; left:18px;
-      display:flex; gap:10px; align-items:center;
-      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      color:rgba(255,255,255,.62);
-      z-index:5;
-      user-select:none;
-    }
-    .dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.62); }
-
     .wrap{
       min-height:100%;
       display:grid;
@@ -199,8 +189,11 @@
       top: 18px;
       right: 18px;
       z-index: 6;
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
-    
+
     .langBtn{
       display: inline-flex;
       align-items: center;
@@ -214,13 +207,13 @@
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
-    
+
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-    
+
     .flag{
       width: 28px;
       height: 28px;
@@ -232,13 +225,13 @@
       background: rgba(255,255,255,.08);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
     }
-    
+
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
-    
+
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -252,9 +245,9 @@
       padding: 8px;
       display: none;
     }
-    
+
     .lang.open .langMenu{ display: block; }
-    
+
     .langItem{
       width: 100%;
       display: grid;
@@ -269,12 +262,12 @@
       cursor: pointer;
       text-align: left;
     }
-    
+
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-    
+
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
@@ -287,59 +280,72 @@
   <div class="bg" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
-  <!-- Top-right language/country switch -->
+
+  <!-- Top-right language/country switch + Home button -->
   <div class="lang" id="lang">
+    <a class="langBtn" href="../index.html" aria-label="Home">
+      <span class="langText" id="homeBtnText">Home</span>
+    </a>
+
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
       <span class="langText" id="langText">English</span>
     </button>
-  
+
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
       <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
         <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
       </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+
       <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
         <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
         <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
       </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+      </button>
     </div>
   </div>
 
-  <!-- <div class="mark" aria-hidden="true">
-    <span class="dot"></span><span>Ezion Ltd</span>
-  </div> -->
-
   <main class="wrap">
     <article class="card">
-      <p class="kicker">Services</p>
-      <h1>Accounting services</h1>
-      <p class="sub">
+      <p class="kicker" id="kickerServices">Services</p>
+      <h1 id="pageTitle">Accounting services</h1>
+      <p class="sub" id="pageSub">
         Bookkeeping support, reporting, and finance ops. Choose a tier, or request a scoped quote.
       </p>
 
       <div class="grid">
         <!-- Left: what you get -->
         <section class="box">
-          <div class="h">What we do</div>
-          <p class="p">
+          <div class="h" id="whatWeDoTitle">What we do</div>
+          <p class="p" id="whatWeDoBody">
             We help keep accounts clean and usable: reconciliations, reporting, controls, and automation where it reduces errors.
           </p>
 
           <div class="divider"></div>
 
-          <div class="h">Typical deliverables</div>
+          <div class="h" id="deliverablesTitle">Typical deliverables</div>
           <ul>
-            <li>Setup or cleanup of bookkeeping systems</li>
-            <li>Monthly reconciliations and reporting packs</li>
-            <li>Process improvements and automation options</li>
+            <li id="d1">Setup or cleanup of bookkeeping systems</li>
+            <li id="d2">Monthly reconciliations and reporting packs</li>
+            <li id="d3">Process improvements and automation options</li>
           </ul>
 
           <div class="divider"></div>
 
-          <div class="h" id="quote">Request a quote</div>
-          <p class="p">
+          <div class="h" id="quoteTitle">Request a quote</div>
+          <p class="p" id="quoteBody">
             Email what system you use (Xero/Zoho/others), current volume, and what you need done.
           </p>
 
@@ -347,121 +353,364 @@
             <a class="btn" id="btnQuote" href="#">Request a quote</a>
           </div>
 
-          <p class="fine">
-            Prefer a quick call? <a class="backLink" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Request a discovery call</a>.
+          <p class="fine" id="discoveryLine">
+            Prefer a quick call? <a class="backLink" data-contact-email href="#">Request a discovery call</a>.
           </p>
         </section>
 
         <!-- Right: tiers -->
         <aside class="box">
-          <div class="h">Pricing tiers</div>
-          <p class="p" style="color:rgba(255,255,255,.70);">
+          <div class="h" id="pricingTitle">Pricing tiers</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="pricingSub">
             Starting prices. Final quote depends on transaction volume and complexity.
           </p>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Starter</div>
+              <div class="tierName" id="tierStarterName">Starter</div>
               <div class="tierPrice" id="priceStarter"></div>
             </div>
             <ul>
-              <li>1-off review / cleanup</li>
-              <li>P&L / balance sheet checks</li>
-              <li>Issue list + recommended actions</li>
+              <li id="s1">1-off review / cleanup</li>
+              <li id="s2">P&L / balance sheet checks</li>
+              <li id="s3">Issue list + recommended actions</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
+              <a class="btn" href="#" data-tier="Starter" id="btnStarter">Request Starter quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Standard</div>
+              <div class="tierName" id="tierStandardName">Standard</div>
               <div class="tierPrice" id="priceStandard"></div>
             </div>
             <ul>
-              <li>Monthly bookkeeping support</li>
-              <li>Reconciliation + reporting</li>
-              <li>Basic process improvements</li>
+              <li id="st1">Monthly bookkeeping support</li>
+              <li id="st2">Reconciliation + reporting</li>
+              <li id="st3">Basic process improvements</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
+              <a class="btn" href="#" data-tier="Standard" id="btnStandard">Request Standard quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Pro</div>
+              <div class="tierName" id="tierProName">Pro</div>
               <div class="tierPrice" id="pricePro"></div>
             </div>
             <ul>
-              <li>Full finance ops support</li>
-              <li>Automation + controls</li>
-              <li>Management reporting pack</li>
+              <li id="p1">Full finance ops support</li>
+              <li id="p2">Automation + controls</li>
+              <li id="p3">Management reporting pack</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
+              <a class="btn" href="#" data-tier="Pro" id="btnPro">Request Pro quote</a>
             </div>
           </div>
 
-          <p class="fine">
+          <p class="fine" id="note1">
             If you already have messy books, we can start with a cleanup and move to monthly support after.
           </p>
           <p class="fine">
-            <a class="btn secondary" href="../index.html#services">Back to Services</a>
+            <a class="btn secondary" href="../index.html#services" id="backToServices">Back to Services</a>
           </p>
         </aside>
       </div>
     </article>
   </main>
+
   <script src="../assets/locale.js"></script>
   <script>
+    const I18N = {
+      en: {
+        home: "Home",
+        kickerServices: "Services",
+        pageTitle: "Accounting services",
+        pageSub: "Bookkeeping support, reporting, and finance ops. Choose a tier, or request a scoped quote.",
+        whatWeDoTitle: "What we do",
+        whatWeDoBody: "We help keep accounts clean and usable: reconciliations, reporting, controls, and automation where it reduces errors.",
+        deliverablesTitle: "Typical deliverables",
+        d1: "Setup or cleanup of bookkeeping systems",
+        d2: "Monthly reconciliations and reporting packs",
+        d3: "Process improvements and automation options",
+        quoteTitle: "Request a quote",
+        quoteBody: "Email what system you use (Xero/Zoho/others), current volume, and what you need done.",
+        btnQuote: "Request a quote",
+        discoveryLinePrefix: "Prefer a quick call? ",
+        discoveryLink: "Request a discovery call",
+        discoveryLineSuffix: ".",
+        pricingTitle: "Pricing tiers",
+        pricingSub: "Starting prices. Final quote depends on transaction volume and complexity.",
+        tierStarterName: "Starter",
+        tierStandardName: "Standard",
+        tierProName: "Pro",
+        btnStarter: "Request Starter quote",
+        btnStandard: "Request Standard quote",
+        btnPro: "Request Pro quote",
+        s1: "1-off review / cleanup",
+        s2: "P&L / balance sheet checks",
+        s3: "Issue list + recommended actions",
+        st1: "Monthly bookkeeping support",
+        st2: "Reconciliation + reporting",
+        st3: "Basic process improvements",
+        p1: "Full finance ops support",
+        p2: "Automation + controls",
+        p3: "Management reporting pack",
+        note1: "If you already have messy books, we can start with a cleanup and move to monthly support after.",
+        backToServices: "Back to Services",
+        perMonth: "/mo"
+      },
+
+      // Simplified Chinese (sg-zh)
+      "zh-Hans": {
+        home: "主页",
+        kickerServices: "服务",
+        pageTitle: "会计服务",
+        pageSub: "簿记支持、报表与财务运营。请选择一个方案，或提交需求以获取定制报价。",
+        whatWeDoTitle: "我们做什么",
+        whatWeDoBody: "我们帮助把账做“干净且可用”：对账、报表、内部控制，以及在能降低错误的地方做自动化。",
+        deliverablesTitle: "常见交付物",
+        d1: "账务系统搭建或清理",
+        d2: "每月对账与报表包",
+        d3: "流程优化与自动化选项",
+        quoteTitle: "索取报价",
+        quoteBody: "请邮件说明你使用的系统（Xero/Zoho/其他）、当前业务量，以及需要我们做什么。",
+        btnQuote: "索取报价",
+        discoveryLinePrefix: "想先快速沟通？",
+        discoveryLink: "预约一次沟通电话",
+        discoveryLineSuffix: "。",
+        pricingTitle: "价格方案",
+        pricingSub: "起步价。最终报价取决于交易量与复杂度。",
+        tierStarterName: "入门",
+        tierStandardName: "标准",
+        tierProName: "专业",
+        btnStarter: "索取入门方案报价",
+        btnStandard: "索取标准方案报价",
+        btnPro: "索取专业方案报价",
+        s1: "一次性审阅 / 清理",
+        s2: "损益表 / 资产负债表检查",
+        s3: "问题清单 + 建议动作",
+        st1: "每月簿记支持",
+        st2: "对账 + 报表",
+        st3: "基础流程优化",
+        p1: "完整财务运营支持",
+        p2: "自动化 + 内控",
+        p3: "管理层报表包",
+        note1: "如果你目前账务较乱，我们可以先做一次清理，再转入每月支持。",
+        backToServices: "返回服务列表",
+        perMonth: "/月"
+      },
+
+      // Traditional Chinese (hk-zh)
+      "zh-Hant": {
+        home: "主頁",
+        kickerServices: "服務",
+        pageTitle: "會計服務",
+        pageSub: "簿記支援、報表與財務營運。請選擇方案，或提交需求以索取訂製報價。",
+        whatWeDoTitle: "我們做什麼",
+        whatWeDoBody: "我們協助把帳目整理得「乾淨且可用」：對帳、報表、內控，以及在能降低錯誤的地方做自動化。",
+        deliverablesTitle: "常見交付內容",
+        d1: "簿記系統設定或清理",
+        d2: "每月對帳與報表包",
+        d3: "流程改善與自動化選項",
+        quoteTitle: "索取報價",
+        quoteBody: "請電郵說明你使用的系統（Xero/Zoho/其他）、目前量級，以及需要我們做什麼。",
+        btnQuote: "索取報價",
+        discoveryLinePrefix: "想先簡短溝通？",
+        discoveryLink: "預約一次溝通電話",
+        discoveryLineSuffix: "。",
+        pricingTitle: "價格方案",
+        pricingSub: "起步價。最終報價取決於交易量與複雜度。",
+        tierStarterName: "入門",
+        tierStandardName: "標準",
+        tierProName: "專業",
+        btnStarter: "索取入門方案報價",
+        btnStandard: "索取標準方案報價",
+        btnPro: "索取專業方案報價",
+        s1: "一次性檢視 / 清理",
+        s2: "損益表 / 資產負債表檢查",
+        s3: "問題清單 + 建議行動",
+        st1: "每月簿記支援",
+        st2: "對帳 + 報表",
+        st3: "基礎流程改善",
+        p1: "完整財務營運支援",
+        p2: "自動化 + 內控",
+        p3: "管理層報表包",
+        note1: "如果你目前帳目較亂，我們可先做一次清理，再轉為每月支援。",
+        backToServices: "返回服務列表",
+        perMonth: "/月"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function applyText(ctx){
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      document.getElementById("homeBtnText").textContent = t.home;
+
+      document.getElementById("kickerServices").textContent = t.kickerServices;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
+      document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
+
+      document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
+      document.getElementById("d1").textContent = t.d1;
+      document.getElementById("d2").textContent = t.d2;
+      document.getElementById("d3").textContent = t.d3;
+
+      document.getElementById("quoteTitle").textContent = t.quoteTitle;
+      document.getElementById("quoteBody").textContent = t.quoteBody;
+      document.getElementById("btnQuote").textContent = t.btnQuote;
+
+      // Discovery line text (keep existing <a> element)
+      const discoveryLine = document.getElementById("discoveryLine");
+      const discoveryA = discoveryLine ? discoveryLine.querySelector("a") : null;
+      if (discoveryLine && discoveryA){
+        discoveryLine.childNodes.forEach(n => {
+          if (n.nodeType === Node.TEXT_NODE) n.textContent = "";
+        });
+        discoveryLine.innerHTML = `${t.discoveryLinePrefix} <a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+      }
+
+      document.getElementById("pricingTitle").textContent = t.pricingTitle;
+      document.getElementById("pricingSub").textContent = t.pricingSub;
+
+      document.getElementById("tierStarterName").textContent = t.tierStarterName;
+      document.getElementById("tierStandardName").textContent = t.tierStandardName;
+      document.getElementById("tierProName").textContent = t.tierProName;
+
+      document.getElementById("btnStarter").textContent = t.btnStarter;
+      document.getElementById("btnStandard").textContent = t.btnStandard;
+      document.getElementById("btnPro").textContent = t.btnPro;
+
+      document.getElementById("s1").textContent = t.s1;
+      document.getElementById("s2").textContent = t.s2;
+      document.getElementById("s3").textContent = t.s3;
+
+      document.getElementById("st1").textContent = t.st1;
+      document.getElementById("st2").textContent = t.st2;
+      document.getElementById("st3").textContent = t.st3;
+
+      document.getElementById("p1").textContent = t.p1;
+      document.getElementById("p2").textContent = t.p2;
+      document.getElementById("p3").textContent = t.p3;
+
+      document.getElementById("note1").textContent = t.note1;
+      document.getElementById("backToServices").textContent = t.backToServices;
+    }
+
+    function buildQuoteBody(ctx, tier){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh");
+      const lang = ctx.lang;
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想索取以下服務的報價：
+
+- 服務：會計服務
+- 方案：${tier || "自訂／未確定"}
+- 地區：${ctx.country}
+- 偏好貨幣：${ctx.currency}
+- 目前使用的會計系統（Xero／Zoho／其他）：
+- 每月大約交易筆數：
+- 需要處理的事項：
+- 時間表：
+- 預算範圍（可選）：
+
+謝謝。`;
+      }
+
+      if (isSimplified || lang === "zh"){
+        return `你好 Ezion，
+
+我想索取以下服务的报价：
+
+- 服务：会计服务
+- 方案：${tier || "自定义 / 不确定"}
+- 地区：${ctx.country}
+- 偏好货币：${ctx.currency}
+- 目前使用的会计系统（Xero / Zoho / 其他）：
+- 每月大约交易笔数：
+- 需要处理的事项：
+- 时间表：
+- 预算范围（可选）：
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
+
+I'd like to request a quote for:
+
+- Service: Accounting services
+- Tier: ${tier || "Custom / Not sure"}
+- Country: ${ctx.country}
+- Preferred currency: ${ctx.currency}
+- Current accounting system (Xero/Zoho/Other):
+- Approx. monthly transactions:
+- What you need done:
+- Timeline:
+- Budget range (optional):
+
+Thanks.`;
+    }
+
     function mailto(subject, tier){
       const ctx = EzionLocale.getContext();
-      const body =
-  `Hello Ezion,
-  
-  I'd like to request a quote for:
-  
-  - Service: Accounting services
-  - Tier: ${tier || "Custom / Not sure"}
-  - Country: ${ctx.country}
-  - Preferred currency: ${ctx.currency}
-  - Current accounting system (Xero/Zoho/Other):
-  - Approx. monthly transactions:
-  - What you need done:
-  - Timeline:
-  - Budget range (optional):
-  
-  Thanks.`;
-      return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const email = EzionLocale.getContactEmail("accounting") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+      const body = buildQuoteBody(ctx, tier);
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
-  
+
     function renderPage(){
       const ctx = EzionLocale.getContext();
-  
+
+      applyText(ctx);
+
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
       // Prices (base in GBP)
       const starter = EzionLocale.formatPrice({ type:"from", amount:149, currency:"GBP" }, ctx);
       const standard = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
       const pro = EzionLocale.formatPrice({ type:"from", amount:999, currency:"GBP" }, ctx);
-  
+
       document.getElementById("priceStarter").textContent = starter;
-      document.getElementById("priceStandard").textContent = `${standard}/mo`;
-      document.getElementById("pricePro").textContent = `${pro}/mo`;
-  
-      // Main quote button
+      document.getElementById("priceStandard").textContent = `${standard}${t.perMonth}`;
+      document.getElementById("pricePro").textContent = `${pro}${t.perMonth}`;
+
+      // Quote buttons
       document.getElementById("btnQuote").href = mailto("Quote: Accounting (Custom)", "");
-  
-      // Tier buttons (set hrefs now; no need to mutate on click)
       document.querySelectorAll("a[data-tier]").forEach(a => {
         const tier = a.getAttribute("data-tier") || "";
         a.href = mailto(`Quote: Accounting (${tier})`, tier);
       });
-  
-      // Optional: update title per country
-      document.title = (ctx.country === "SG") ? "Accounting Services | Ezion (SG)" : "Accounting Services | Ezion UK";
+
+      // Discovery call link routes to locale email
+      document.querySelectorAll("[data-contact-email]").forEach(a => {
+        const email = EzionLocale.getContactEmail("accounting") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+        a.href = `mailto:${email}?subject=${encodeURIComponent("Discovery call request")}`;
+      });
+
+      document.title =
+        (ctx.country === "SG") ? "Accounting Services | Ezion SG" :
+        (ctx.country === "HK") ? "Accounting Services | Ezion HK" :
+        (ctx.country === "US") ? "Accounting Services | Ezion US" :
+        "Accounting Services | Ezion UK";
     }
-  
+
     EzionLocale.init({
       onReady: renderPage,
       onChange: renderPage

@@ -825,7 +825,6 @@
     function applyText(langKey){
       const t = I18N[langKey] || I18N.en;
 
-      document.getElementById("localeLabel").textContent = t.locale;
       document.getElementById("openInfo").textContent = t.about;
       document.getElementById("btnProducts").textContent = t.products;
       document.getElementById("btnServices").textContent = t.services;
@@ -1144,13 +1143,10 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLangMenu();
     });
-    
+  
     // Init pill from saved locale
     setLangPill(getSavedLocaleKey());
-      setSavedLocaleKey(localeSelect.value);
-      renderAll();
-    });
-
+    
     // Init
     renderAll();
     onRoute();

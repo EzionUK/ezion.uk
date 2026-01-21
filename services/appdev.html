@@ -50,16 +50,6 @@
       z-index:-1;
     }
 
-    .mark{
-      position:fixed; top:18px; left:18px;
-      display:flex; gap:10px; align-items:center;
-      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      color:rgba(255,255,255,.62);
-      z-index:5;
-      user-select:none;
-    }
-    .dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.62); }
-
     .wrap{
       min-height:100%;
       display:grid;
@@ -192,6 +182,98 @@
       color:rgba(255,255,255,.60);
       line-height:1.6;
     }
+
+    /* Top-right language/country switch + Home button */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration:none;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display: block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
   </style>
 </head>
 
@@ -200,39 +282,71 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- <div class="mark" aria-hidden="true">
-    <span class="dot"></span><span>Ezion Ltd</span>
-  </div> -->
+  <!-- Top-right language/country switch + Home button -->
+  <div class="lang" id="lang">
+    <a class="langBtn" href="../index.html" aria-label="Home">
+      <span class="langText" id="homeBtnText">Home</span>
+    </a>
+
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+      </button>
+    </div>
+  </div>
 
   <main class="wrap">
     <article class="card">
-      <p class="kicker">Services</p>
-      <h1>iOS & Android app development</h1>
-      <p class="sub">
+      <p class="kicker" id="kickerServices">Services</p>
+      <h1 id="pageTitle">iOS & Android app development</h1>
+      <p class="sub" id="pageSub">
         Flutter builds, release support, and pragmatic delivery. Choose a tier, or request a scoped quote.
       </p>
 
       <div class="grid">
         <!-- Left: what you get -->
         <section class="box">
-          <div class="h">What we do</div>
-          <p class="p">
+          <div class="h" id="whatWeDoTitle">What we do</div>
+          <p class="p" id="whatWeDoBody">
             We build and ship cross-platform apps with clean UI, sensible architecture, and clear handover.
           </p>
 
           <div class="divider"></div>
 
-          <div class="h">Typical deliverables</div>
+          <div class="h" id="deliverablesTitle">Typical deliverables</div>
           <ul>
-            <li>App build + source repository (if required)</li>
-            <li>Deployment guidance (TestFlight / Internal testing)</li>
-            <li>Release checklist and handover notes</li>
+            <li id="d1">App build + source repository (if required)</li>
+            <li id="d2">Deployment guidance (TestFlight / Internal testing)</li>
+            <li id="d3">Release checklist and handover notes</li>
           </ul>
 
           <div class="divider"></div>
 
-          <div class="h" id="quote">Request a quote</div>
-          <p class="p">
+          <div class="h" id="quoteTitle">Request a quote</div>
+          <p class="p" id="quoteBody">
             Email a brief and we’ll respond with feasibility, scope, and next steps.
           </p>
 
@@ -240,78 +354,294 @@
             <a class="btn" id="btnQuote" href="#">Request a quote</a>
           </div>
 
-          <p class="fine">
-            Prefer a quick call? <a class="backLink" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Request a discovery call</a>.
+          <p class="fine" id="discoveryLine">
+            Prefer a quick call? <a class="backLink" data-contact-email href="#">Request a discovery call</a>.
           </p>
         </section>
 
         <!-- Right: tiers -->
         <aside class="box">
-          <div class="h">Pricing tiers</div>
-          <p class="p" style="color:rgba(255,255,255,.70);">
+          <div class="h" id="pricingTitle">Pricing tiers</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="pricingSub">
             Starting prices. Final quote depends on scope and timeline.
           </p>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Starter</div>
-              <div class="tierPrice">From £499</div>
+              <div class="tierName" id="tierStarterName">Starter</div>
+              <div class="tierPrice" id="priceStarter"></div>
             </div>
             <ul>
-              <li>1 screen / simple flow</li>
-              <li>Basic UI implementation</li>
-              <li>Build + install guide</li>
+              <li id="s1">1 screen / simple flow</li>
+              <li id="s2">Basic UI implementation</li>
+              <li id="s3">Build + install guide</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
+              <a class="btn" href="#" data-tier="Starter" id="btnStarter">Request Starter quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Standard</div>
-              <div class="tierPrice">From £1,499</div>
+              <div class="tierName" id="tierStandardName">Standard</div>
+              <div class="tierPrice" id="priceStandard"></div>
             </div>
             <ul>
-              <li>Multi-screen app</li>
-              <li>Auth / basic data storage</li>
-              <li>Testing setup (TestFlight/Internal)</li>
+              <li id="st1">Multi-screen app</li>
+              <li id="st2">Auth / basic data storage</li>
+              <li id="st3">Testing setup (TestFlight/Internal)</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
+              <a class="btn" href="#" data-tier="Standard" id="btnStandard">Request Standard quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Pro</div>
-              <div class="tierPrice">From £3,999</div>
+              <div class="tierName" id="tierProName">Pro</div>
+              <div class="tierPrice" id="pricePro"></div>
             </div>
             <ul>
-              <li>Release-ready build</li>
-              <li>Analytics / crash reporting setup</li>
-              <li>Store submission support</li>
+              <li id="p1">Release-ready build</li>
+              <li id="p2">Analytics / crash reporting setup</li>
+              <li id="p3">Store submission support</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
+              <a class="btn" href="#" data-tier="Pro" id="btnPro">Request Pro quote</a>
             </div>
           </div>
 
-          <p class="fine">
+          <p class="fine" id="note1">
             Need something custom (payments, subscriptions, iCloud/CloudKit, admin panel)? We’ll scope it.
           </p>
-           <p class="fine">
-            <a class="btn secondary" href="../index.html#services">Back to Services</a>
+          <p class="fine">
+            <a class="btn secondary" href="../index.html#services" id="backToServices">Back to Services</a>
           </p>
         </aside>
       </div>
     </article>
   </main>
 
+  <script src="../assets/locale.js"></script>
   <script>
-    function mailto(subject, tier){
-      const body =
-`Hello Ezion,
+    const I18N = {
+      en: {
+        home: "Home",
+        kickerServices: "Services",
+        pageTitle: "iOS & Android app development",
+        pageSub: "Flutter builds, release support, and pragmatic delivery. Choose a tier, or request a scoped quote.",
+        whatWeDoTitle: "What we do",
+        whatWeDoBody: "We build and ship cross-platform apps with clean UI, sensible architecture, and clear handover.",
+        deliverablesTitle: "Typical deliverables",
+        d1: "App build + source repository (if required)",
+        d2: "Deployment guidance (TestFlight / Internal testing)",
+        d3: "Release checklist and handover notes",
+        quoteTitle: "Request a quote",
+        quoteBody: "Email a brief and we’ll respond with feasibility, scope, and next steps.",
+        btnQuote: "Request a quote",
+        discoveryLinePrefix: "Prefer a quick call? ",
+        discoveryLink: "Request a discovery call",
+        discoveryLineSuffix: ".",
+        pricingTitle: "Pricing tiers",
+        pricingSub: "Starting prices. Final quote depends on scope and timeline.",
+        tierStarterName: "Starter",
+        tierStandardName: "Standard",
+        tierProName: "Pro",
+        btnStarter: "Request Starter quote",
+        btnStandard: "Request Standard quote",
+        btnPro: "Request Pro quote",
+        s1: "1 screen / simple flow",
+        s2: "Basic UI implementation",
+        s3: "Build + install guide",
+        st1: "Multi-screen app",
+        st2: "Auth / basic data storage",
+        st3: "Testing setup (TestFlight/Internal)",
+        p1: "Release-ready build",
+        p2: "Analytics / crash reporting setup",
+        p3: "Store submission support",
+        note1: "Need something custom (payments, subscriptions, iCloud/CloudKit, admin panel)? We’ll scope it.",
+        backToServices: "Back to Services",
+        perMonth: "/mo"
+      },
+
+      // Simplified Chinese (sg-zh)
+      "zh-Hans": {
+        home: "主页",
+        kickerServices: "服务",
+        pageTitle: "iOS 与 Android 应用开发",
+        pageSub: "Flutter 开发、上架支持与务实交付。请选择一个方案，或提交需求以获取定制报价。",
+        whatWeDoTitle: "我们做什么",
+        whatWeDoBody: "我们交付跨平台应用：干净的界面、合理的架构，以及清晰的交接。",
+        deliverablesTitle: "常见交付物",
+        d1: "应用构建 + 源码仓库（如需）",
+        d2: "发布/测试指导（TestFlight / 内测）",
+        d3: "发布清单与交接说明",
+        quoteTitle: "索取报价",
+        quoteBody: "请邮件发送简要需求，我们会回复可行性、范围与下一步。",
+        btnQuote: "索取报价",
+        discoveryLinePrefix: "想先快速沟通？",
+        discoveryLink: "预约一次沟通电话",
+        discoveryLineSuffix: "。",
+        pricingTitle: "价格方案",
+        pricingSub: "起步价。最终报价取决于范围与周期。",
+        tierStarterName: "入门",
+        tierStandardName: "标准",
+        tierProName: "专业",
+        btnStarter: "索取入门方案报价",
+        btnStandard: "索取标准方案报价",
+        btnPro: "索取专业方案报价",
+        s1: "1 个页面 / 简单流程",
+        s2: "基础 UI 实现",
+        s3: "构建 + 安装指引",
+        st1: "多页面应用",
+        st2: "登录/基础数据存储",
+        st3: "测试发布配置（TestFlight/内测）",
+        p1: "可上架版本交付",
+        p2: "分析/崩溃监控配置",
+        p3: "商店提交流程支持",
+        note1: "需要定制（支付、订阅、iCloud/CloudKit、管理后台）？我们可以单独评估并出范围。",
+        backToServices: "返回服务列表",
+        perMonth: "/月"
+      },
+
+      // Traditional Chinese (hk-zh)
+      "zh-Hant": {
+        home: "主頁",
+        kickerServices: "服務",
+        pageTitle: "iOS 與 Android 應用程式開發",
+        pageSub: "Flutter 開發、上架支援與務實交付。請選擇方案，或提交需求以索取訂製報價。",
+        whatWeDoTitle: "我們做什麼",
+        whatWeDoBody: "我們交付跨平台應用：乾淨的介面、合理的架構，以及清晰的交接。",
+        deliverablesTitle: "常見交付內容",
+        d1: "應用程式建置 + 原始碼儲存庫（如需要）",
+        d2: "部署/測試指引（TestFlight / 內部測試）",
+        d3: "上架檢核清單與交接說明",
+        quoteTitle: "索取報價",
+        quoteBody: "請電郵提供簡要需求，我們會回覆可行性、範圍與下一步。",
+        btnQuote: "索取報價",
+        discoveryLinePrefix: "想先簡短溝通？",
+        discoveryLink: "預約一次溝通電話",
+        discoveryLineSuffix: "。",
+        pricingTitle: "價格方案",
+        pricingSub: "起步價。最終報價取決於範圍與時程。",
+        tierStarterName: "入門",
+        tierStandardName: "標準",
+        tierProName: "專業",
+        btnStarter: "索取入門方案報價",
+        btnStandard: "索取標準方案報價",
+        btnPro: "索取專業方案報價",
+        s1: "1 個畫面 / 簡單流程",
+        s2: "基礎 UI 實作",
+        s3: "建置 + 安裝指引",
+        st1: "多畫面應用",
+        st2: "登入 / 基礎資料儲存",
+        st3: "測試發布設定（TestFlight/內測）",
+        p1: "可上架版本交付",
+        p2: "分析 / 當機回報設定",
+        p3: "商店提交流程支援",
+        note1: "需要客製（付款、訂閱、iCloud/CloudKit、後台）？我們可另行評估並訂範圍。",
+        backToServices: "返回服務列表",
+        perMonth: "/月"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function applyText(ctx){
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      document.getElementById("homeBtnText").textContent = t.home;
+
+      document.getElementById("kickerServices").textContent = t.kickerServices;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
+      document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
+
+      document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
+      document.getElementById("d1").textContent = t.d1;
+      document.getElementById("d2").textContent = t.d2;
+      document.getElementById("d3").textContent = t.d3;
+
+      document.getElementById("quoteTitle").textContent = t.quoteTitle;
+      document.getElementById("quoteBody").textContent = t.quoteBody;
+      document.getElementById("btnQuote").textContent = t.btnQuote;
+
+      const discoveryLine = document.getElementById("discoveryLine");
+      if (discoveryLine){
+        discoveryLine.innerHTML = `${t.discoveryLinePrefix}<a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+      }
+
+      document.getElementById("pricingTitle").textContent = t.pricingTitle;
+      document.getElementById("pricingSub").textContent = t.pricingSub;
+
+      document.getElementById("tierStarterName").textContent = t.tierStarterName;
+      document.getElementById("tierStandardName").textContent = t.tierStandardName;
+      document.getElementById("tierProName").textContent = t.tierProName;
+
+      document.getElementById("btnStarter").textContent = t.btnStarter;
+      document.getElementById("btnStandard").textContent = t.btnStandard;
+      document.getElementById("btnPro").textContent = t.btnPro;
+
+      document.getElementById("s1").textContent = t.s1;
+      document.getElementById("s2").textContent = t.s2;
+      document.getElementById("s3").textContent = t.s3;
+
+      document.getElementById("st1").textContent = t.st1;
+      document.getElementById("st2").textContent = t.st2;
+      document.getElementById("st3").textContent = t.st3;
+
+      document.getElementById("p1").textContent = t.p1;
+      document.getElementById("p2").textContent = t.p2;
+      document.getElementById("p3").textContent = t.p3;
+
+      document.getElementById("note1").textContent = t.note1;
+      document.getElementById("backToServices").textContent = t.backToServices;
+    }
+
+    function buildQuoteBody(ctx, tier){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh");
+      const lang = ctx.lang;
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想索取以下服務的報價：
+
+- 服務：iOS 與 Android 應用程式開發
+- 方案：${tier || "自訂／未確定"}
+- 簡要需求描述：
+- 時程：
+- 預算範圍（可選）：
+- 連結/截圖（可選）：
+
+謝謝。`;
+      }
+
+      if (isSimplified || lang === "zh"){
+        return `你好 Ezion，
+
+我想索取以下服务的报价：
+
+- 服务：iOS 与 Android 应用开发
+- 方案：${tier || "自定义 / 不确定"}
+- 简要需求描述：
+- 时间表：
+- 预算范围（可选）：
+- 链接/截图（可选）：
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
 
 I'd like to request a quote for:
 
@@ -323,20 +653,56 @@ I'd like to request a quote for:
 - Links/screenshots (optional):
 
 Thanks.`;
-      return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
-    // Main quote button
-    const btnQuote = document.getElementById("btnQuote");
-    btnQuote.href = mailto("Quote: App development (Custom)", "");
+    function mailto(subject, tier){
+      const ctx = EzionLocale.getContext();
+      const email = EzionLocale.getContactEmail("appdev") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+      const body = buildQuoteBody(ctx, tier);
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
 
-    // Tier buttons
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest("a[data-tier]");
-      if (!a) return;
-      const tier = a.getAttribute("data-tier") || "";
-      a.href = mailto(`Quote: App development (${tier})`, tier);
-      // allow navigation to mailto after href is set
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+
+      applyText(ctx);
+
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
+      // Prices (base in GBP)
+      const starter = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
+      const standard = EzionLocale.formatPrice({ type:"from", amount:1499, currency:"GBP" }, ctx);
+      const pro = EzionLocale.formatPrice({ type:"from", amount:3999, currency:"GBP" }, ctx);
+
+      document.getElementById("priceStarter").textContent = starter;
+      document.getElementById("priceStandard").textContent = standard;   // one-off
+      document.getElementById("pricePro").textContent = pro;             // one-off
+
+      // Main quote button
+      document.getElementById("btnQuote").href = mailto("Quote: App development (Custom)", "");
+
+      // Tier buttons
+      document.querySelectorAll("a[data-tier]").forEach(a => {
+        const tier = a.getAttribute("data-tier") || "";
+        a.href = mailto(`Quote: App development (${tier})`, tier);
+      });
+
+      // Discovery call link routes to locale email
+      document.querySelectorAll("[data-contact-email]").forEach(a => {
+        const email = EzionLocale.getContactEmail("appdev") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+        a.href = `mailto:${email}?subject=${encodeURIComponent("Discovery call request")}`;
+      });
+
+      document.title =
+        (ctx.country === "SG") ? "App Development | Ezion SG" :
+        (ctx.country === "HK") ? "App Development | Ezion HK" :
+        (ctx.country === "US") ? "App Development | Ezion US" :
+        "App Development | Ezion UK";
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
     });
   </script>
 </body>

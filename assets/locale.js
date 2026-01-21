@@ -138,7 +138,7 @@
     const formatted = money(converted, targetCcy, ctx.numberLocale);
 
     if (price.type === "from") {
-      return ctx.lang === "zh" ? `${formatted} ${t("from")} ` : `${formatted} ${t("from")} `;
+      return ctx.lang === "zh" ? `${formatted} ${t("from")}` : `${t("from")} ${formatted}`;
     }
     return formatted;
   }

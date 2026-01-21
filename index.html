@@ -1,1123 +1,541 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ezion UK</title>
-  <meta name="description" content="Ezion Ltd — quietly building useful ventures." />
-
-  <style>
-    :root{
-      --bg: #0b0f14;
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --hair: rgba(255,255,255,.16);
-      --shadow: 0 28px 70px rgba(0,0,0,.55);
-      --radius: 22px;
-      --max: 980px;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      overflow-x: hidden;
-    }
-    a{ color: inherit; }
-
-    .bg{
-      position: fixed;
-      inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.20) 45%, rgba(0,0,0,.45)),
-        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.8), rgba(0,0,0,.45)),
-        url("hero.jpg") center/cover no-repeat;
-      transform: scale(1.02);
-      filter: saturate(1.05) contrast(1.02);
-      z-index: -3;
-    }
-
-    .vignette{
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(
-          700px 420px at 50% 48%,
-          rgba(255,255,255,.14),
-          rgba(255,255,255,.06) 35%,
-          rgba(0,0,0,0) 65%
-        );
-      mix-blend-mode: screen;
-      opacity: .55;
-      z-index: -2;
-    }
-    .grain{
-      position: fixed;
-      inset: -40%;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
-      opacity: .10;
-      transform: rotate(6deg);
-      z-index: -1;
-    }
-
-    .wrap{
-      min-height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-    }
-
-    .center{
-      text-align: center;
-      user-select: none;
-      max-width: 70ch;
-    }
-
-    .domain{
-      font-size: clamp(22px, 2.8vw, 34px);
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
-      font-weight: 520;
-      opacity: .94;
-      text-align: center;
-    }
-
-    .domain img {
-      margin: 0 auto;
-      width: 43%;
-      height: auto;
-      display: block;
-    }
-
-    .sub{
-      margin-top: 5px;
-      font-size: 14px;
-      letter-spacing: .02em;
-      color: rgba(255,255,255,.70);
-      line-height: 1.6;
-    }
-
-    .footer{
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 18px;
-      display: flex;
-      justify-content: center;
-      padding: 0 18px;
-      text-align: center;
-      font-size: 13px;
-      letter-spacing: .02em;
-      color: rgba(255,255,255,.70);
-      z-index: 5;
-    }
-    .footer a{
-      color: rgba(255,255,255,.92);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,.16);
-      padding-bottom: 1px;
-    }
-    .footer a:hover{
-      border-bottom-color: rgba(255,255,255,.45);
-    }
-
-    .actions{
-      margin-top: 18px;
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn{
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      backdrop-filter: blur(12px) saturate(1.15);
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(0,0,0,.26);
-      border-color: rgba(255,255,255,.22);
-    }
-    .btn.secondary{
-      background: rgba(255,255,255,.06);
-    }
-
-    /* Top-right language switch (flag pill) */
-    .lang{
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 6;
-    }
-
-    .langBtn{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-      border-radius: 999px;
-      padding: 10px 12px;
-      cursor: pointer;
-      backdrop-filter: blur(12px) saturate(1.15);
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-
-    .langBtn:hover{
-      transform: translateY(-1px);
-      background: rgba(0,0,0,.26);
-      border-color: rgba(255,255,255,.22);
-    }
-
-    .flag{
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
-    }
-
-    .langText{
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .langMenu{
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
-      min-width: 240px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.30);
-      backdrop-filter: blur(14px) saturate(1.15);
-      box-shadow: 0 22px 60px rgba(0,0,0,.55);
-      padding: 8px;
-      display: none;
-    }
-
-    .lang.open .langMenu{ display: block; }
-
-    .langItem{
-      width: 100%;
-      display: grid;
-      grid-template-columns: 36px 1fr auto;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: rgba(255,255,255,.92);
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .langItem:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.10);
-    }
-
-    .langMeta{
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
-      letter-spacing: .02em;
-    }
-
-    /* Slide-over About panel */
-    .panel{
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: end center;
-      padding: 18px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .20s ease;
-      z-index: 10;
-    }
-    .panel.open{ opacity: 1; pointer-events: auto; }
-
-    .panel-backdrop{
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,.52);
-      backdrop-filter: blur(10px) saturate(1.1);
-    }
-
-    .sheet{
-      position: relative;
-      width: min(var(--max), calc(100vw - 36px));
-      max-height: min(78vh, 720px);
-      overflow: auto;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(20,22,28,.68), rgba(8,10,14,.62));
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      transform: translateY(10px);
-      transition: transform .20s ease;
-    }
-    .panel.open .sheet{ transform: translateY(0); }
-
-    .sheet-header{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 6px 6px 12px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-    }
-
-    .grid{
-      display: grid;
-      gap: 14px;
-      grid-template-columns: 1fr;
-      padding: 14px 6px 6px;
-    }
-    @media (min-width: 920px){
-      .grid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .card{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      border-radius: 18px;
-      padding: 16px;
-    }
-    .h{
-      margin: 0 0 8px;
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
-    }
-    .p{
-      margin: 0;
-      font-size: 14px;
-      color: rgba(255,255,255,.74);
-      line-height: 1.7;
-    }
-
-    /* About panel: Focus block */
-    .focusSub{
-      margin: 0 0 12px;
-      font-size: 14px;
-      color: rgba(255,255,255,.70);
-      line-height: 1.6;
-    }
-    .focusList{
-      display: grid;
-      gap: 10px;
-    }
-    .focusItem{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      padding: 14px;
-      background: rgba(0,0,0,.14);
-    }
-    .focusItem strong{
-      display: block;
-      font-size: 14px;
-      color: rgba(255,255,255,.90);
-    }
-    .focusItem span{
-      display: block;
-      margin-top: 6px;
-      font-size: 13px;
-      color: rgba(255,255,255,.70);
-      line-height: 1.6;
-    }
-
-    /* Views */
-    .view { display: none; }
-    .view.active { display: block; }
-
-    /* Panels like Products */
-    .products{
-      width: min(var(--max), 100%);
-      margin: 0 auto;
-      text-align: left;
-      user-select: text;
-    }
-    .topbar{
-      display:flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-    .titleRow{
-      display:flex; flex-direction:column; gap:4px;
-    }
-    .titleRow strong{
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
-    }
-
-    .productsGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 10px;
-    }
-    @media (min-width: 720px){
-      .productsGrid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    .product{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      border-radius: 18px;
-      padding: 16px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .product .name{
-      font-size: 14px;
-      font-weight: 650;
-      color: rgba(255,255,255,.90);
-    }
-    .product .desc{
-      font-size: 13px;
-      color: rgba(255,255,255,.70);
-      line-height: 1.6;
-    }
-    .product .meta{
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      gap: 10px;
-      margin-top: 4px;
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
-    }
-    .product .sku{
-      font-size: 12px;
-      color: rgba(255,255,255,.55);
-      letter-spacing: .06em;
-    }
-    .product .btnRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    /* Section headers inside Products page */
-    .section{
-      margin-top: 30px;
-    }
-    .sectionHeader{
-      margin: 6px 0 10px;
-      padding: 0;
-      border: none;
-      background: none;
-    }
-    .sectionHeader strong{
-      display: block;
-      font-size: 11px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-    }
-
-    /* Toast */
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.16);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(12px) saturate(1.15);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-      z-index: 20;
-    }
-    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
-  </style>
-</head>
-
-<body>
-  <div class="bg" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- Top-right language/country switch -->
-  <div class="lang" id="lang">
-    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
-      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
-      <span class="langText" id="langText">English</span>
-    </button>
-
-    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
-      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
-        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
-      </button>
-      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
-        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
-      </button>
-      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
-        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
-      </button>
-      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
-        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
-      </button>
-      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
-        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
-      </button>
-      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
-        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
-      </button>
-    </div>
-  </div>
-
-  <main class="wrap">
-    <!-- HOME VIEW -->
-    <section class="center view active" id="view-home" aria-label="Home">
-      <div class="domain">
-        <img src="Ezion_logo_invert.png" alt="Ezion" />
-      </div>
-
-      <div class="sub" id="homeSub">
-        Quietly building useful ventures.<br/>
-        Developing practical products and digital solutions to make everyone's life easier.
-      </div>
-
-      <div class="actions">
-        <button class="btn" type="button" id="openInfo">About Us</button>
-        <a class="btn" href="#products" aria-label="Open products" id="btnProducts">Products</a>
-        <a class="btn" href="#services" aria-label="Open services" id="btnServices">Services</a>
-      </div>
-    </section>
-
-    <!-- PRODUCTS VIEW -->
-    <section class="products view" id="view-products" aria-label="Products">
-      <div class="topbar">
-        <div class="titleRow">
-          <strong id="productsTitle">Products</strong>
-        </div>
-        <div class="actions" style="margin-top:0;">
-          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromProducts">Home</a>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="sectionHeader">
-          <strong id="productsSectionTools">Physical and Operational Tools</strong>
-        </div>
-        <div class="productsGrid" id="productsGridProducts"></div>
-      </div>
-
-      <div class="section">
-        <div class="sectionHeader">
-          <strong id="productsSectionApps">Apps</strong>
-        </div>
-        <div class="productsGrid" id="productsGridApps"></div>
-      </div>
-
-      <div class="section">
-        <div class="sectionHeader">
-          <strong id="productsSectionProductions">Productions</strong>
-        </div>
-        <div class="productsGrid" id="productsGridProductions"></div>
-      </div>
-    </section>
-
-    <!-- SERVICES VIEW -->
-    <section class="products view" id="view-services" aria-label="Services">
-      <div class="topbar">
-        <div class="titleRow">
-          <strong id="servicesTitle">Services</strong>
-        </div>
-        <div class="actions" style="margin-top:0;">
-          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromServices">Home</a>
-        </div>
-      </div>
-
-      <div class="productsGrid" id="servicesGrid"></div>
-
-      <div class="card" style="margin-top:14px;">
-        <div class="h" id="servicesNotesTitle">Notes</div>
-        <p class="p" id="servicesNotesText">For custom scopes, request a quote on the service page.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>
-      <a data-contact-email href="#">contact@ezion.uk</a>
-    </div>
-  </footer>
-
-  <!-- About Us panel -->
-  <section class="panel" id="panel" aria-hidden="true">
-    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
-
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="About Ezion">
-      <div class="sheet-header">
-        <div class="sheet-title">
-          <div>
-            <strong id="aboutTitle">ABOUT US</strong><br/>
-          </div>
-        </div>
-        <button class="btn secondary" type="button" id="closeInfo">Close</button>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <p class="p" id="aboutBody">
-            Ezion Ltd develops and manages consumer products, digital tools, and operational systems. <br/><br/>
-            Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.
-          </p>
-
-          <div class="h" style="margin-top:14px;" id="aboutPrinciplesTitle">Principles</div>
-          <div class="focusList">
-            <div class="focusItem">
-              <strong id="p1Title">Clarity</strong>
-              <span id="p1Body">Simple positioning, clean execution, minimal maintenance.</span>
-            </div>
-            <div class="focusItem">
-              <strong id="p2Title">Durability</strong>
-              <span id="p2Body">Fewer moving parts. Systems that keep working.</span>
-            </div>
-            <div class="focusItem">
-              <strong id="p3Title">Leverage</strong>
-              <span id="p3Body">Repeatable processes and compounding improvements.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="h" id="contactTitle">Contact</div>
-
-          <div style="display:flex; flex-direction:column; gap:10px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-              <div>
-                <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
-                <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
-              </div>
-              <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn secondary" data-phone href="#">Call</a>
-              <a class="btn secondary" data-whatsapp href="#" style="display:none;">WhatsApp</a>
-            </div>
-          </div>
-
-          <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
-          <p class="p" id="companyBlock">
-            <strong id="companyLegalLabel">Legal name:</strong>
-            <span id="companyLegal"></span><br/>
-
-            <strong id="companyJurisdictionLabel">Jurisdiction:</strong>
-            <span id="companyJurisdiction"></span><br/>
-
-            <strong id="companyStatusLabel">Status:</strong>
-            <span id="companyStatus"></span>
-          </p>
-
-          <p class="p" id="companyReg" style="margin-top:10px; color: rgba(255,255,255,.62);">
-            <span id="companyRegLabel"></span>:
-            <span id="companyRegValue"></span>
-          </p>
-        </div>
-
-        <div class="card" style="grid-column: 1 / -1;">
-          <div class="h" id="focusTitle">Focus</div>
-          <p class="focusSub" id="focusSub">A concise snapshot (broad by design).</p>
-
-          <div class="focusList">
-            <div class="focusItem">
-              <strong id="f1Title">Brand & product incubation</strong>
-              <span id="f1Body">From concept to early validation and launch readiness.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f2Title">Digital tools and internal systems</strong>
-              <span id="f2Body">Automation, operations tooling, and lightweight software.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f3Title">Operations, logistics, and process design</strong>
-              <span id="f3Body">Reducing friction and increasing reliability.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f4Title">Research & development</strong>
-              <span id="f4Body">Iterating and testing ideas for consumer applications.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
-          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
-            © <span id="year"></span> Ezion Ltd. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
-
-  <script src="assets/locale.js"></script>
-  <script>
-    // -----------------------------
-    // Text (includes HK Traditional)
-    // -----------------------------
-    const I18N = {
-      en: {
-        locale: "Locale",
-        about: "About Us",
-        products: "Products",
-        services: "Services",
-        home: "Home",
-        view: "View",
-        get: "Get",
-        viewService: "View service",
-        requestQuote: "Request a quote",
-        notes: "Notes",
-        servicesNotes: "For custom scopes, request a quote on the service page.",
-        homeSub: "Quietly building useful ventures.<br/>Developing practical products and digital solutions to make everyone's life easier.",
-        aboutTitle: "ABOUT US",
-        aboutBody: "Ezion develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
-        principles: "Principles",
-        contact: "Contact",
-        contactSub: "General enquiries",
-        company: "Company",
-        focus: "Focus",
-        focusSub: "A concise snapshot (broad by design).",
-        productsSectionTools: "Physical and Operational Tools",
-        productsSectionApps: "Apps",
-        productsSectionProductions: "Productions",
-
-        legalNameLabel: "Legal name:",
-        jurisdictionLabel: "Jurisdiction:",
-        statusLabel: "Status:",
-        copy: "Copy",
-        copied: "Copied",
-        copyFailed: "Copy failed",
-        call: "Call",
-        whatsapp: "WhatsApp",
-        close: "Close"
-      },
-
-      // Simplified Chinese (SG-zh)
-      zh: {
-        locale: "地区",
-        about: "关于我们",
-        products: "产品",
-        services: "服务",
-        home: "主页",
-        view: "查看",
-        get: "获取",
-        viewService: "查看服务",
-        requestQuote: "索取报价",
-        notes: "备注",
-        servicesNotes: "如需定制范围，请在服务页面提交报价请求。",
-        homeSub: "低调打造实用项目。<br/>提供实用产品与数码解决方案，让生活更简单。",
-        aboutTitle: "关于我们",
-        aboutBody: "Ezion 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表更少，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
-        principles: "原则",
-        contact: "联系",
-        contactSub: "一般咨询",
-        company: "公司",
-        focus: "方向",
-        focusSub: "简要概览（刻意保持宽泛）。",
-        productsSectionTools: "实体与运营工具",
-        productsSectionApps: "应用",
-        productsSectionProductions: "作品",
-
-        legalNameLabel: "法定名称：",
-        jurisdictionLabel: "司法辖区：",
-        statusLabel: "状态：",
-        copy: "复制",
-        copied: "已复制",
-        copyFailed: "复制失败",
-        call: "致电",
-        whatsapp: "WhatsApp",
-        close: "关闭"
-      },
-
-      // Traditional Chinese (HK-zh)
-      zhHant: {
-        locale: "地區",
-        about: "關於我們",
-        products: "產品",
-        services: "服務",
-        home: "主頁",
-        view: "查看",
-        get: "獲取",
-        viewService: "查看服務",
-        requestQuote: "索取報價",
-        notes: "備註",
-        servicesNotes: "如需自訂範圍，請於服務頁面提出報價要求。",
-        homeSub: "低調打造實用項目。<br/>提供實用產品與數碼解決方案，令生活更簡單。",
-        aboutTitle: "關於我們",
-        aboutBody: "Ezion 研發並營運消費產品、數碼工具與營運系統。<br/><br/>小團隊不代表更少，而是更清晰。我們偏好簡單、可靠、影響深遠的產品。",
-        principles: "原則",
-        contact: "聯絡",
-        contactSub: "一般查詢",
-        company: "公司",
-        focus: "方向",
-        focusSub: "簡要概覽（刻意保持寬泛）。",
-        productsSectionTools: "實體與營運工具",
-        productsSectionApps: "應用程式",
-        productsSectionProductions: "作品",
-
-        legalNameLabel: "法定名稱：",
-        jurisdictionLabel: "司法管轄區：",
-        statusLabel: "狀態：",
-        copy: "複製",
-        copied: "已複製",
-        copyFailed: "複製失敗",
-        call: "致電",
-        whatsapp: "WhatsApp",
-        close: "關閉"
+<script>
+  // -----------------------------
+  // Text packs (EN / zh-Hans / zh-Hant)
+  // -----------------------------
+  const I18N = {
+    en: {
+      locale: "Locale",
+      about: "About Us",
+      products: "Products",
+      services: "Services",
+      home: "Home",
+      view: "View",
+      get: "Get",
+      viewService: "View service",
+      requestQuote: "Request a quote",
+      notes: "Notes",
+      servicesNotes: "For custom scopes, request a quote on the service page.",
+      homeSub: "Quietly building useful ventures.<br/>Developing practical products and digital solutions to make everyone's life easier.",
+      aboutTitle: "ABOUT US",
+      aboutBody: "Ezion develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
+      principles: "Principles",
+      contact: "Contact",
+      contactSub: "General enquiries",
+      company: "Company",
+      focus: "Focus",
+      focusSub: "A concise snapshot (broad by design).",
+      productsSectionTools: "Physical and Operational Tools",
+      productsSectionApps: "Apps",
+      productsSectionProductions: "Productions",
+
+      p1Title: "Clarity",
+      p1Body: "Simple positioning, clean execution, minimal maintenance.",
+      p2Title: "Durability",
+      p2Body: "Fewer moving parts. Systems that keep working.",
+      p3Title: "Leverage",
+      p3Body: "Repeatable processes and compounding improvements.",
+
+      f1Title: "Brand & product incubation",
+      f1Body: "From concept to early validation and launch readiness.",
+      f2Title: "Digital tools and internal systems",
+      f2Body: "Automation, operations tooling, and lightweight software.",
+      f3Title: "Operations, logistics, and process design",
+      f3Body: "Reducing friction and increasing reliability.",
+      f4Title: "Research & development",
+      f4Body: "Iterating and testing ideas for consumer applications.",
+
+      legalNameLabel: "Legal name:",
+      jurisdictionLabel: "Jurisdiction:",
+      statusLabel: "Status:",
+      copy: "Copy",
+      copied: "Copied",
+      copyFailed: "Copy failed",
+      call: "Call",
+      whatsapp: "WhatsApp",
+      close: "Close",
+
+      // Catalog translations
+      catalog: {
+        products: {
+          workmateName: "Workmate — Professional Edition",
+          workmateDesc: "Time tracking + invoicing workbook (Excel).",
+          enzydrainName: "Enzydrain",
+          enzydrainDesc: "Enzymatic drain maintenance tablets."
+        },
+        apps: {
+          todayName: "TODAY — Minimalist’s Diary",
+          todayDesc: "Minimalist daily journaling app.",
+          yadaName: "YADA — Know Deeply",
+          yadaDesc: "One biblical insight a day that goes a long way."
+        },
+        productions: {
+          bookName: "Certainty in Uncertainty: Preparing for Jesus' Return in These Last Days",
+          bookDesc: "An examination of biblical prophecy and present global realities, equipping the Church to understand the times and prepare faithfully for Christ’s return—sooner rather than later."
+        },
+        services: {
+          appdevName: "iOS & Android app development",
+          appdevDesc: "Flutter apps, store setup, deployment support.",
+          automationName: "Process automation (Excel & Python)",
+          automationDesc: "Excel VBA, Python scripts, workflow automation.",
+          accountingName: "Accounting services",
+          accountingDesc: "Setup, cleanup, reporting, and finance ops support."
+        }
       }
-    };
+    },
 
-    function getTextPack(ctx){
-      // hk-zh => Traditional Chinese pack
-      if (ctx && ctx.key === "hk-zh") return I18N.zhHant;
-      return (ctx && ctx.lang === "zh") ? I18N.zh : I18N.en;
-    }
+    // Simplified Chinese (zh-Hans) — SG/CN
+    zhHans: {
+      locale: "地区",
+      about: "关于我们",
+      products: "产品",
+      services: "服务",
+      home: "主页",
+      view: "查看",
+      get: "获取",
+      viewService: "查看服务",
+      requestQuote: "索取报价",
+      notes: "备注",
+      servicesNotes: "如需定制范围，请在服务页面提交报价请求。",
+      homeSub: "低调打造实用项目。<br/>提供实用产品与数码解决方案，让生活更简单。",
+      aboutTitle: "关于我们",
+      aboutBody: "Ezion 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表更少，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
+      principles: "原则",
+      contact: "联系",
+      contactSub: "一般咨询",
+      company: "公司",
+      focus: "方向",
+      focusSub: "简要概览（刻意保持宽泛）。",
+      productsSectionTools: "实体与运营工具",
+      productsSectionApps: "应用",
+      productsSectionProductions: "作品",
 
-    function applyText(ctx){
-      const t = getTextPack(ctx);
+      p1Title: "清晰",
+      p1Body: "定位简单，执行干净，维护最少。",
+      p2Title: "耐用",
+      p2Body: "更少的可变因素。系统长期稳定运行。",
+      p3Title: "杠杆",
+      p3Body: "可复用流程与持续复利式优化。",
 
-      document.getElementById("openInfo").textContent = t.about;
-      document.getElementById("btnProducts").textContent = t.products;
-      document.getElementById("btnServices").textContent = t.services;
+      f1Title: "品牌与产品孵化",
+      f1Body: "从概念到早期验证与发布准备。",
+      f2Title: "数字工具与内部系统",
+      f2Body: "自动化、运营工具与轻量软件。",
+      f3Title: "运营、物流与流程设计",
+      f3Body: "减少摩擦，提升可靠性。",
+      f4Title: "研究与开发",
+      f4Body: "迭代与测试面向用户的应用想法。",
 
-      document.getElementById("btnHomeFromProducts").textContent = t.home;
-      document.getElementById("btnHomeFromServices").textContent = t.home;
+      legalNameLabel: "法定名称：",
+      jurisdictionLabel: "司法辖区：",
+      statusLabel: "状态：",
+      copy: "复制",
+      copied: "已复制",
+      copyFailed: "复制失败",
+      call: "致电",
+      whatsapp: "WhatsApp",
+      close: "关闭",
 
-      document.getElementById("productsTitle").textContent = t.products;
-      document.getElementById("servicesTitle").textContent = t.services;
-
-      document.getElementById("servicesNotesTitle").textContent = t.notes;
-      document.getElementById("servicesNotesText").textContent = t.servicesNotes;
-
-      document.getElementById("homeSub").innerHTML = t.homeSub;
-
-      document.getElementById("aboutTitle").textContent = t.aboutTitle;
-      document.getElementById("aboutBody").innerHTML = t.aboutBody;
-      document.getElementById("aboutPrinciplesTitle").textContent = t.principles;
-
-      document.getElementById("contactTitle").textContent = t.contact;
-      document.getElementById("contactSub").textContent = t.contactSub;
-      document.getElementById("companyTitle").textContent = t.company;
-
-      document.getElementById("focusTitle").textContent = t.focus;
-      document.getElementById("focusSub").textContent = t.focusSub;
-
-      document.getElementById("productsSectionTools").textContent = t.productsSectionTools;
-      document.getElementById("productsSectionApps").textContent = t.productsSectionApps;
-      document.getElementById("productsSectionProductions").textContent = t.productsSectionProductions;
-
-      const copyBtn = document.getElementById("copyBtn");
-      if (copyBtn) copyBtn.textContent = t.copy;
-
-      document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
-      document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
-
-      document.getElementById("closeInfo").textContent = t.close;
-
-      document.getElementById("companyLegalLabel").textContent = t.legalNameLabel;
-      document.getElementById("companyJurisdictionLabel").textContent = t.jurisdictionLabel;
-      document.getElementById("companyStatusLabel").textContent = t.statusLabel;
-    }
-
-    // -----------------------------
-    // About panel open/close
-    // -----------------------------
-    const panel = document.getElementById("panel");
-    const openInfo = document.getElementById("openInfo");
-    const closeInfo = document.getElementById("closeInfo");
-    const backdrop = document.getElementById("backdrop");
-
-    function openPanel(){
-      panel.classList.add("open");
-      panel.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-    function closePanel(){
-      panel.classList.remove("open");
-      panel.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    openInfo.addEventListener("click", openPanel);
-    closeInfo.addEventListener("click", closePanel);
-    backdrop.addEventListener("click", closePanel);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closePanel();
-    });
-
-    // Copy + toast (message depends on locale)
-    const toast = document.getElementById("toast");
-    let toastTimer;
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
-    }
-    document.addEventListener("click", async (e) => {
-      const btn = e.target.closest("[data-copy]");
-      if (!btn) return;
-      const text = btn.getAttribute("data-copy");
-      const ctx = EzionLocale.getContext();
-      const t = getTextPack(ctx);
-      try { await navigator.clipboard.writeText(text); showToast(t.copied); }
-      catch { showToast(t.copyFailed); }
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Router: #products / #services / home
-    const viewHome = document.getElementById("view-home");
-    const viewProducts = document.getElementById("view-products");
-    const viewServices = document.getElementById("view-services");
-
-    function setView(name){
-      const isProducts = name === "products";
-      const isServices = name === "services";
-
-      viewHome.classList.toggle("active", !(isProducts || isServices));
-      viewProducts.classList.toggle("active", isProducts);
-      viewServices.classList.toggle("active", isServices);
-
-      if (panel.classList.contains("open")) closePanel();
-      document.body.style.overflow = "";
-    }
-
-    function onRoute(){
-      const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
-      if (hash === "products") setView("products");
-      else if (hash === "services") setView("services");
-      else setView("home");
-    }
-    window.addEventListener("hashchange", onRoute);
-
-    function escapeHtml(s){
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    // -----------------------------
-    // Data (prices are BASE in GBP)
-    // -----------------------------
-    const PRODUCTS = [
-      // Products
-      {
-        category: "products",
-        name: "Workmate — Professional Edition",
-        price: { type:"fixed", amount: 9.99, currency:"GBP" },
-        sku: "WM-PRO-001",
-        description: "Time tracking + invoicing workbook (Excel).",
-        page: "products/workmate-pro.html"
-      },
-      {
-        category: "products",
-        name: "Enzydrain",
-        price: { type:"fixed", amount: 8.50, currency:"GBP" },
-        sku: "EZD-TRIAL-001",
-        description: "Enzymatic drain maintenance tablets.",
-        page: "products/workmate-pro.html"
-      },
-
-      // Apps
-      {
-        category: "apps",
-        name: "TODAY — Minimalist’s Diary",
-        price: { type:"from", amount: 0.00, currency:"GBP" },
-        sku: "MD-LIFE-001",
-        description: "Minimalist's daily journaling app.",
-        page: "products/today.html",
-        priceDisplayOverride: "free_to_from"
-      },
-      {
-        category: "apps",
-        name: "YADA — Know Deeply",
-        price: { type:"from", amount: 0.99, currency:"GBP" },
-        sku: "YADA-APP-001",
-        description: "One biblical insight a day that goes a long way.",
-        page: "products/yada.html",
-        priceDisplayOverride: "free_to_from"
-      },
-
-      // Productions
-      {
-        category: "productions",
-        name: "Certainty in Uncertainty: Preparing for Jesus' Return in These Last Days",
-        price: { type:"fixed", amount: 14.99, currency:"GBP" },
-        sku: "END-BOOK-001",
-        description: "An examination of biblical prophecy and present global realities, equipping the Church to understand the times and prepare faithfully for Christ’s return—sooner rather than later.",
-        page: "products/yada.html"
+      catalog: {
+        products: {
+          workmateName: "Workmate — 专业版",
+          workmateDesc: "时间记录 + 开票工作簿（Excel）。",
+          enzydrainName: "Enzydrain",
+          enzydrainDesc: "酶解型下水道养护清洁片。"
+        },
+        apps: {
+          todayName: "TODAY — 极简日记",
+          todayDesc: "极简每日记录应用。",
+          yadaName: "YADA — 深入认识",
+          yadaDesc: "每日一则圣经洞见，简单却深远。"
+        },
+        productions: {
+          bookName: "在不确定中得确定：在末后的日子预备迎接耶稣再来",
+          bookDesc: "从圣经预言与当代现实出发，帮助教会分辨时代、忠心预备迎接基督再来——比你想象的更近。"
+        },
+        services: {
+          appdevName: "iOS 与 Android 应用开发",
+          appdevDesc: "Flutter 应用、商店上架配置与发布支持。",
+          automationName: "流程自动化（Excel 与 Python）",
+          automationDesc: "Excel VBA、Python 脚本与工作流自动化。",
+          accountingName: "会计服务",
+          accountingDesc: "搭建、清理、报表与财务运营支持。"
+        }
       }
-    ];
+    },
 
-    const SERVICES = [
-      {
-        name: "iOS & Android app development",
-        price: { type:"from", amount: 499, currency:"GBP" },
-        sku: "SVC-APP-001",
-        description: "Flutter apps, store setup, deployment support.",
-        page: "services/appdev.html"
-      },
-      {
-        name: "Process automation (Excel & Python)",
-        price: { type:"from", amount: 199, currency:"GBP" },
-        sku: "SVC-AUTO-001",
-        description: "Excel VBA, Python scripts, workflow automation.",
-        page: "services/automation.html"
-      },
-      {
-        name: "Accounting services",
-        price: { type:"from", amount: 149, currency:"GBP" },
-        sku: "SVC-ACC-001",
-        description: "Setup, cleanup, reporting, and finance ops support.",
-        page: "services/accounting.html"
+    // Traditional Chinese (zh-Hant) — HK
+    zhHant: {
+      locale: "地區",
+      about: "關於我們",
+      products: "產品",
+      services: "服務",
+      home: "主頁",
+      view: "查看",
+      get: "獲取",
+      viewService: "查看服務",
+      requestQuote: "索取報價",
+      notes: "備註",
+      servicesNotes: "如需自訂範圍，請於服務頁面提出報價要求。",
+      homeSub: "低調打造實用項目。<br/>提供實用產品與數碼解決方案，令生活更簡單。",
+      aboutTitle: "關於我們",
+      aboutBody: "Ezion 研發並營運消費產品、數碼工具與營運系統。<br/><br/>小團隊不代表更少，而是更清晰。我們偏好簡單、可靠、影響深遠的產品。",
+      principles: "原則",
+      contact: "聯絡",
+      contactSub: "一般查詢",
+      company: "公司",
+      focus: "方向",
+      focusSub: "簡要概覽（刻意保持寬泛）。",
+      productsSectionTools: "實體與營運工具",
+      productsSectionApps: "應用程式",
+      productsSectionProductions: "作品",
+
+      p1Title: "清晰",
+      p1Body: "定位簡單，執行乾淨，維護最少。",
+      p2Title: "耐用",
+      p2Body: "更少的可變因素。系統長期穩定運作。",
+      p3Title: "槓桿",
+      p3Body: "可重複流程與持續複利式改進。",
+
+      f1Title: "品牌與產品孵化",
+      f1Body: "由概念到早期驗證與推出準備。",
+      f2Title: "數碼工具與內部系統",
+      f2Body: "自動化、營運工具與輕量軟件。",
+      f3Title: "營運、物流與流程設計",
+      f3Body: "減少摩擦，提升可靠性。",
+      f4Title: "研究與開發",
+      f4Body: "迭代與測試面向用戶的應用想法。",
+
+      legalNameLabel: "法定名稱：",
+      jurisdictionLabel: "司法管轄區：",
+      statusLabel: "狀態：",
+      copy: "複製",
+      copied: "已複製",
+      copyFailed: "複製失敗",
+      call: "致電",
+      whatsapp: "WhatsApp",
+      close: "關閉",
+
+      catalog: {
+        products: {
+          workmateName: "Workmate — 專業版",
+          workmateDesc: "時間記錄 + 開票工作簿（Excel）。",
+          enzydrainName: "Enzydrain",
+          enzydrainDesc: "酵素型去水渠保養清潔片。"
+        },
+        apps: {
+          todayName: "TODAY — 極簡日記",
+          todayDesc: "極簡每日記錄應用程式。",
+          yadaName: "YADA — 深入認識",
+          yadaDesc: "每日一則聖經洞見，簡單卻深遠。"
+        },
+        productions: {
+          bookName: "在不確定中得確定：在末後的日子預備迎接耶穌再來",
+          bookDesc: "由聖經預言與當代現實出發，幫助教會分辨時代、忠心預備迎接基督再來——比你想像的更近。"
+        },
+        services: {
+          appdevName: "iOS 與 Android 應用開發",
+          appdevDesc: "Flutter 應用、商店上架設定與發佈支援。",
+          automationName: "流程自動化（Excel 與 Python）",
+          automationDesc: "Excel VBA、Python 腳本與工作流程自動化。",
+          accountingName: "會計服務",
+          accountingDesc: "建立、整理、報表與財務營運支援。"
+        }
       }
-    ];
+    }
+  };
 
-    const productsGridProducts = document.getElementById("productsGridProducts");
-    const productsGridApps = document.getElementById("productsGridApps");
-    const productsGridProductions = document.getElementById("productsGridProductions");
-    const servicesGrid = document.getElementById("servicesGrid");
+  function getTextPack(ctx){
+    if (ctx && ctx.key === "hk-zh") return I18N.zhHant;
+    if (ctx && ctx.lang === "zh") return I18N.zhHans; // sg-zh + cn-zh
+    return I18N.en;
+  }
 
-    function productCard(p, ctx, t){
-      let priceText = EzionLocale.formatPrice(p.price, ctx);
+  function applyText(ctx){
+    const t = getTextPack(ctx);
 
-      if (p.priceDisplayOverride === "free_to_from") {
-        const freeText = (ctx.key === "hk-zh" || ctx.lang === "zh") ? "免費" : "FREE";
-        const fromLabel = (ctx.key === "hk-zh" || ctx.lang === "zh") ? "起" : "From";
-        const fromVal = EzionLocale.money(
-          EzionLocale.convertAmount(0.99, "GBP", ctx.currency),
-          ctx.currency,
-          ctx.numberLocale
-        );
-        priceText = `${freeText} – ${fromVal} ${fromLabel}`;
-      }
+    document.getElementById("openInfo").textContent = t.about;
+    document.getElementById("btnProducts").textContent = t.products;
+    document.getElementById("btnServices").textContent = t.services;
 
-      return `
-        <div class="product">
-          <div class="name">${escapeHtml(p.name)}</div>
-          <div class="desc">${escapeHtml(p.description)}</div>
+    document.getElementById("btnHomeFromProducts").textContent = t.home;
+    document.getElementById("btnHomeFromServices").textContent = t.home;
 
-          <div class="meta">
-            <div>${escapeHtml(priceText)}</div>
-            <div class="sku">${escapeHtml(p.sku)}</div>
-          </div>
+    document.getElementById("productsTitle").textContent = t.products;
+    document.getElementById("servicesTitle").textContent = t.services;
 
-          <div class="btnRow">
-            <a class="btn" href="${p.page}">${escapeHtml(t.view)}</a>
-            <a class="btn secondary" href="${p.page}#buy">${escapeHtml(t.get)}</a>
-          </div>
+    document.getElementById("servicesNotesTitle").textContent = t.notes;
+    document.getElementById("servicesNotesText").textContent = t.servicesNotes;
+
+    document.getElementById("homeSub").innerHTML = t.homeSub;
+
+    document.getElementById("aboutTitle").textContent = t.aboutTitle;
+    document.getElementById("aboutBody").innerHTML = t.aboutBody;
+    document.getElementById("aboutPrinciplesTitle").textContent = t.principles;
+
+    document.getElementById("contactTitle").textContent = t.contact;
+    document.getElementById("contactSub").textContent = t.contactSub;
+    document.getElementById("companyTitle").textContent = t.company;
+
+    document.getElementById("focusTitle").textContent = t.focus;
+    document.getElementById("focusSub").textContent = t.focusSub;
+
+    document.getElementById("productsSectionTools").textContent = t.productsSectionTools;
+    document.getElementById("productsSectionApps").textContent = t.productsSectionApps;
+    document.getElementById("productsSectionProductions").textContent = t.productsSectionProductions;
+
+    document.getElementById("p1Title").textContent = t.p1Title;
+    document.getElementById("p1Body").textContent = t.p1Body;
+    document.getElementById("p2Title").textContent = t.p2Title;
+    document.getElementById("p2Body").textContent = t.p2Body;
+    document.getElementById("p3Title").textContent = t.p3Title;
+    document.getElementById("p3Body").textContent = t.p3Body;
+
+    document.getElementById("f1Title").textContent = t.f1Title;
+    document.getElementById("f1Body").textContent = t.f1Body;
+    document.getElementById("f2Title").textContent = t.f2Title;
+    document.getElementById("f2Body").textContent = t.f2Body;
+    document.getElementById("f3Title").textContent = t.f3Title;
+    document.getElementById("f3Body").textContent = t.f3Body;
+    document.getElementById("f4Title").textContent = t.f4Title;
+    document.getElementById("f4Body").textContent = t.f4Body;
+
+    document.getElementById("companyLegalLabel").textContent = t.legalNameLabel;
+    document.getElementById("companyJurisdictionLabel").textContent = t.jurisdictionLabel;
+    document.getElementById("companyStatusLabel").textContent = t.statusLabel;
+
+    const copyBtn = document.getElementById("copyBtn");
+    if (copyBtn) copyBtn.textContent = t.copy;
+
+    document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
+    document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
+
+    document.getElementById("closeInfo").textContent = t.close;
+  }
+
+  // -----------------------------
+  // About panel open/close
+  // -----------------------------
+  const panel = document.getElementById("panel");
+  const openInfo = document.getElementById("openInfo");
+  const closeInfo = document.getElementById("closeInfo");
+  const backdrop = document.getElementById("backdrop");
+
+  function openPanel(){
+    panel.classList.add("open");
+    panel.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closePanel(){
+    panel.classList.remove("open");
+    panel.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  openInfo.addEventListener("click", openPanel);
+  closeInfo.addEventListener("click", closePanel);
+  backdrop.addEventListener("click", closePanel);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePanel();
+  });
+
+  // -----------------------------
+  // Copy + toast (localized)
+  // -----------------------------
+  const toast = document.getElementById("toast");
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
+  }
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+    const text = btn.getAttribute("data-copy");
+    const t = getTextPack(EzionLocale.getContext());
+    try { await navigator.clipboard.writeText(text); showToast(t.copied); }
+    catch { showToast(t.copyFailed); }
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // -----------------------------
+  // Router: #products / #services / home
+  // -----------------------------
+  const viewHome = document.getElementById("view-home");
+  const viewProducts = document.getElementById("view-products");
+  const viewServices = document.getElementById("view-services");
+
+  function setView(name){
+    const isProducts = name === "products";
+    const isServices = name === "services";
+
+    viewHome.classList.toggle("active", !(isProducts || isServices));
+    viewProducts.classList.toggle("active", isProducts);
+    viewServices.classList.toggle("active", isServices);
+
+    if (panel.classList.contains("open")) closePanel();
+    document.body.style.overflow = "";
+  }
+
+  function onRoute(){
+    const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
+    if (hash === "products") setView("products");
+    else if (hash === "services") setView("services");
+    else setView("home");
+  }
+  window.addEventListener("hashchange", onRoute);
+
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  // -----------------------------
+  // Data (base in GBP; display localized)
+  // -----------------------------
+  const PRODUCTS = [
+    { category:"products", key:"workmate", price:{ type:"fixed", amount:9.99, currency:"GBP" }, sku:"WM-PRO-001", page:"products/workmate-pro.html" },
+    { category:"products", key:"enzydrain", price:{ type:"fixed", amount:8.50, currency:"GBP" }, sku:"EZD-TRIAL-001", page:"products/workmate-pro.html" },
+
+    { category:"apps", key:"today", price:{ type:"from", amount:0.00, currency:"GBP" }, sku:"MD-LIFE-001", page:"products/today.html", priceDisplayOverride:"free_to_from" },
+    { category:"apps", key:"yada", price:{ type:"from", amount:0.99, currency:"GBP" }, sku:"YADA-APP-001", page:"products/yada.html", priceDisplayOverride:"free_to_from" },
+
+    { category:"productions", key:"book", price:{ type:"fixed", amount:14.99, currency:"GBP" }, sku:"END-BOOK-001", page:"products/yada.html" }
+  ];
+
+  const SERVICES = [
+    { key:"appdev", price:{ type:"from", amount:499, currency:"GBP" }, sku:"SVC-APP-001", page:"services/appdev.html" },
+    { key:"automation", price:{ type:"from", amount:199, currency:"GBP" }, sku:"SVC-AUTO-001", page:"services/automation.html" },
+    { key:"accounting", price:{ type:"from", amount:149, currency:"GBP" }, sku:"SVC-ACC-001", page:"services/accounting.html" }
+  ];
+
+  const productsGridProducts = document.getElementById("productsGridProducts");
+  const productsGridApps = document.getElementById("productsGridApps");
+  const productsGridProductions = document.getElementById("productsGridProductions");
+  const servicesGrid = document.getElementById("servicesGrid");
+
+  function productCard(p, ctx, t){
+    const c = t.catalog;
+    const name =
+      p.category === "products" && p.key === "workmate" ? c.products.workmateName :
+      p.category === "products" && p.key === "enzydrain" ? c.products.enzydrainName :
+      p.category === "apps" && p.key === "today" ? c.apps.todayName :
+      p.category === "apps" && p.key === "yada" ? c.apps.yadaName :
+      p.category === "productions" && p.key === "book" ? c.productions.bookName :
+      "";
+
+    const desc =
+      p.category === "products" && p.key === "workmate" ? c.products.workmateDesc :
+      p.category === "products" && p.key === "enzydrain" ? c.products.enzydrainDesc :
+      p.category === "apps" && p.key === "today" ? c.apps.todayDesc :
+      p.category === "apps" && p.key === "yada" ? c.apps.yadaDesc :
+      p.category === "productions" && p.key === "book" ? c.productions.bookDesc :
+      "";
+
+    let priceText = EzionLocale.formatPrice(p.price, ctx);
+
+    if (p.priceDisplayOverride === "free_to_from") {
+      const isZh = (ctx.key === "hk-zh" || ctx.lang === "zh");
+      const freeText = isZh ? (ctx.key === "hk-zh" ? "免費" : "免费") : "FREE";
+      const fromLabel = isZh ? "起" : "From";
+      const fromVal = EzionLocale.money(
+        EzionLocale.convertAmount(0.99, "GBP", ctx.currency),
+        ctx.currency,
+        ctx.numberLocale
+      );
+      priceText = `${freeText} – ${fromVal} ${fromLabel}`;
+    }
+
+    return `
+      <div class="product">
+        <div class="name">${escapeHtml(name)}</div>
+        <div class="desc">${escapeHtml(desc)}</div>
+
+        <div class="meta">
+          <div>${escapeHtml(priceText)}</div>
+          <div class="sku">${escapeHtml(p.sku)}</div>
         </div>
-      `;
-    }
 
-    function serviceCard(s, ctx, t){
-      const priceText = EzionLocale.formatPrice(s.price, ctx);
-      return `
-        <div class="product">
-          <div class="name">${escapeHtml(s.name)}</div>
-          <div class="desc">${escapeHtml(s.description)}</div>
-
-          <div class="meta">
-            <div>${escapeHtml(priceText)}</div>
-            <div class="sku">${escapeHtml(s.sku)}</div>
-          </div>
-
-          <div class="btnRow">
-            <a class="btn" href="${s.page}">${escapeHtml(t.viewService)}</a>
-            <a class="btn secondary" href="${s.page}#quote">${escapeHtml(t.requestQuote)}</a>
-          </div>
+        <div class="btnRow">
+          <a class="btn" href="${p.page}">${escapeHtml(t.view)}</a>
+          <a class="btn secondary" href="${p.page}#buy">${escapeHtml(t.get)}</a>
         </div>
-      `;
+      </div>
+    `;
+  }
+
+  function serviceCard(s, ctx, t){
+    const c = t.catalog.services;
+    const name =
+      s.key === "appdev" ? c.appdevName :
+      s.key === "automation" ? c.automationName :
+      s.key === "accounting" ? c.accountingName : "";
+
+    const desc =
+      s.key === "appdev" ? c.appdevDesc :
+      s.key === "automation" ? c.automationDesc :
+      s.key === "accounting" ? c.accountingDesc : "";
+
+    const priceText = EzionLocale.formatPrice(s.price, ctx);
+
+    return `
+      <div class="product">
+        <div class="name">${escapeHtml(name)}</div>
+        <div class="desc">${escapeHtml(desc)}</div>
+
+        <div class="meta">
+          <div>${escapeHtml(priceText)}</div>
+          <div class="sku">${escapeHtml(s.sku)}</div>
+        </div>
+
+        <div class="btnRow">
+          <a class="btn" href="${s.page}">${escapeHtml(t.viewService)}</a>
+          <a class="btn secondary" href="${s.page}#quote">${escapeHtml(t.requestQuote)}</a>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderAll(ctx){
+    const localeInfo = ctx || EzionLocale.getContext();
+    const t = getTextPack(localeInfo);
+
+    applyText(localeInfo);
+
+    document.title =
+      (localeInfo.country === "SG") ? "Ezion SG" :
+      (localeInfo.country === "HK") ? "Ezion HK" :
+      (localeInfo.country === "US") ? "Ezion US" :
+      "Ezion UK";
+
+    const byCat = (cat) => PRODUCTS
+      .filter(p => p.category === cat)
+      .map(p => productCard(p, localeInfo, t))
+      .join("");
+
+    productsGridProducts.innerHTML = byCat("products");
+    productsGridApps.innerHTML = byCat("apps");
+    productsGridProductions.innerHTML = byCat("productions");
+
+    servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
+
+    EzionLocale.applyContactTargets();
+    EzionLocale.applyCompanyInfo();
+  }
+
+  EzionLocale.init({
+    onReady(ctx){
+      renderAll(ctx);
+      onRoute();
+    },
+    onChange(ctx){
+      renderAll(ctx);
     }
-
-    function renderAll(ctx){
-      const localeInfo = ctx || EzionLocale.getContext();
-      const t = getTextPack(localeInfo);
-
-      applyText(localeInfo);
-
-      // Title tweak only (no content changes elsewhere)
-      document.title =
-        (localeInfo.country === "SG") ? "Ezion SG" :
-        (localeInfo.country === "HK") ? "Ezion HK" :
-        (localeInfo.country === "US") ? "Ezion US" :
-        "Ezion UK";
-
-      const byCat = (cat) => PRODUCTS
-        .filter(p => p.category === cat)
-        .map(p => productCard(p, localeInfo, t))
-        .join("");
-
-      productsGridProducts.innerHTML = byCat("products");
-      productsGridApps.innerHTML = byCat("apps");
-      productsGridProductions.innerHTML = byCat("productions");
-
-      servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
-
-      // Apply shared locale helpers
-      EzionLocale.applyContactTargets();
-      EzionLocale.applyCompanyInfo();
-    }
-
-    // Init
-    EzionLocale.init({
-      onReady(ctx){
-        renderAll(ctx);
-        onRoute();
-      },
-      onChange(ctx){
-        renderAll(ctx);
-      }
-    });
-  </script>
-</body>
-</html>
+  });
+</script>

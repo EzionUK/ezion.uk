@@ -1024,8 +1024,8 @@
       if (p.priceDisplayOverride === "free_to_from") {
         const freeText = (localeInfo.lang === "zh") ? "免费" : "FREE";
         const fromText = (localeInfo.lang === "zh")
-          ? `起 ${money(convertAmount(3.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`
-          : `From ${money(convertAmount(3.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`;
+          ? `${money(convertAmount(0.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)} 起`
+          : `From ${money(convertAmount(0.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`;
         priceText = `${freeText} – ${fromText}`;
       }
 

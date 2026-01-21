@@ -1,4 +1,705 @@
-<script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ezion UK</title>
+  <meta name="description" content="Ezion Ltd — quietly building useful ventures." />
+
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --hair: rgba(255,255,255,.16);
+      --shadow: 0 28px 70px rgba(0,0,0,.55);
+      --radius: 22px;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x: hidden;
+    }
+    a{ color: inherit; }
+
+    .bg{
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.20) 45%, rgba(0,0,0,.45)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.8), rgba(0,0,0,.45)),
+        url("hero.jpg") center/cover no-repeat;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.02);
+      z-index: -3;
+    }
+
+    .vignette{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          700px 420px at 50% 48%,
+          rgba(255,255,255,.14),
+          rgba(255,255,255,.06) 35%,
+          rgba(0,0,0,0) 65%
+        );
+      mix-blend-mode: screen;
+      opacity: .55;
+      z-index: -2;
+    }
+    .grain{
+      position: fixed;
+      inset: -40%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity: .10;
+      transform: rotate(6deg);
+      z-index: -1;
+    }
+
+    .wrap{
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .center{
+      text-align: center;
+      user-select: none;
+      max-width: 70ch;
+    }
+
+    .domain{
+      font-size: clamp(22px, 2.8vw, 34px);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      font-weight: 520;
+      opacity: .94;
+      text-align: center;
+    }
+
+    .domain img {
+      margin: 0 auto;
+      width: 43%;
+      height: auto;
+      display: block;
+    }
+
+    .sub{
+      margin-top: 5px;
+      font-size: 14px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+
+    .footer{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      display: flex;
+      justify-content: center;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.70);
+      z-index: 5;
+    }
+    .footer a{
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      padding-bottom: 1px;
+    }
+    .footer a:hover{
+      border-bottom-color: rgba(255,255,255,.45);
+    }
+
+    .actions{
+      margin-top: 18px;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+    }
+
+    /* Top-right language switch (flag pill) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display: block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
+    /* Slide-over About panel */
+    .panel{
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: end center;
+      padding: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .20s ease;
+      z-index: 10;
+    }
+    .panel.open{ opacity: 1; pointer-events: auto; }
+
+    .panel-backdrop{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.52);
+      backdrop-filter: blur(10px) saturate(1.1);
+    }
+
+    .sheet{
+      position: relative;
+      width: min(var(--max), calc(100vw - 36px));
+      max-height: min(78vh, 720px);
+      overflow: auto;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(20,22,28,.68), rgba(8,10,14,.62));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      transform: translateY(10px);
+      transition: transform .20s ease;
+    }
+    .panel.open .sheet{ transform: translateY(0); }
+
+    .sheet-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 6px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .grid{
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      padding: 14px 6px 6px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+    .card{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .h{
+      margin: 0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .p{
+      margin: 0;
+      font-size: 14px;
+      color: rgba(255,255,255,.74);
+      line-height: 1.7;
+    }
+
+    /* About panel: Focus block */
+    .focusSub{
+      margin: 0 0 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    .focusList{
+      display: grid;
+      gap: 10px;
+    }
+    .focusItem{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .focusItem strong{
+      display: block;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+    }
+    .focusItem span{
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Panels like Products */
+    .products{
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      text-align: left;
+      user-select: text;
+    }
+    .topbar{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .titleRow{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .titleRow strong{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+
+    .productsGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    @media (min-width: 720px){
+      .productsGrid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .product{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .product .name{
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(255,255,255,.90);
+    }
+    .product .desc{
+      font-size: 13px;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+    }
+    .product .meta{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      margin-top: 4px;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+    }
+    .product .sku{
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .06em;
+    }
+    .product .btnRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* Section headers inside Products page */
+    .section{
+      margin-top: 30px;
+    }
+    .sectionHeader{
+      margin: 6px 0 10px;
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    .sectionHeader strong{
+      display: block;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(12px) saturate(1.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 20;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-6px); }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch -->
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>中文</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- HOME VIEW -->
+    <section class="center view active" id="view-home" aria-label="Home">
+      <div class="domain">
+        <img src="Ezion_logo_invert.png" alt="Ezion" />
+      </div>
+
+      <div class="sub" id="homeSub">
+        Quietly building useful ventures.<br/>
+        Developing practical products and digital solutions to make everyone's life easier.
+      </div>
+
+      <div class="actions">
+        <button class="btn" type="button" id="openInfo">About Us</button>
+        <a class="btn" href="#products" aria-label="Open products" id="btnProducts">Products</a>
+        <a class="btn" href="#services" aria-label="Open services" id="btnServices">Services</a>
+      </div>
+    </section>
+
+    <!-- PRODUCTS VIEW -->
+    <section class="products view" id="view-products" aria-label="Products">
+      <div class="topbar">
+        <div class="titleRow">
+          <strong id="productsTitle">Products</strong>
+        </div>
+        <div class="actions" style="margin-top:0;">
+          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromProducts">Home</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sectionHeader">
+          <strong id="productsSectionTools">Physical and Operational Tools</strong>
+        </div>
+        <div class="productsGrid" id="productsGridProducts"></div>
+      </div>
+
+      <div class="section">
+        <div class="sectionHeader">
+          <strong id="productsSectionApps">Apps</strong>
+        </div>
+        <div class="productsGrid" id="productsGridApps"></div>
+      </div>
+
+      <div class="section">
+        <div class="sectionHeader">
+          <strong id="productsSectionProductions">Productions</strong>
+        </div>
+        <div class="productsGrid" id="productsGridProductions"></div>
+      </div>
+    </section>
+
+    <!-- SERVICES VIEW -->
+    <section class="products view" id="view-services" aria-label="Services">
+      <div class="topbar">
+        <div class="titleRow">
+          <strong id="servicesTitle">Services</strong>
+        </div>
+        <div class="actions" style="margin-top:0;">
+          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromServices">Home</a>
+        </div>
+      </div>
+
+      <div class="productsGrid" id="servicesGrid"></div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="h" id="servicesNotesTitle">Notes</div>
+        <p class="p" id="servicesNotesText">For custom scopes, request a quote on the service page.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a data-contact-email href="#">contact@ezion.uk</a>
+    </div>
+  </footer>
+
+  <!-- About Us panel -->
+  <section class="panel" id="panel" aria-hidden="true">
+    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
+
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="About Ezion">
+      <div class="sheet-header">
+        <div class="sheet-title">
+          <div>
+            <strong id="aboutTitle">ABOUT US</strong><br/>
+          </div>
+        </div>
+        <button class="btn secondary" type="button" id="closeInfo">Close</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <p class="p" id="aboutBody">
+            Ezion Ltd develops and manages consumer products, digital tools, and operational systems. <br/><br/>
+            Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.
+          </p>
+
+          <div class="h" style="margin-top:14px;" id="aboutPrinciplesTitle">Principles</div>
+          <div class="focusList">
+            <div class="focusItem">
+              <strong id="p1Title">Clarity</strong>
+              <span id="p1Body">Simple positioning, clean execution, minimal maintenance.</span>
+            </div>
+            <div class="focusItem">
+              <strong id="p2Title">Durability</strong>
+              <span id="p2Body">Fewer moving parts. Systems that keep working.</span>
+            </div>
+            <div class="focusItem">
+              <strong id="p3Title">Leverage</strong>
+              <span id="p3Body">Repeatable processes and compounding improvements.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="h" id="contactTitle">Contact</div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <div>
+                <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+                <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
+              </div>
+              <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn secondary" data-phone href="#">Call</a>
+              <a class="btn secondary" data-whatsapp href="#" style="display:none;">WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
+          <p class="p" id="companyBlock">
+            <strong id="companyLegalLabel">Legal name:</strong>
+            <span id="companyLegal"></span><br/>
+
+            <strong id="companyJurisdictionLabel">Jurisdiction:</strong>
+            <span id="companyJurisdiction"></span><br/>
+
+            <strong id="companyStatusLabel">Status:</strong>
+            <span id="companyStatus"></span>
+          </p>
+
+          <p class="p" id="companyReg" style="margin-top:10px; color: rgba(255,255,255,.62);">
+            <span id="companyRegLabel"></span>:
+            <span id="companyRegValue"></span>
+          </p>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="h" id="focusTitle">Focus</div>
+          <p class="focusSub" id="focusSub">A concise snapshot (broad by design).</p>
+
+          <div class="focusList">
+            <div class="focusItem">
+              <strong id="f1Title">Brand & product incubation</strong>
+              <span id="f1Body">From concept to early validation and launch readiness.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f2Title">Digital tools and internal systems</strong>
+              <span id="f2Body">Automation, operations tooling, and lightweight software.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f3Title">Operations, logistics, and process design</strong>
+              <span id="f3Body">Reducing friction and increasing reliability.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f4Title">Research & development</strong>
+              <span id="f4Body">Iterating and testing ideas for consumer applications.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
+          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
+            © <span id="year"></span> Ezion Ltd. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
+  <script src="assets/locale.js"></script>
+  <script>
   // -----------------------------
   // Text packs (EN / zh-Hans / zh-Hant)
   // -----------------------------
@@ -539,3 +1240,5 @@
     }
   });
 </script>
+</body>
+</html>

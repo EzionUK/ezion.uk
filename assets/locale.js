@@ -26,7 +26,7 @@
 
       contact: {
         email: "contact@ezion.uk",
-        phone: "+44 20 0000 0000",
+        phone: "+44 7733 9344449",
         whatsapp: null
       },
 
@@ -47,12 +47,12 @@
 
       contact: {
         email: "ezionsg@gmail.com",
-        phone: "+65 9000 0000",
-        whatsapp: "+6590000000"
+        phone: "+65 9622 2887",
+        whatsapp: "+6596222887"
       },
 
       company: {
-        legalName: "Ezion (Singapore)",
+        legalName: "Ezion Pte Ltd",
         jurisdiction: "Singapore",
         status: "Operating",
         registrationLabel: "UEN",
@@ -68,12 +68,12 @@
 
       contact: {
         email: "ezionsg@gmail.com",
-        phone: "+65 9000 0000",
-        whatsapp: "+6590000000"
+        phone: "+65 9622 2887",
+        whatsapp: "+6596222887"
       },
 
       company: {
-        legalName: "Ezion（新加坡）",
+        legalName: "Ezion Pte Ltd",
         jurisdiction: "新加坡",
         status: "运营中",
         registrationLabel: "UEN",
@@ -163,7 +163,7 @@
     const val = money(converted, ctx.currency, ctx.numberLocale);
 
     return price.type === "from"
-      ? ctx.lang === "zh" ? `${t("from")} ${val}` : `${t("from")} ${val}`
+      ? ctx.lang === "zh" ? `${val} ${t("from")} ` : `${t("from")} ${val}`
       : val;
   }
 

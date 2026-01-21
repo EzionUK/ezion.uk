@@ -311,7 +311,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Top-right language/country switch + Home -->
-  <div class="lang" id="lang" data-route="home">
+  <div class="lang" id="lang" data-route="other">
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
       <span class="langText" id="langText">English</span>
@@ -341,9 +341,9 @@
       </button>
     </div>
   
-    <!-- Home pill (hide on home via data-route) -->
-    <a class="langBtn homeBtn" href="#" id="topHomeBtn" aria-label="Home">
-      <span class="langText" id="topHomeText">主页</span>
+    <!-- HOME: in services/ pages use ../index.html -->
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
     </a>
   </div>
 
@@ -582,65 +582,65 @@
     }
 
     function applyText(ctx){
-      const key = langKeyFromCtx(ctx);
-      const t = I18N[key] || I18N.en;
-
-      document.getElementById("homeBtnText").textContent = t.home;
-
-      document.getElementById("kickerServices").textContent = t.kickerServices;
-      document.getElementById("pageTitle").textContent = t.pageTitle;
-      document.getElementById("pageSub").textContent = t.pageSub;
-
-      document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
-      document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
-
-      document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
-      document.getElementById("d1").textContent = t.d1;
-      document.getElementById("d2").textContent = t.d2;
-      document.getElementById("d3").textContent = t.d3;
-
-      document.getElementById("quoteTitle").textContent = t.quoteTitle;
-      document.getElementById("quoteBody").textContent = t.quoteBody;
-      document.getElementById("btnQuote").textContent = t.btnQuote;
-
-      document.getElementById("lang").dataset.route = "other"
-
-      // Discovery line text (keep existing <a> element)
-      const discoveryLine = document.getElementById("discoveryLine");
-      const discoveryA = discoveryLine ? discoveryLine.querySelector("a") : null;
-      if (discoveryLine && discoveryA){
-        discoveryLine.childNodes.forEach(n => {
-          if (n.nodeType === Node.TEXT_NODE) n.textContent = "";
-        });
-        discoveryLine.innerHTML = `${t.discoveryLinePrefix} <a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+        const key = langKeyFromCtx(ctx);
+        const t = I18N[key] || I18N.en;
+      
+        // FIX: correct id is topHomeText
+        const homeEl = document.getElementById("topHomeText");
+        if (homeEl) homeEl.textContent = t.home;
+      
+        document.getElementById("kickerServices").textContent = t.kickerServices;
+        document.getElementById("pageTitle").textContent = t.pageTitle;
+        document.getElementById("pageSub").textContent = t.pageSub;
+      
+        document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
+        document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
+      
+        document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
+        document.getElementById("d1").textContent = t.d1;
+        document.getElementById("d2").textContent = t.d2;
+        document.getElementById("d3").textContent = t.d3;
+      
+        document.getElementById("quoteTitle").textContent = t.quoteTitle;
+        document.getElementById("quoteBody").textContent = t.quoteBody;
+        document.getElementById("btnQuote").textContent = t.btnQuote;
+      
+        document.getElementById("pricingTitle").textContent = t.pricingTitle;
+        document.getElementById("pricingSub").textContent = t.pricingSub;
+      
+        document.getElementById("tierStarterName").textContent = t.tierStarterName;
+        document.getElementById("tierStandardName").textContent = t.tierStandardName;
+        document.getElementById("tierProName").textContent = t.tierProName;
+      
+        document.getElementById("btnStarter").textContent = t.btnStarter;
+        document.getElementById("btnStandard").textContent = t.btnStandard;
+        document.getElementById("btnPro").textContent = t.btnPro;
+      
+        document.getElementById("s1").textContent = t.s1;
+        document.getElementById("s2").textContent = t.s2;
+        document.getElementById("s3").textContent = t.s3;
+      
+        document.getElementById("st1").textContent = t.st1;
+        document.getElementById("st2").textContent = t.st2;
+        document.getElementById("st3").textContent = t.st3;
+      
+        document.getElementById("p1").textContent = t.p1;
+        document.getElementById("p2").textContent = t.p2;
+        document.getElementById("p3").textContent = t.p3;
+      
+        document.getElementById("note1").textContent = t.note1;
+        document.getElementById("backToServices").textContent = t.backToServices;
+      
+        // Keep route marker correct (this page is not home)
+        const lang = document.getElementById("lang");
+        if (lang) lang.dataset.route = "other";
+      
+        // Safer discovery line update
+        const discoveryLine = document.getElementById("discoveryLine");
+        if (discoveryLine){
+          discoveryLine.innerHTML = `${t.discoveryLinePrefix} <a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+        }
       }
-
-      document.getElementById("pricingTitle").textContent = t.pricingTitle;
-      document.getElementById("pricingSub").textContent = t.pricingSub;
-
-      document.getElementById("tierStarterName").textContent = t.tierStarterName;
-      document.getElementById("tierStandardName").textContent = t.tierStandardName;
-      document.getElementById("tierProName").textContent = t.tierProName;
-
-      document.getElementById("btnStarter").textContent = t.btnStarter;
-      document.getElementById("btnStandard").textContent = t.btnStandard;
-      document.getElementById("btnPro").textContent = t.btnPro;
-
-      document.getElementById("s1").textContent = t.s1;
-      document.getElementById("s2").textContent = t.s2;
-      document.getElementById("s3").textContent = t.s3;
-
-      document.getElementById("st1").textContent = t.st1;
-      document.getElementById("st2").textContent = t.st2;
-      document.getElementById("st3").textContent = t.st3;
-
-      document.getElementById("p1").textContent = t.p1;
-      document.getElementById("p2").textContent = t.p2;
-      document.getElementById("p3").textContent = t.p3;
-
-      document.getElementById("note1").textContent = t.note1;
-      document.getElementById("backToServices").textContent = t.backToServices;
-    }
 
     function buildQuoteBody(ctx, tier){
       const isTraditional = (ctx.key === "hk-zh");
@@ -702,7 +702,7 @@ Thanks.`;
 
     function mailto(subject, tier){
       const ctx = EzionLocale.getContext();
-      const email = EzionLocale.getContactEmail("accounting") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
       const body = buildQuoteBody(ctx, tier);
       return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
@@ -718,22 +718,23 @@ Thanks.`;
       const starter = EzionLocale.formatPrice({ type:"from", amount:149, currency:"GBP" }, ctx);
       const standard = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
       const pro = EzionLocale.formatPrice({ type:"from", amount:999, currency:"GBP" }, ctx);
-
-      document.getElementById("priceStarter").textContent = ${starter}${t.perMonth};
+      
+      document.getElementById("priceStarter").textContent = `${starter}${t.perMonth}`;
       document.getElementById("priceStandard").textContent = `${standard}${t.perMonth}`;
       document.getElementById("pricePro").textContent = `${pro}${t.perMonth}`;
-
+      
       // Quote buttons
       document.getElementById("btnQuote").href = mailto("Quote: Accounting (Custom)", "");
+      
       document.querySelectorAll("a[data-tier]").forEach(a => {
         const tier = a.getAttribute("data-tier") || "";
         a.href = mailto(`Quote: Accounting (${tier})`, tier);
       });
-
-      // Discovery call link routes to locale email
+      
+      // Contact email links
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
       document.querySelectorAll("[data-contact-email]").forEach(a => {
-        const email = EzionLocale.getContactEmail("accounting") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
-        a.href = `mailto:${email}?subject=${encodeURIComponent("Discovery call request")}`;
+        a.href = `mailto:${email}`;
       });
 
       document.title =

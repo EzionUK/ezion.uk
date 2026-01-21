@@ -1,16 +1,14 @@
 /* assets/locale.js
-   Shared locale + currency + i18n helpers for ezion.uk
+   Shared locale + currency + i18n + contact helpers for ezion.uk
+   Drop-in replacement (extends previous version)
+
    Usage:
-     - Include on every page: <script src="/assets/locale.js"></script>
-       (or "../assets/locale.js" depending on folder depth)
-     - Add the lang pill HTML (id="lang", "langBtn", "langMenu", "langFlag", "langText")
-     - Call:
-         EzionLocale.init({
-           onChange: (ctx) => { ...re-render page... }
-         });
-     - Use:
-         const ctx = EzionLocale.getContext();
-         EzionLocale.formatPrice({type:"from", amount:499, currency:"GBP"})
+     <script src="/assets/locale.js"></script>
+
+     EzionLocale.init({
+       onReady(ctx){ ... },
+       onChange(ctx){ ... }
+     });
 */
 
 (function () {
@@ -20,51 +18,99 @@
   // Config
   // -----------------------------
   const LOCALES = {
-    "uk-en": { lang: "en", country: "UK", currency: "GBP", numberLocale: "en-GB" },
-    "sg-en": { lang: "en", country: "SG", currency: "SGD", numberLocale: "en-SG" },
-    "sg-zh": { lang: "zh", country: "SG", currency: "SGD", numberLocale: "zh-SG" },
+    "uk-en": {
+      lang: "en",
+      country: "UK",
+      currency: "GBP",
+      numberLocale: "en-GB",
+
+      contact: {
+        email: "contact@ezion.uk",
+        phone: "+44 20 0000 0000",
+        whatsapp: null
+      },
+
+      company: {
+        legalName: "Ezion Ltd",
+        jurisdiction: "United Kingdom",
+        status: "Active",
+        registrationLabel: "Company Number",
+        registrationValue: "16929156"
+      }
+    },
+
+    "sg-en": {
+      lang: "en",
+      country: "SG",
+      currency: "SGD",
+      numberLocale: "en-SG",
+
+      contact: {
+        email: "ezionsg@gmail.com",
+        phone: "+65 9000 0000",
+        whatsapp: "+6590000000"
+      },
+
+      company: {
+        legalName: "Ezion (Singapore)",
+        jurisdiction: "Singapore",
+        status: "Operating",
+        registrationLabel: "UEN",
+        registrationValue: "Pending"
+      }
+    },
+
+    "sg-zh": {
+      lang: "zh",
+      country: "SG",
+      currency: "SGD",
+      numberLocale: "zh-SG",
+
+      contact: {
+        email: "ezionsg@gmail.com",
+        phone: "+65 9000 0000",
+        whatsapp: "+6590000000"
+      },
+
+      company: {
+        legalName: "Ezion（新加坡）",
+        jurisdiction: "新加坡",
+        status: "运营中",
+        registrationLabel: "UEN",
+        registrationValue: "待定"
+      }
+    }
   };
 
-  // Simple FX table (edit anytime)
-  // Interpreted as: 1 FROM = rate TO
+  // -----------------------------
+  // FX
+  // -----------------------------
   const FX = {
     "GBP:SGD": 1.72,
-    "SGD:GBP": 1 / 1.72,
+    "SGD:GBP": 1 / 1.72
   };
 
+  // -----------------------------
+  // Lang pill
+  // -----------------------------
   const PILL_MAP = {
     "uk-en": { flag: "🇬🇧", text: "English" },
     "sg-en": { flag: "🇸🇬", text: "English" },
-    "sg-zh": { flag: "🇸🇬", text: "中文" },
+    "sg-zh": { flag: "🇸🇬", text: "中文" }
   };
 
   const STORAGE_KEY = "ezion_locale";
   const DEFAULT_LOCALE = "uk-en";
 
-  // Optional global i18n dictionary (use if you want)
   const I18N = {
-    en: {
-      free: "FREE",
-      from: "From",
-      requestQuote: "Request a quote",
-      view: "View",
-      get: "Get",
-    },
-    zh: {
-      free: "免费",
-      from: "起",
-      requestQuote: "索取报价",
-      view: "查看",
-      get: "获取",
-    },
+    en: { free: "FREE", from: "From" },
+    zh: { free: "免费", from: "起" }
   };
 
   // -----------------------------
   // Utils
   // -----------------------------
-  function $(id) {
-    return document.getElementById(id);
-  }
+  const $ = (id) => document.getElementById(id);
 
   function getSavedLocaleKey() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -72,202 +118,182 @@
   }
 
   function setSavedLocaleKey(key) {
-    if (!LOCALES[key]) return;
-    localStorage.setItem(STORAGE_KEY, key);
+    if (LOCALES[key]) localStorage.setItem(STORAGE_KEY, key);
   }
 
   function getContext() {
     const key = getSavedLocaleKey();
-    const info = LOCALES[key] || LOCALES[DEFAULT_LOCALE];
-    return { key, ...info };
+    return { key, ...LOCALES[key] };
   }
 
-  function t(key) {
+  function t(k) {
     const ctx = getContext();
-    const dict = I18N[ctx.lang] || I18N.en;
-    return dict[key] != null ? dict[key] : (I18N.en[key] != null ? I18N.en[key] : "");
+    return (I18N[ctx.lang] || I18N.en)[k] || "";
   }
 
-  function money(amount, currency, numberLocale) {
-    const n = Number(amount);
-    if (!isFinite(n)) return `${currency} 0.00`;
+  function money(amount, currency, locale) {
     try {
-      return new Intl.NumberFormat(numberLocale, { style: "currency", currency }).format(n);
+      return new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency
+      }).format(amount);
     } catch {
-      return `${currency} ${n.toFixed(2)}`;
+      return `${currency} ${Number(amount).toFixed(2)}`;
     }
   }
 
-  function convertAmount(amount, fromCcy, toCcy) {
-    const from = String(fromCcy || "").toUpperCase();
-    const to = String(toCcy || "").toUpperCase();
-    const n = Number(amount);
-
-    if (!isFinite(n)) return 0;
-    if (!from || !to || from === to) return n;
-
-    const direct = FX[`${from}:${to}`];
-    if (typeof direct === "number" && isFinite(direct)) return n * direct;
-
-    // Fallback: try via GBP if available
-    if (from !== "GBP" && to !== "GBP") {
-      const toGBP = FX[`${from}:GBP`];
-      const fromGBP = FX[`GBP:${to}`];
-      if (typeof toGBP === "number" && typeof fromGBP === "number") {
-        return n * toGBP * fromGBP;
-      }
-    }
-
-    // No rate found, return original amount
-    return n;
+  function convertAmount(amount, from, to) {
+    if (from === to) return amount;
+    const rate = FX[`${from}:${to}`];
+    return rate ? amount * rate : amount;
   }
 
-  // price object forms:
-  // { type:"free" }
-  // { type:"fixed", amount:9.99, currency:"GBP" }
-  // { type:"from", amount:499, currency:"GBP" }
   function formatPrice(price, ctxOverride) {
     const ctx = ctxOverride || getContext();
     if (!price || !price.type) return "";
 
     if (price.type === "free") return t("free");
 
-    const targetCcy = ctx.currency;
-    const baseCcy = (price.currency || "GBP").toUpperCase();
-    const converted = convertAmount(price.amount, baseCcy, targetCcy);
-    const formatted = money(converted, targetCcy, ctx.numberLocale);
+    const converted = convertAmount(
+      price.amount,
+      price.currency || "GBP",
+      ctx.currency
+    );
 
-    if (price.type === "from") {
-      return ctx.lang === "zh" ? `${formatted} ${t("from")}` : `${t("from")} ${formatted}`;
-    }
-    return formatted;
-  }
+    const val = money(converted, ctx.currency, ctx.numberLocale);
 
-  // Convenience: set a textContent safely
-  function setText(id, value) {
-    const el = $(id);
-    if (!el) return;
-    el.textContent = value;
-  }
-
-  function setHtml(id, value) {
-    const el = $(id);
-    if (!el) return;
-    el.innerHTML = value;
-  }
-
-  function setHref(id, value) {
-    const el = $(id);
-    if (!el) return;
-    el.href = value;
+    return price.type === "from"
+      ? ctx.lang === "zh" ? `${t("from")} ${val}` : `${t("from")} ${val}`
+      : val;
   }
 
   // -----------------------------
-  // Pill wiring
+  // Contact helpers
   // -----------------------------
-  function setLangPill(localeKey) {
-    const map = PILL_MAP[localeKey] || PILL_MAP[DEFAULT_LOCALE];
-    const flagEl = $("langFlag");
-    const textEl = $("langText");
-    if (flagEl) flagEl.textContent = map.flag;
-    if (textEl) textEl.textContent = map.text;
+  function getContactEmail(serviceType) {
+    const ctx = getContext();
+    return ctx.contact.email;
   }
 
-  function openLangMenu() {
-    const wrap = $("lang");
-    const btn = $("langBtn");
-    if (wrap) wrap.classList.add("open");
-    if (btn) btn.setAttribute("aria-expanded", "true");
+  function getPhone() {
+    return getContext().contact.phone;
   }
 
-  function closeLangMenu() {
-    const wrap = $("lang");
-    const btn = $("langBtn");
-    if (wrap) wrap.classList.remove("open");
-    if (btn) btn.setAttribute("aria-expanded", "false");
+  function getWhatsApp() {
+    return getContext().contact.whatsapp;
+  }
+
+  function getCompanyInfo() {
+    return getContext().company;
+  }
+
+  function applyContactTargets() {
+    const email = getContactEmail();
+    const phone = getPhone();
+    const wa = getWhatsApp();
+
+    document.querySelectorAll("[data-contact-email]").forEach(el => {
+      el.textContent = email;
+      el.href = `mailto:${email}`;
+    });
+
+    document.querySelectorAll("[data-copy-email]").forEach(el => {
+      el.setAttribute("data-copy", email);
+    });
+
+    document.querySelectorAll("[data-phone]").forEach(el => {
+      el.textContent = phone;
+      el.href = `tel:${phone.replace(/\s+/g, "")}`;
+    });
+
+    document.querySelectorAll("[data-whatsapp]").forEach(el => {
+      if (!wa) {
+        el.style.display = "none";
+      } else {
+        el.style.display = "";
+        el.href = `https://wa.me/${wa.replace(/\D/g, "")}`;
+      }
+    });
+  }
+
+  // -----------------------------
+  // Company block helper
+  // -----------------------------
+  function applyCompanyInfo() {
+    const c = getCompanyInfo();
+    if (!c) return;
+
+    if ($("companyLegal")) $("companyLegal").textContent = c.legalName;
+    if ($("companyJurisdiction")) $("companyJurisdiction").textContent = c.jurisdiction;
+    if ($("companyStatus")) $("companyStatus").textContent = c.status;
+    if ($("companyRegLabel")) $("companyRegLabel").textContent = c.registrationLabel;
+    if ($("companyRegValue")) $("companyRegValue").textContent = c.registrationValue;
+  }
+
+  // -----------------------------
+  // Lang pill wiring
+  // -----------------------------
+  function setLangPill(key) {
+    const m = PILL_MAP[key];
+    if ($("langFlag")) $("langFlag").textContent = m.flag;
+    if ($("langText")) $("langText").textContent = m.text;
   }
 
   function wireLangMenu(onChange) {
     const wrap = $("lang");
     const btn = $("langBtn");
     const menu = $("langMenu");
-
-    // If the page doesn't have the pill, just don't wire it.
     if (!wrap || !btn || !menu) return;
 
-    btn.addEventListener("click", (e) => {
+    btn.onclick = (e) => {
       e.stopPropagation();
-      if (wrap.classList.contains("open")) closeLangMenu();
-      else openLangMenu();
-    });
+      wrap.classList.toggle("open");
+    };
 
-    menu.addEventListener("click", (e) => {
+    menu.onclick = (e) => {
       const item = e.target.closest("[data-locale]");
       if (!item) return;
-
-      const key = item.getAttribute("data-locale");
-      if (!LOCALES[key]) return;
-
+      const key = item.dataset.locale;
       setSavedLocaleKey(key);
       setLangPill(key);
-
-      // Set html lang
       const ctx = getContext();
       document.documentElement.lang = ctx.lang === "zh" ? "zh-Hans" : "en";
+      onChange && onChange(ctx);
+      wrap.classList.remove("open");
+    };
 
-      if (typeof onChange === "function") onChange(ctx);
-
-      closeLangMenu();
-    });
-
-    // Close on outside click / Esc
-    document.addEventListener("click", () => closeLangMenu());
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLangMenu();
-    });
+    document.addEventListener("click", () => wrap.classList.remove("open"));
+    document.addEventListener("keydown", (e) => e.key === "Escape" && wrap.classList.remove("open"));
   }
 
   // -----------------------------
   // Public API
   // -----------------------------
-  const EzionLocale = {
+  window.EzionLocale = {
     LOCALES,
     FX,
-    I18N,
 
-    getSavedLocaleKey,
-    setSavedLocaleKey,
     getContext,
-
-    t,
+    formatPrice,
     money,
     convertAmount,
-    formatPrice,
 
-    setText,
-    setHtml,
-    setHref,
+    getContactEmail,
+    getPhone,
+    getWhatsApp,
+    getCompanyInfo,
 
-    // Init the locale system for the page
-    // options:
-    //   onChange(ctx) => called after user changes locale from pill
-    //   onReady(ctx)  => called after init applies saved locale
-    init: function init(options) {
-      const opts = options || {};
+    applyContactTargets,
+    applyCompanyInfo,
+
+    init(opts = {}) {
       const key = getSavedLocaleKey();
       setLangPill(key);
-
-      // Set html lang
       const ctx = getContext();
       document.documentElement.lang = ctx.lang === "zh" ? "zh-Hans" : "en";
-
       wireLangMenu(opts.onChange);
-
-      if (typeof opts.onReady === "function") opts.onReady(ctx);
+      opts.onReady && opts.onReady(ctx);
       return ctx;
-    },
+    }
   };
-
-  // Expose globally
-  window.EzionLocale = EzionLocale;
 })();

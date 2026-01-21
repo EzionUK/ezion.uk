@@ -62,10 +62,10 @@
       country: "HK",
       currency: "HKD",
       numberLocale: "en-HK",
-      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532/ +86 1717 0494 532", whatsapp: null },
+      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532", whatsapp: null },
       company: {
-        legalName: "Ezion Pte Ltd",
-        jurisdiction: "Singapore",
+        legalName: "Ezion Ltd",
+        jurisdiction: "United Kingdom",
         status: "Operating",
         registrationLabel: null,
         registrationValue: null
@@ -78,10 +78,10 @@
       country: "HK",
       currency: "HKD",
       numberLocale: "zh-HK",
-      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532/ +86 1717 0494 532", whatsapp: null },
+      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
-        jurisdiction: "香港",
+        jurisdiction: "英國",
         status: "營運中",
         registrationLabel: null,
         registrationValue: null
@@ -114,14 +114,14 @@
       numberLocale: "zh-CN",
 
       contact: {
-        email: "contact@ezion.uk",
+        email: "ezionsg@gmail.com",
         phone: "+86 1717 0494 532",
         whatsapp: null
       },
 
       company: {
-        legalName: "Ezion Ltd",
-        jurisdiction: "英国",
+        legalName: "Ezion Pte Ltd",
+        jurisdiction: "新加坡",
         status: "运营中",
         registrationLabel: null,
         registrationValue: null

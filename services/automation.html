@@ -183,38 +183,41 @@
       line-height:1.6;
     }
 
-    /* Top-right language/country switch + Home button */
+    /* Top-right language/country switch + Home pill */
     .lang{
       position: fixed;
       top: 18px;
       right: 18px;
       z-index: 6;
-      display:flex;
-      gap:10px;
-      align-items:center;
+    
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
-
+    
     .langBtn{
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-height: 44px;
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
       color: rgba(255,255,255,.92);
       border-radius: 999px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
-      text-decoration:none;
+      text-decoration: none; /* for <a> */
     }
-
+    
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-
+    
+    /* Flag bubble */
     .flag{
       width: 28px;
       height: 28px;
@@ -225,14 +228,18 @@
       font-size: 16px;
       background: rgba(255,255,255,.08);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
     }
-
+    
+    /* Text */
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
-
+    
+    /* Menu */
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -246,9 +253,9 @@
       padding: 8px;
       display: none;
     }
-
+    
     .lang.open .langMenu{ display: block; }
-
+    
     .langItem{
       width: 100%;
       display: grid;
@@ -263,29 +270,37 @@
       cursor: pointer;
       text-align: left;
     }
-
+    
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-
+    
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
       letter-spacing: .02em;
     }
-    /* Top-right Home pill (right of locale selector) */
-    .topHome{
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 6;
+    
+    /* Spacer used when a pill needs "flag space" without a flag */
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
     }
     
-    /* Push locale pill left so Home can sit to its right */
-    .lang{
-      right: 132px; /* tweak if you want more/less spacing */
+    /* Home pill: content-sized, same height, no reserved flag space */
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
     }
+    .homeBtn .iconSpacer{ display:none; }
+    
+    /* Auto-hide home button when already on home */
+    .lang[data-route="home"] .homeBtn{ display:none; }
   </style>
 </head>
 
@@ -294,41 +309,38 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- Top-right language/country switch + Home button -->
-  <div class="lang" id="lang">
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
       <span class="langText" id="langText">English</span>
     </button>
-
+  
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
       <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
         <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
       </button>
-
+  
       <button class="langItem" role="menuitem" type="button" data-locale="us-en">
         <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
       </button>
-
+  
       <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
         <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
-        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
       </button>
-
+  
       <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
         <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
-        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
       </button>
     </div>
-  </div>
-  <!-- Top-right Home button (next to locale selector) -->
-  <div class="topHome">
-    <a class="langBtn" href="#" id="topHomeBtn" aria-label="Home">
-      <span class="flag" aria-hidden="true">⌂</span>
+  
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
       <span class="langText" id="topHomeText">Home</span>
     </a>
   </div>
@@ -570,59 +582,64 @@
     function applyText(ctx){
       const key = langKeyFromCtx(ctx);
       const t = I18N[key] || I18N.en;
-
-      document.getElementById("homeBtnText").textContent = t.home;
-
+    
+      // FIX: correct id is topHomeText
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+    
       document.getElementById("kickerServices").textContent = t.kickerServices;
       document.getElementById("pageTitle").textContent = t.pageTitle;
       document.getElementById("pageSub").textContent = t.pageSub;
-
+    
       document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
       document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
-
+    
       document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
       document.getElementById("d1").textContent = t.d1;
       document.getElementById("d2").textContent = t.d2;
       document.getElementById("d3").textContent = t.d3;
-
+    
       document.getElementById("quoteTitle").textContent = t.quoteTitle;
       document.getElementById("quoteBody").textContent = t.quoteBody;
       document.getElementById("btnQuote").textContent = t.btnQuote;
-
-      setText("topHomeText", t.home);
-
+    
+      // Keep route marker correct (this page is not home)
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+    
+      // Safer discovery line update
       const discoveryLine = document.getElementById("discoveryLine");
       if (discoveryLine){
-        discoveryLine.innerHTML = `${t.discoveryLinePrefix}<a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+        discoveryLine.innerHTML = `${t.discoveryLinePrefix} <a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
       }
-
+    
       document.getElementById("pricingTitle").textContent = t.pricingTitle;
       document.getElementById("pricingSub").textContent = t.pricingSub;
-
+    
       document.getElementById("tierStarterName").textContent = t.tierStarterName;
       document.getElementById("tierStandardName").textContent = t.tierStandardName;
       document.getElementById("tierProName").textContent = t.tierProName;
-
+    
       document.getElementById("btnStarter").textContent = t.btnStarter;
       document.getElementById("btnStandard").textContent = t.btnStandard;
       document.getElementById("btnPro").textContent = t.btnPro;
-
+    
       document.getElementById("s1").textContent = t.s1;
       document.getElementById("s2").textContent = t.s2;
       document.getElementById("s3").textContent = t.s3;
-
+    
       document.getElementById("st1").textContent = t.st1;
       document.getElementById("st2").textContent = t.st2;
       document.getElementById("st3").textContent = t.st3;
-
+    
       document.getElementById("p1").textContent = t.p1;
       document.getElementById("p2").textContent = t.p2;
       document.getElementById("p3").textContent = t.p3;
-
+    
       document.getElementById("note1").textContent = t.note1;
       document.getElementById("backToServices").textContent = t.backToServices;
     }
-
+    
     function buildQuoteBody(ctx, tier){
       const isTraditional = (ctx.key === "hk-zh");
       const isSimplified = (ctx.key === "sg-zh");
@@ -677,7 +694,7 @@ Thanks.`;
 
     function mailto(subject, tier){
       const ctx = EzionLocale.getContext();
-      const email = EzionLocale.getContactEmail("automation") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
       const body = buildQuoteBody(ctx, tier);
       return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
@@ -691,26 +708,26 @@ Thanks.`;
       const starter = EzionLocale.formatPrice({ type:"from", amount:199, currency:"GBP" }, ctx);
       const standard = EzionLocale.formatPrice({ type:"from", amount:699, currency:"GBP" }, ctx);
       const pro = EzionLocale.formatPrice({ type:"from", amount:1999, currency:"GBP" }, ctx);
-
+      
+      // One-off pricing (no /mo here, matches your current automation page behavior)
       document.getElementById("priceStarter").textContent = starter;
-      document.getElementById("priceStandard").textContent = standard;  // one-off
-      document.getElementById("pricePro").textContent = pro;            // one-off
-
+      document.getElementById("priceStandard").textContent = standard;
+      document.getElementById("pricePro").textContent = pro;
+      
       // Main quote button
       document.getElementById("btnQuote").href = mailto("Quote: Automation (Custom)", "");
-
+      
       // Tier buttons
       document.querySelectorAll("a[data-tier]").forEach(a => {
         const tier = a.getAttribute("data-tier") || "";
         a.href = mailto(`Quote: Automation (${tier})`, tier);
       });
-
-      // Discovery call link routes to locale email
+      
+      // Contact email links (simple + consistent)
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
       document.querySelectorAll("[data-contact-email]").forEach(a => {
-        const email = EzionLocale.getContactEmail("automation") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
-        a.href = `mailto:${email}?subject=${encodeURIComponent("Discovery call request")}`;
+        a.href = `mailto:${email}`;
       });
-
       document.title =
         (ctx.country === "SG") ? "Automation (Excel & Python) | Ezion SG" :
         (ctx.country === "HK") ? "Automation (Excel & Python) | Ezion HK" :

@@ -50,16 +50,6 @@
       z-index:-1;
     }
 
-    .mark{
-      position:fixed; top:18px; left:18px;
-      display:flex; gap:10px; align-items:center;
-      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      color:rgba(255,255,255,.62);
-      z-index:5;
-      user-select:none;
-    }
-    .dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.62); }
-
     .wrap{
       min-height:100%;
       display:grid;
@@ -192,6 +182,98 @@
       color:rgba(255,255,255,.60);
       line-height:1.6;
     }
+
+    /* Top-right language/country switch + Home button */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration:none;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display: block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
   </style>
 </head>
 
@@ -200,39 +282,71 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- <div class="mark" aria-hidden="true">
-    <span class="dot"></span><span>Ezion Ltd</span>
-  </div> -->
+  <!-- Top-right language/country switch + Home button -->
+  <div class="lang" id="lang">
+    <a class="langBtn" href="../index.html" aria-label="Home">
+      <span class="langText" id="homeBtnText">Home</span>
+    </a>
+
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
+      </button>
+    </div>
+  </div>
 
   <main class="wrap">
     <article class="card">
-      <p class="kicker">Services</p>
-      <h1>Process automation (Excel & Python)</h1>
-      <p class="sub">
+      <p class="kicker" id="kickerServices">Services</p>
+      <h1 id="pageTitle">Process automation (Excel & Python)</h1>
+      <p class="sub" id="pageSub">
         Reduce manual work with robust spreadsheets, scripts, and repeatable workflows. Choose a tier, or request a scoped quote.
       </p>
 
       <div class="grid">
         <!-- Left: what you get -->
         <section class="box">
-          <div class="h">What we do</div>
-          <p class="p">
+          <div class="h" id="whatWeDoTitle">What we do</div>
+          <p class="p" id="whatWeDoBody">
             We automate admin and ops tasks using Excel (including VBA) and Python—clean inputs, reliable outputs, and clear handover.
           </p>
 
           <div class="divider"></div>
 
-          <div class="h">Typical deliverables</div>
+          <div class="h" id="deliverablesTitle">Typical deliverables</div>
           <ul>
-            <li>Automated templates (Excel) and/or scripts (Python)</li>
-            <li>Error handling, logs, and sanity checks where needed</li>
-            <li>Documentation + handover notes for future edits</li>
+            <li id="d1">Automated templates (Excel) and/or scripts (Python)</li>
+            <li id="d2">Error handling, logs, and sanity checks where needed</li>
+            <li id="d3">Documentation + handover notes for future edits</li>
           </ul>
 
           <div class="divider"></div>
 
-          <div class="h" id="quote">Request a quote</div>
-          <p class="p">
+          <div class="h" id="quoteTitle">Request a quote</div>
+          <p class="p" id="quoteBody">
             Email a brief and we’ll respond with feasibility, scope, and next steps.
           </p>
 
@@ -240,78 +354,296 @@
             <a class="btn" id="btnQuote" href="#">Request a quote</a>
           </div>
 
-          <p class="fine">
-            Prefer a quick call? <a class="backLink" href="mailto:contact@ezion.uk?subject=Discovery%20call%20request">Request a discovery call</a>.
+          <p class="fine" id="discoveryLine">
+            Prefer a quick call? <a class="backLink" data-contact-email href="#">Request a discovery call</a>.
           </p>
         </section>
 
         <!-- Right: tiers -->
         <aside class="box">
-          <div class="h">Pricing tiers</div>
-          <p class="p" style="color:rgba(255,255,255,.70);">
+          <div class="h" id="pricingTitle">Pricing tiers</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="pricingSub">
             Starting prices. Final quote depends on complexity and data quality.
           </p>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Starter</div>
-              <div class="tierPrice">From £199</div>
+              <div class="tierName" id="tierStarterName">Starter</div>
+              <div class="tierPrice" id="priceStarter"></div>
             </div>
             <ul>
-              <li>1 automation task (single workflow)</li>
-              <li>Input/output template included</li>
-              <li>Basic handover notes</li>
+              <li id="s1">1 automation task (single workflow)</li>
+              <li id="s2">Input/output template included</li>
+              <li id="s3">Basic handover notes</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Starter">Request Starter quote</a>
+              <a class="btn" href="#" data-tier="Starter" id="btnStarter">Request Starter quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Standard</div>
-              <div class="tierPrice">From £699</div>
+              <div class="tierName" id="tierStandardName">Standard</div>
+              <div class="tierPrice" id="priceStandard"></div>
             </div>
             <ul>
-              <li>Up to 3 automations (end-to-end)</li>
-              <li>Validation + error handling</li>
-              <li>Documentation + minor revisions</li>
+              <li id="st1">Up to 3 automations (end-to-end)</li>
+              <li id="st2">Validation + error handling</li>
+              <li id="st3">Documentation + minor revisions</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Standard">Request Standard quote</a>
+              <a class="btn" href="#" data-tier="Standard" id="btnStandard">Request Standard quote</a>
             </div>
           </div>
 
           <div class="tier">
             <div class="tierTop">
-              <div class="tierName">Pro</div>
-              <div class="tierPrice">From £1,999</div>
+              <div class="tierName" id="tierProName">Pro</div>
+              <div class="tierPrice" id="pricePro"></div>
             </div>
             <ul>
-              <li>Full workflow automation (multi-step)</li>
-              <li>Logging, monitoring, and structured outputs</li>
-              <li>Maintenance plan options</li>
+              <li id="p1">Full workflow automation (multi-step)</li>
+              <li id="p2">Logging, monitoring, and structured outputs</li>
+              <li id="p3">Maintenance plan options</li>
             </ul>
             <div class="btnRow">
-              <a class="btn" href="#" data-tier="Pro">Request Pro quote</a>
+              <a class="btn" href="#" data-tier="Pro" id="btnPro">Request Pro quote</a>
             </div>
           </div>
 
-          <p class="fine">
+          <p class="fine" id="note1">
             Common use cases: invoice extraction, reconciliations, batch exports, reporting packs, and file-to-file transformations.
           </p>
           <p class="fine">
-            <a class="btn secondary" href="../index.html#services">Back to Services</a>
+            <a class="btn secondary" href="../index.html#services" id="backToServices">Back to Services</a>
           </p>
         </aside>
       </div>
     </article>
   </main>
 
+  <script src="../assets/locale.js"></script>
   <script>
-    function mailto(subject, tier){
-      const body =
-`Hello Ezion,
+    const I18N = {
+      en: {
+        home: "Home",
+        kickerServices: "Services",
+        pageTitle: "Process automation (Excel & Python)",
+        pageSub: "Reduce manual work with robust spreadsheets, scripts, and repeatable workflows. Choose a tier, or request a scoped quote.",
+        whatWeDoTitle: "What we do",
+        whatWeDoBody: "We automate admin and ops tasks using Excel (including VBA) and Python—clean inputs, reliable outputs, and clear handover.",
+        deliverablesTitle: "Typical deliverables",
+        d1: "Automated templates (Excel) and/or scripts (Python)",
+        d2: "Error handling, logs, and sanity checks where needed",
+        d3: "Documentation + handover notes for future edits",
+        quoteTitle: "Request a quote",
+        quoteBody: "Email a brief and we’ll respond with feasibility, scope, and next steps.",
+        btnQuote: "Request a quote",
+        discoveryLinePrefix: "Prefer a quick call? ",
+        discoveryLink: "Request a discovery call",
+        discoveryLineSuffix: ".",
+        pricingTitle: "Pricing tiers",
+        pricingSub: "Starting prices. Final quote depends on complexity and data quality.",
+        tierStarterName: "Starter",
+        tierStandardName: "Standard",
+        tierProName: "Pro",
+        btnStarter: "Request Starter quote",
+        btnStandard: "Request Standard quote",
+        btnPro: "Request Pro quote",
+        s1: "1 automation task (single workflow)",
+        s2: "Input/output template included",
+        s3: "Basic handover notes",
+        st1: "Up to 3 automations (end-to-end)",
+        st2: "Validation + error handling",
+        st3: "Documentation + minor revisions",
+        p1: "Full workflow automation (multi-step)",
+        p2: "Logging, monitoring, and structured outputs",
+        p3: "Maintenance plan options",
+        note1: "Common use cases: invoice extraction, reconciliations, batch exports, reporting packs, and file-to-file transformations.",
+        backToServices: "Back to Services",
+        perMonth: "/mo"
+      },
+
+      // Simplified Chinese (sg-zh)
+      "zh-Hans": {
+        home: "主页",
+        kickerServices: "服务",
+        pageTitle: "流程自动化（Excel 与 Python）",
+        pageSub: "用稳健的表格、脚本与可复用流程减少手工工作。请选择一个方案，或提交需求以获取定制报价。",
+        whatWeDoTitle: "我们做什么",
+        whatWeDoBody: "我们用 Excel（含 VBA）与 Python 自动化管理与运营任务：输入更干净、输出更可靠，并提供清晰交接。",
+        deliverablesTitle: "常见交付物",
+        d1: "自动化模板（Excel）和/或脚本（Python）",
+        d2: "按需加入错误处理、日志与校验",
+        d3: "文档 + 交接说明，便于后续维护与改动",
+        quoteTitle: "索取报价",
+        quoteBody: "请邮件发送简要需求，我们会回复可行性、范围与下一步。",
+        btnQuote: "索取报价",
+        discoveryLinePrefix: "想先快速沟通？",
+        discoveryLink: "预约一次沟通电话",
+        discoveryLineSuffix: "。",
+        pricingTitle: "价格方案",
+        pricingSub: "起步价。最终报价取决于复杂度与数据质量。",
+        tierStarterName: "入门",
+        tierStandardName: "标准",
+        tierProName: "专业",
+        btnStarter: "索取入门方案报价",
+        btnStandard: "索取标准方案报价",
+        btnPro: "索取专业方案报价",
+        s1: "1 个自动化任务（单一流程）",
+        s2: "包含输入/输出模板",
+        s3: "基础交接说明",
+        st1: "最多 3 个自动化（端到端）",
+        st2: "校验 + 错误处理",
+        st3: "文档 + 小幅修改迭代",
+        p1: "完整工作流自动化（多步骤）",
+        p2: "日志、监控与结构化输出",
+        p3: "可选维护方案",
+        note1: "常见场景：发票提取、对账、批量导出、报表包、文件到文件的转换。",
+        backToServices: "返回服务列表",
+        perMonth: "/月"
+      },
+
+      // Traditional Chinese (hk-zh)
+      "zh-Hant": {
+        home: "主頁",
+        kickerServices: "服務",
+        pageTitle: "流程自動化（Excel 與 Python）",
+        pageSub: "以穩健的試算表、腳本與可重用流程減少手動工作。請選擇方案，或提交需求以索取訂製報價。",
+        whatWeDoTitle: "我們做什麼",
+        whatWeDoBody: "我們使用 Excel（含 VBA）與 Python 自動化行政與營運工作：輸入更乾淨、輸出更可靠，並提供清晰交接。",
+        deliverablesTitle: "常見交付內容",
+        d1: "自動化範本（Excel）及/或 腳本（Python）",
+        d2: "按需要加入錯誤處理、日誌與檢核",
+        d3: "文件 + 交接說明，方便日後維護與修改",
+        quoteTitle: "索取報價",
+        quoteBody: "請電郵提供簡要需求，我們會回覆可行性、範圍與下一步。",
+        btnQuote: "索取報價",
+        discoveryLinePrefix: "想先簡短溝通？",
+        discoveryLink: "預約一次溝通電話",
+        discoveryLineSuffix: "。",
+        pricingTitle: "價格方案",
+        pricingSub: "起步價。最終報價取決於複雜度與資料品質。",
+        tierStarterName: "入門",
+        tierStandardName: "標準",
+        tierProName: "專業",
+        btnStarter: "索取入門方案報價",
+        btnStandard: "索取標準方案報價",
+        btnPro: "索取專業方案報價",
+        s1: "1 個自動化任務（單一流程）",
+        s2: "包含輸入/輸出範本",
+        s3: "基礎交接說明",
+        st1: "最多 3 個自動化（端到端）",
+        st2: "檢核 + 錯誤處理",
+        st3: "文件 + 小幅修改迭代",
+        p1: "完整工作流程自動化（多步驟）",
+        p2: "日誌、監控與結構化輸出",
+        p3: "可選維護方案",
+        note1: "常見場景：發票擷取、對帳、批次匯出、報表包、檔案到檔案的轉換。",
+        backToServices: "返回服務列表",
+        perMonth: "/月"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function applyText(ctx){
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      document.getElementById("homeBtnText").textContent = t.home;
+
+      document.getElementById("kickerServices").textContent = t.kickerServices;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
+      document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
+
+      document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
+      document.getElementById("d1").textContent = t.d1;
+      document.getElementById("d2").textContent = t.d2;
+      document.getElementById("d3").textContent = t.d3;
+
+      document.getElementById("quoteTitle").textContent = t.quoteTitle;
+      document.getElementById("quoteBody").textContent = t.quoteBody;
+      document.getElementById("btnQuote").textContent = t.btnQuote;
+
+      const discoveryLine = document.getElementById("discoveryLine");
+      if (discoveryLine){
+        discoveryLine.innerHTML = `${t.discoveryLinePrefix}<a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+      }
+
+      document.getElementById("pricingTitle").textContent = t.pricingTitle;
+      document.getElementById("pricingSub").textContent = t.pricingSub;
+
+      document.getElementById("tierStarterName").textContent = t.tierStarterName;
+      document.getElementById("tierStandardName").textContent = t.tierStandardName;
+      document.getElementById("tierProName").textContent = t.tierProName;
+
+      document.getElementById("btnStarter").textContent = t.btnStarter;
+      document.getElementById("btnStandard").textContent = t.btnStandard;
+      document.getElementById("btnPro").textContent = t.btnPro;
+
+      document.getElementById("s1").textContent = t.s1;
+      document.getElementById("s2").textContent = t.s2;
+      document.getElementById("s3").textContent = t.s3;
+
+      document.getElementById("st1").textContent = t.st1;
+      document.getElementById("st2").textContent = t.st2;
+      document.getElementById("st3").textContent = t.st3;
+
+      document.getElementById("p1").textContent = t.p1;
+      document.getElementById("p2").textContent = t.p2;
+      document.getElementById("p3").textContent = t.p3;
+
+      document.getElementById("note1").textContent = t.note1;
+      document.getElementById("backToServices").textContent = t.backToServices;
+    }
+
+    function buildQuoteBody(ctx, tier){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh");
+      const lang = ctx.lang;
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想索取以下服務的報價：
+
+- 服務：流程自動化（Excel 與 Python）
+- 方案：${tier || "自訂／未確定"}
+- 簡要需求描述：
+- 輸入（檔案/來源）：
+- 輸出（所需格式）：
+- 時程：
+- 預算範圍（可選）：
+
+謝謝。`;
+      }
+
+      if (isSimplified || lang === "zh"){
+        return `你好 Ezion，
+
+我想索取以下服务的报价：
+
+- 服务：流程自动化（Excel 与 Python）
+- 方案：${tier || "自定义 / 不确定"}
+- 简要需求描述：
+- 输入（文件/来源）：
+- 输出（所需格式）：
+- 时间表：
+- 预算范围（可选）：
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
 
 I'd like to request a quote for:
 
@@ -324,19 +656,54 @@ I'd like to request a quote for:
 - Budget range (optional):
 
 Thanks.`;
-      return `mailto:contact@ezion.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
-    // Main quote button
-    const btnQuote = document.getElementById("btnQuote");
-    btnQuote.href = mailto("Quote: Automation (Custom)", "");
+    function mailto(subject, tier){
+      const ctx = EzionLocale.getContext();
+      const email = EzionLocale.getContactEmail("automation") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+      const body = buildQuoteBody(ctx, tier);
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
 
-    // Tier buttons
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest("a[data-tier]");
-      if (!a) return;
-      const tier = a.getAttribute("data-tier") || "";
-      a.href = mailto(`Quote: Automation (${tier})`, tier);
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+
+      applyText(ctx);
+
+      // Prices (base in GBP)
+      const starter = EzionLocale.formatPrice({ type:"from", amount:199, currency:"GBP" }, ctx);
+      const standard = EzionLocale.formatPrice({ type:"from", amount:699, currency:"GBP" }, ctx);
+      const pro = EzionLocale.formatPrice({ type:"from", amount:1999, currency:"GBP" }, ctx);
+
+      document.getElementById("priceStarter").textContent = starter;
+      document.getElementById("priceStandard").textContent = standard;  // one-off
+      document.getElementById("pricePro").textContent = pro;            // one-off
+
+      // Main quote button
+      document.getElementById("btnQuote").href = mailto("Quote: Automation (Custom)", "");
+
+      // Tier buttons
+      document.querySelectorAll("a[data-tier]").forEach(a => {
+        const tier = a.getAttribute("data-tier") || "";
+        a.href = mailto(`Quote: Automation (${tier})`, tier);
+      });
+
+      // Discovery call link routes to locale email
+      document.querySelectorAll("[data-contact-email]").forEach(a => {
+        const email = EzionLocale.getContactEmail("automation") || (ctx.contact && ctx.contact.email) || "contact@ezion.uk";
+        a.href = `mailto:${email}?subject=${encodeURIComponent("Discovery call request")}`;
+      });
+
+      document.title =
+        (ctx.country === "SG") ? "Automation (Excel & Python) | Ezion SG" :
+        (ctx.country === "HK") ? "Automation (Excel & Python) | Ezion HK" :
+        (ctx.country === "US") ? "Automation (Excel & Python) | Ezion US" :
+        "Automation (Excel & Python) | Ezion UK";
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
     });
   </script>
 </body>

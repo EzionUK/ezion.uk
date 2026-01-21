@@ -603,7 +603,7 @@
 
   <footer class="footer">
     <div>
-      <a href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+      <a data-contact-email href="mailto:contact@ezion.uk">contact@ezion.uk</a>
     </div>
   </footer>
 
@@ -649,21 +649,27 @@
           <div class="h" id="contactTitle">Contact</div>
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
             <div>
-              <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+              <div><a data-contact-email href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
               <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
             </div>
-            <button class="btn" type="button" data-copy="contact@ezion.uk" id="copyBtn">Copy</button>
+            <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
           </div>
 
           <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
-          <p class="p" style="margin-top:10px;" id="companyBody">
-            <strong>Legal name:</strong> Ezion Ltd<br/>
-            <strong>Jurisdiction:</strong> United Kingdom<br/>
-            <strong>Status:</strong> Active
+          <p class="p" id="companyBlock">
+            <strong id="companyLegalLabel">Legal name:</strong>
+            <span id="companyLegal"></span><br/>
+          
+            <strong id="companyJurisdictionLabel">Jurisdiction:</strong>
+            <span id="companyJurisdiction"></span><br/>
+          
+            <strong id="companyStatusLabel">Status:</strong>
+            <span id="companyStatus"></span>
           </p>
-
-          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);" id="companyNumber">
-            Company Number: 16929156
+          
+          <p class="p" id="companyReg">
+            <span id="companyRegLabel"></span>:
+            <span id="companyRegValue"></span>
           </p>
         </div>
 
@@ -705,22 +711,11 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
 
+  <script src="assets/locale.js"></script>
   <script>
     // -----------------------------
     // Locale + Currency + Language
     // -----------------------------
-    const LOCALES = {
-      "uk-en": { lang: "en", country: "UK", currency: "GBP", numberLocale: "en-GB" },
-      "sg-en": { lang: "en", country: "SG", currency: "SGD", numberLocale: "en-SG" },
-      "sg-zh": { lang: "zh", country: "SG", currency: "SGD", numberLocale: "zh-SG" }
-    };
-
-    // Simple FX table (edit these anytime)
-    // Interpreted as: 1 GBP = rate SGD
-    const FX = {
-      "GBP:SGD": 1.72
-    };
-
     const I18N = {
       en: {
         locale: "Locale",
@@ -773,54 +768,6 @@
         productsSectionProductions: "作品"
       }
     };
-
-    function getSavedLocaleKey(){
-      const saved = localStorage.getItem("ezion_locale");
-      return (saved && LOCALES[saved]) ? saved : "uk-en";
-    }
-
-    function setSavedLocaleKey(key){
-      if (!LOCALES[key]) return;
-      localStorage.setItem("ezion_locale", key);
-    }
-
-    function money(amount, currency, numberLocale){
-      try {
-        return new Intl.NumberFormat(numberLocale, { style: "currency", currency }).format(amount);
-      } catch {
-        return `${currency} ${Number(amount).toFixed(2)}`;
-      }
-    }
-
-    function convertAmount(amount, fromCcy, toCcy){
-      const from = String(fromCcy).toUpperCase();
-      const to = String(toCcy).toUpperCase();
-      if (from === to) return amount;
-
-      // Currently only GBP -> SGD in this table
-      const key = `${from}:${to}`;
-      const rate = FX[key];
-      if (!rate) return amount; // fallback if missing
-      return amount * rate;
-    }
-
-    function formatPrice(price, localeInfo){
-      // price object:
-      // { type:"free" }
-      // { type:"fixed", amount:9.99, currency:"GBP" }
-      // { type:"from", amount:499, currency:"GBP" }
-      if (!price || !price.type) return "";
-      const targetCcy = localeInfo.currency;
-
-      if (price.type === "free") return (localeInfo.lang === "zh") ? "免费" : "FREE";
-
-      const baseCcy = price.currency || "GBP";
-      const converted = convertAmount(price.amount, baseCcy, targetCcy);
-      const formatted = money(converted, targetCcy, localeInfo.numberLocale);
-
-      if (price.type === "from") return (localeInfo.lang === "zh") ? `${formatted} 起` : `From ${formatted}`;
-      return formatted;
-    }
 
     function applyText(langKey){
       const t = I18N[langKey] || I18N.en;
@@ -935,6 +882,18 @@
         .replaceAll("'", "&#039;");
     }
 
+    function applyCompanyInfo(){
+      const c = EzionLocale.getCompanyInfo();
+      if (!c) return;
+    
+      document.getElementById("companyLegal").textContent = c.legalName || "";
+      document.getElementById("companyJurisdiction").textContent = c.jurisdiction || "";
+      document.getElementById("companyStatus").textContent = c.status || "";
+    
+      document.getElementById("companyRegLabel").textContent = c.registrationLabel || "";
+      document.getElementById("companyRegValue").textContent = c.registrationValue || "";
+    }
+
     // -----------------------------
     // Data (prices are BASE in GBP)
     // -----------------------------
@@ -1017,15 +976,15 @@
     const productsGridProductions = document.getElementById("productsGridProductions");
     const servicesGrid = document.getElementById("servicesGrid");
 
-    function productCard(p, localeInfo, t){
-      let priceText = formatPrice(p.price, localeInfo);
+    function productCard(p, ctx, t){
+      let priceText = EzionLocale.formatPrice(p.price, ctx);
 
       // Optional special case to show "FREE – From <amount>" in the selected currency.
       if (p.priceDisplayOverride === "free_to_from") {
-        const freeText = (localeInfo.lang === "zh") ? "免费" : "FREE";
-        const fromText = (localeInfo.lang === "zh")
-          ? `${money(convertAmount(0.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)} 起`
-          : `From ${money(convertAmount(0.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`;
+        const freeText = (ctx.lang === "zh") ? "免费" : "FREE";
+        const fromText = (ctx.lang === "zh")
+          ? `${EzionLocale.money(EzionLocale.convertAmount(0.99, "GBP", ctx.currency), ctx.currency, ctx.numberLocale)} 起`
+          : `From ${EzionLocale.money(EzionLocale.convertAmount(0.99, "GBP", ctx.currency), ctx.currency, ctx.numberLocale)}`;
         priceText = `${freeText} – ${fromText}`;
       }
 
@@ -1047,8 +1006,8 @@
       `;
     }
 
-    function serviceCard(s, localeInfo, t){
-      const priceText = formatPrice(s.price, localeInfo);
+    function serviceCard(s, ctx, t){
+      const priceText = EzionLocale.formatPrice(s.price, ctx);
       return `
         <div class="product">
           <div class="name">${escapeHtml(s.name)}</div>
@@ -1067,9 +1026,8 @@
       `;
     }
 
-    function renderAll(){
-      const localeKey = getSavedLocaleKey();
-      const localeInfo = LOCALES[localeKey];
+    function renderAll(ctx){
+      const localeInfo = ctx || EzionLocale.getContext();
       const t = I18N[localeInfo.lang] || I18N.en;
 
       // Apply text
@@ -1079,7 +1037,7 @@
       document.documentElement.lang = (localeInfo.lang === "zh") ? "zh-Hans" : "en";
 
       // Update page title/meta a bit
-      document.title = (localeInfo.country === "SG") ? "Ezion (SG)" : "Ezion UK";
+      document.title = (localeInfo.country === "SG") ? "Ezion SG" : "Ezion UK";
 
       // Render products by category
       const byCat = (cat) => PRODUCTS
@@ -1093,63 +1051,25 @@
 
       // Render services
       servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
+
+      EzionLocale.applyContactTargets();
+      EzionLocale.applyCompanyInfo();
     }
 
-    // Top-right language menu wiring
-    const langWrap = document.getElementById("lang");
-    const langBtn = document.getElementById("langBtn");
-    const langMenu = document.getElementById("langMenu");
-    const langFlag = document.getElementById("langFlag");
-    const langText = document.getElementById("langText");
-    
-    function setLangPill(localeKey){
-      // Map locale -> pill appearance
-      const map = {
-        "uk-en": { flag: "🇬🇧", text: "English" },
-        "sg-en": { flag: "🇸🇬", text: "English" },
-        "sg-zh": { flag: "🇸🇬", text: "中文" }
-      };
-      const v = map[localeKey] || map["uk-en"];
-      langFlag.textContent = v.flag;
-      langText.textContent = v.text;
-    }
-    
-    function openLangMenu(){
-      langWrap.classList.add("open");
-      langBtn.setAttribute("aria-expanded", "true");
-    }
-    function closeLangMenu(){
-      langWrap.classList.remove("open");
-      langBtn.setAttribute("aria-expanded", "false");
-    }
-    
-    langBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (langWrap.classList.contains("open")) closeLangMenu();
-      else openLangMenu();
-    });
-    
-    langMenu.addEventListener("click", (e) => {
-      const item = e.target.closest("[data-locale]");
-      if (!item) return;
-      const key = item.getAttribute("data-locale");
-      setSavedLocaleKey(key);
-      setLangPill(key);
-      renderAll();
-      closeLangMenu();
-    });
-    
-    // Close on outside click / Esc
-    document.addEventListener("click", () => closeLangMenu());
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLangMenu();
-    });
-  
-    // Init pill from saved locale
-    setLangPill(getSavedLocaleKey());
-    
     // Init
-    renderAll();
+    EzionLocale.init({
+      onReady(){
+        renderAll();                // prices, text, etc.
+        applyCompanyInfo();
+        EzionLocale.applyContactTargets();
+      },
+      onChange(){
+        renderAll();
+        applyCompanyInfo();
+        EzionLocale.applyContactTargets();
+      }
+    });
+
     onRoute();
   </script>
 </body>

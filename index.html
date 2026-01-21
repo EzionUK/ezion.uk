@@ -65,28 +65,6 @@
       z-index: -1;
     }
 
-    .mark{
-      position: fixed;
-      top: 18px;
-      left: 18px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 12px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.62);
-      user-select: none;
-      z-index: 5;
-    }
-    .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.62);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
-    }
-
     .wrap{
       min-height: 100%;
       display: grid;
@@ -106,15 +84,16 @@
       text-transform: lowercase;
       font-weight: 520;
       opacity: .94;
-      text-align: center; /* fallback */
+      text-align: center;
     }
 
     .domain img {
       margin: 0 auto;
-      width: 43%;   /* adjust */
+      width: 43%;
       height: auto;
       display: block;
     }
+
     .sub{
       margin-top: 5px;
       font-size: 14px;
@@ -183,7 +162,40 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* Slide-over info panel */
+    /* Locale selector */
+    .localeWrap{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      backdrop-filter: blur(12px) saturate(1.15);
+    }
+    .localeWrap label{
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.62);
+      user-select: none;
+    }
+    .localeSelect{
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      letter-spacing: .02em;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Slide-over About panel */
     .panel{
       position: fixed;
       inset: 0;
@@ -227,24 +239,6 @@
       padding: 6px 6px 12px;
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
-    .sheet-title strong{
-      font-size: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .sheet-title span{
-      font-size: 13px;
-      color: rgba(255,255,255,.70);
-    }
-    .close{
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.20);
-      color: rgba(255,255,255,.92);
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 12px;
-      cursor: pointer;
-    }
 
     .grid{
       display: grid;
@@ -282,25 +276,21 @@
       color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
-
     .focusList{
       display: grid;
       gap: 10px;
     }
-
     .focusItem{
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
       padding: 14px;
       background: rgba(0,0,0,.14);
     }
-
     .focusItem strong{
       display: block;
       font-size: 14px;
       color: rgba(255,255,255,.90);
     }
-
     .focusItem span{
       display: block;
       margin-top: 6px;
@@ -326,6 +316,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
     }
     .titleRow{
       display:flex; flex-direction:column; gap:4px;
@@ -336,11 +327,7 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.78);
     }
-    .titleRow span{
-      font-size: 14px;
-      color: rgba(255,255,255,.70);
-      line-height: 1.5;
-    }
+
     .productsGrid{
       display:grid;
       grid-template-columns: 1fr;
@@ -389,6 +376,7 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
+
     /* Section headers inside Products page */
     .section{
       margin-top: 30px;
@@ -399,17 +387,12 @@
       border: none;
       background: none;
     }
-    
     .sectionHeader strong{
       display: block;
       font-size: 11px;
       letter-spacing: .22em;
       text-transform: uppercase;
       color: rgba(255,255,255,.55);
-    }
-    
-    .sectionHeader span{
-      display: none;
     }
 
     /* Toast */
@@ -438,25 +421,32 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- <div class="mark" aria-hidden="true">
-   <span class="dot"></span><span>Ezion Ltd</span>
-  </div> -->
-
   <main class="wrap">
     <!-- HOME VIEW -->
-    <section class="center view active" id="view-home" aria-label="Under construction">
+    <section class="center view active" id="view-home" aria-label="Home">
       <div class="domain">
-         <img src="Ezion_logo_invert.png" alt="Ezion" />
+        <img src="Ezion_logo_invert.png" alt="Ezion" />
       </div>
-      <div class="sub">
+
+      <div class="sub" id="homeSub">
         Quietly building useful ventures.<br/>
         A UK-registered company developing practical products and digital solutions to make everyone's life easier.
       </div>
 
       <div class="actions">
+        <!-- Locale selector -->
+        <div class="localeWrap" title="Country / Language">
+          <label for="localeSelect" id="localeLabel">Locale</label>
+          <select class="localeSelect" id="localeSelect" aria-label="Choose country and language">
+            <option value="uk-en">United Kingdom · English · GBP</option>
+            <option value="sg-en">Singapore · English · SGD</option>
+            <option value="sg-zh">新加坡 · 中文 · SGD</option>
+          </select>
+        </div>
+
         <button class="btn" type="button" id="openInfo">About Us</button>
-        <a class="btn" href="#products" aria-label="Open products">Products</a>
-        <a class="btn" href="#services" aria-label="Open services">Services</a>
+        <a class="btn" href="#products" aria-label="Open products" id="btnProducts">Products</a>
+        <a class="btn" href="#services" aria-label="Open services" id="btnServices">Services</a>
       </div>
     </section>
 
@@ -464,30 +454,30 @@
     <section class="products view" id="view-products" aria-label="Products">
       <div class="topbar">
         <div class="titleRow">
-          <strong>Products</strong>
+          <strong id="productsTitle">Products</strong>
         </div>
         <div class="actions" style="margin-top:0;">
-          <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
+          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromProducts">Home</a>
         </div>
       </div>
 
       <div class="section">
         <div class="sectionHeader">
-          <strong>Physical and Operational Tools</span></strong>
+          <strong id="productsSectionTools">Physical and Operational Tools</strong>
         </div>
         <div class="productsGrid" id="productsGridProducts"></div>
       </div>
-      
+
       <div class="section">
         <div class="sectionHeader">
-          <strong>Apps</strong>
+          <strong id="productsSectionApps">Apps</strong>
         </div>
         <div class="productsGrid" id="productsGridApps"></div>
       </div>
-      
+
       <div class="section">
         <div class="sectionHeader">
-          <strong>Productions</strong>
+          <strong id="productsSectionProductions">Productions</strong>
         </div>
         <div class="productsGrid" id="productsGridProductions"></div>
       </div>
@@ -497,18 +487,18 @@
     <section class="products view" id="view-services" aria-label="Services">
       <div class="topbar">
         <div class="titleRow">
-          <strong>Services</strong>
+          <strong id="servicesTitle">Services</strong>
         </div>
         <div class="actions" style="margin-top:0;">
-          <a class="btn secondary" href="#" aria-label="Back to home">Home</a>
+          <a class="btn secondary" href="#" aria-label="Back to home" id="btnHomeFromServices">Home</a>
         </div>
       </div>
 
       <div class="productsGrid" id="servicesGrid"></div>
 
       <div class="card" style="margin-top:14px;">
-        <div class="h">Notes</div>
-        <p class="p">For custom scopes, request a quote on the service page.</p>
+        <div class="h" id="servicesNotesTitle">Notes</div>
+        <p class="p" id="servicesNotesText">For custom scopes, request a quote on the service page.</p>
       </div>
     </section>
   </main>
@@ -523,11 +513,11 @@
   <section class="panel" id="panel" aria-hidden="true">
     <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
 
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="Ezion information">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="About Ezion">
       <div class="sheet-header">
         <div class="sheet-title">
           <div>
-            <strong>ABOUT US</strong><br/>
+            <strong id="aboutTitle">ABOUT US</strong><br/>
           </div>
         </div>
         <button class="btn secondary" type="button" id="closeInfo">Close</button>
@@ -535,73 +525,73 @@
 
       <div class="grid">
         <div class="card">
-          <p class="p">
+          <p class="p" id="aboutBody">
             Ezion Ltd develops and manages consumer products, digital tools, and operational systems. <br/><br/>
             Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.
           </p>
 
-          <div class="h" style="margin-top:14px;">Principles</div>
+          <div class="h" style="margin-top:14px;" id="aboutPrinciplesTitle">Principles</div>
           <div class="focusList">
             <div class="focusItem">
-              <strong>Clarity</strong>
-              <span>Simple positioning, clean execution, minimal maintenance.</span>
+              <strong id="p1Title">Clarity</strong>
+              <span id="p1Body">Simple positioning, clean execution, minimal maintenance.</span>
             </div>
             <div class="focusItem">
-              <strong>Durability</strong>
-              <span>Fewer moving parts. Systems that keep working.</span>
+              <strong id="p2Title">Durability</strong>
+              <span id="p2Body">Fewer moving parts. Systems that keep working.</span>
             </div>
             <div class="focusItem">
-              <strong>Leverage</strong>
-              <span>Repeatable processes and compounding improvements.</span>
+              <strong id="p3Title">Leverage</strong>
+              <span id="p3Body">Repeatable processes and compounding improvements.</span>
             </div>
           </div>
         </div>
 
         <div class="card">
-          <div class="h">Contact</div>
+          <div class="h" id="contactTitle">Contact</div>
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
             <div>
               <div><a href="mailto:contact@ezion.uk" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
-              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;">General enquiries</div>
+              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
             </div>
-            <button class="btn" type="button" data-copy="contact@ezion.uk">Copy</button>
+            <button class="btn" type="button" data-copy="contact@ezion.uk" id="copyBtn">Copy</button>
           </div>
 
-          <div class="h" style="margin-top:14px;">Company</div>
-          <p class="p" style="margin-top:10px;">
+          <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
+          <p class="p" style="margin-top:10px;" id="companyBody">
             <strong>Legal name:</strong> Ezion Ltd<br/>
             <strong>Jurisdiction:</strong> United Kingdom<br/>
             <strong>Status:</strong> Active
           </p>
 
-          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);">
+          <p class="p" style="margin-top:10px; color: rgba(255,255,255,.62);" id="companyNumber">
             Company Number: 16929156
           </p>
         </div>
 
         <div class="card" style="grid-column: 1 / -1;">
-          <div class="h">Focus</div>
-          <p class="focusSub">A concise snapshot (broad by design).</p>
+          <div class="h" id="focusTitle">Focus</div>
+          <p class="focusSub" id="focusSub">A concise snapshot (broad by design).</p>
 
           <div class="focusList">
             <div class="focusItem">
-              <strong>Brand & product incubation</strong>
-              <span>From concept to early validation and launch readiness.</span>
+              <strong id="f1Title">Brand & product incubation</strong>
+              <span id="f1Body">From concept to early validation and launch readiness.</span>
             </div>
 
             <div class="focusItem">
-              <strong>Digital tools and internal systems</strong>
-              <span>Automation, operations tooling, and lightweight software.</span>
+              <strong id="f2Title">Digital tools and internal systems</strong>
+              <span id="f2Body">Automation, operations tooling, and lightweight software.</span>
             </div>
 
             <div class="focusItem">
-              <strong>Operations, logistics, and process design</strong>
-              <span>Reducing friction and increasing reliability.</span>
+              <strong id="f3Title">Operations, logistics, and process design</strong>
+              <span id="f3Body">Reducing friction and increasing reliability.</span>
             </div>
 
             <div class="focusItem">
-              <strong>Research & development</strong>
-              <span>Iterating and testing ideas for consumer applications.</span>
+              <strong id="f4Title">Research & development</strong>
+              <span id="f4Body">Iterating and testing ideas for consumer applications.</span>
             </div>
           </div>
         </div>
@@ -618,7 +608,160 @@
   <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
 
   <script>
+    // -----------------------------
+    // Locale + Currency + Language
+    // -----------------------------
+    const LOCALES = {
+      "uk-en": { lang: "en", country: "UK", currency: "GBP", numberLocale: "en-GB" },
+      "sg-en": { lang: "en", country: "SG", currency: "SGD", numberLocale: "en-SG" },
+      "sg-zh": { lang: "zh", country: "SG", currency: "SGD", numberLocale: "zh-SG" }
+    };
+
+    // Simple FX table (edit these anytime)
+    // Interpreted as: 1 GBP = rate SGD
+    const FX = {
+      "GBP:SGD": 1.72
+    };
+
+    const I18N = {
+      en: {
+        locale: "Locale",
+        about: "About Us",
+        products: "Products",
+        services: "Services",
+        home: "Home",
+        view: "View",
+        get: "Get",
+        viewService: "View service",
+        requestQuote: "Request a quote",
+        notes: "Notes",
+        servicesNotes: "For custom scopes, request a quote on the service page.",
+        homeSub: "Quietly building useful ventures.<br/>A UK-registered company developing practical products and digital solutions to make everyone's life easier.",
+        aboutTitle: "ABOUT US",
+        aboutBody: "Ezion Ltd develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
+        principles: "Principles",
+        contact: "Contact",
+        contactSub: "General enquiries",
+        company: "Company",
+        focus: "Focus",
+        focusSub: "A concise snapshot (broad by design).",
+        productsSectionTools: "Physical and Operational Tools",
+        productsSectionApps: "Apps",
+        productsSectionProductions: "Productions"
+      },
+      zh: {
+        locale: "地区",
+        about: "关于我们",
+        products: "产品",
+        services: "服务",
+        home: "主页",
+        view: "查看",
+        get: "获取",
+        viewService: "查看服务",
+        requestQuote: "索取报价",
+        notes: "备注",
+        servicesNotes: "如需定制范围，请在服务页面提交报价请求。",
+        homeSub: "低调打造实用项目。<br/>一家英国注册公司，提供实用产品与数字化解决方案，让生活更简单。",
+        aboutTitle: "关于我们",
+        aboutBody: "Ezion Ltd 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表更少，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
+        principles: "原则",
+        contact: "联系",
+        contactSub: "一般咨询",
+        company: "公司",
+        focus: "方向",
+        focusSub: "简要概览（刻意保持宽泛）。",
+        productsSectionTools: "实体与运营工具",
+        productsSectionApps: "应用",
+        productsSectionProductions: "作品"
+      }
+    };
+
+    function getSavedLocaleKey(){
+      const saved = localStorage.getItem("ezion_locale");
+      return (saved && LOCALES[saved]) ? saved : "uk-en";
+    }
+
+    function setSavedLocaleKey(key){
+      if (!LOCALES[key]) return;
+      localStorage.setItem("ezion_locale", key);
+    }
+
+    function money(amount, currency, numberLocale){
+      try {
+        return new Intl.NumberFormat(numberLocale, { style: "currency", currency }).format(amount);
+      } catch {
+        return `${currency} ${Number(amount).toFixed(2)}`;
+      }
+    }
+
+    function convertAmount(amount, fromCcy, toCcy){
+      const from = String(fromCcy).toUpperCase();
+      const to = String(toCcy).toUpperCase();
+      if (from === to) return amount;
+
+      // Currently only GBP -> SGD in this table
+      const key = `${from}:${to}`;
+      const rate = FX[key];
+      if (!rate) return amount; // fallback if missing
+      return amount * rate;
+    }
+
+    function formatPrice(price, localeInfo){
+      // price object:
+      // { type:"free" }
+      // { type:"fixed", amount:9.99, currency:"GBP" }
+      // { type:"from", amount:499, currency:"GBP" }
+      if (!price || !price.type) return "";
+      const targetCcy = localeInfo.currency;
+
+      if (price.type === "free") return (localeInfo.lang === "zh") ? "免费" : "FREE";
+
+      const baseCcy = price.currency || "GBP";
+      const converted = convertAmount(price.amount, baseCcy, targetCcy);
+      const formatted = money(converted, targetCcy, localeInfo.numberLocale);
+
+      if (price.type === "from") return (localeInfo.lang === "zh") ? `起 ${formatted}` : `From ${formatted}`;
+      return formatted;
+    }
+
+    function applyText(langKey){
+      const t = I18N[langKey] || I18N.en;
+
+      document.getElementById("localeLabel").textContent = t.locale;
+      document.getElementById("openInfo").textContent = t.about;
+      document.getElementById("btnProducts").textContent = t.products;
+      document.getElementById("btnServices").textContent = t.services;
+
+      document.getElementById("btnHomeFromProducts").textContent = t.home;
+      document.getElementById("btnHomeFromServices").textContent = t.home;
+
+      document.getElementById("productsTitle").textContent = t.products;
+      document.getElementById("servicesTitle").textContent = t.services;
+
+      document.getElementById("servicesNotesTitle").textContent = t.notes;
+      document.getElementById("servicesNotesText").textContent = t.servicesNotes;
+
+      document.getElementById("homeSub").innerHTML = t.homeSub;
+
+      document.getElementById("aboutTitle").textContent = t.aboutTitle;
+      document.getElementById("aboutBody").innerHTML = t.aboutBody;
+      document.getElementById("aboutPrinciplesTitle").textContent = t.principles;
+
+      document.getElementById("contactTitle").textContent = t.contact;
+      document.getElementById("contactSub").textContent = t.contactSub;
+      document.getElementById("companyTitle").textContent = t.company;
+
+      document.getElementById("focusTitle").textContent = t.focus;
+      document.getElementById("focusSub").textContent = t.focusSub;
+
+      document.getElementById("productsSectionTools").textContent = t.productsSectionTools;
+      document.getElementById("productsSectionApps").textContent = t.productsSectionApps;
+      document.getElementById("productsSectionProductions").textContent = t.productsSectionProductions;
+    }
+
+    // -----------------------------
     // About panel open/close
+    // -----------------------------
     const panel = document.getElementById("panel");
     const openInfo = document.getElementById("openInfo");
     const closeInfo = document.getElementById("closeInfo");
@@ -695,13 +838,15 @@
         .replaceAll("'", "&#039;");
     }
 
-    // Products list (edit these)
+    // -----------------------------
+    // Data (prices are BASE in GBP)
+    // -----------------------------
     const PRODUCTS = [
       // Products
       {
         category: "products",
         name: "Workmate — Professional Edition",
-        priceText: "£9.99",
+        price: { type:"fixed", amount: 9.99, currency:"GBP" },
         sku: "WM-PRO-001",
         description: "Time tracking + invoicing workbook (Excel).",
         page: "products/workmate-pro.html"
@@ -709,60 +854,60 @@
       {
         category: "products",
         name: "Enzydrain",
-        priceText: "£8.50",
+        price: { type:"fixed", amount: 8.50, currency:"GBP" },
         sku: "EZD-TRIAL-001",
         description: "Enzymatic drain maintenance tablets.",
         page: "products/workmate-pro.html"
       },
-    
+
       // Apps
       {
         category: "apps",
         name: "TODAY — Minimalist’s Diary",
-        priceText: "FREE – £3.99",
+        price: { type:"from", amount: 0.00, currency:"GBP" }, // shown as FREE/From depends below
         sku: "MD-LIFE-001",
         description: "Minimalist's daily journaling app.",
-        page: "products/today.html"
+        page: "products/today.html",
+        priceDisplayOverride: "free_to_from" // special: show FREE – From ...
       },
       {
         category: "apps",
         name: "YADA — Know Deeply",
-        priceText: "FREE – £0.99",
+        price: { type:"free" },
         sku: "YADA-APP-001",
         description: "One biblical insight a day that goes a long way.",
         page: "products/yada.html"
       },
-    
+
       // Productions
       {
         category: "productions",
         name: "Certainty in Uncertainty: Preparing for Jesus' Return in These Last Days",
-        priceText: "£14.99",
+        price: { type:"fixed", amount: 14.99, currency:"GBP" },
         sku: "END-BOOK-001",
         description: "An examination of biblical prophecy and present global realities, equipping the Church to understand the times and prepare faithfully for Christ’s return—sooner rather than later.",
         page: "products/yada.html"
-      } 
+      }
     ];
 
-    // Services list (each links to its own page)
     const SERVICES = [
       {
         name: "iOS & Android app development",
-        priceText: "From £499",
+        price: { type:"from", amount: 499, currency:"GBP" },
         sku: "SVC-APP-001",
         description: "Flutter apps, store setup, deployment support.",
         page: "services/appdev.html"
       },
       {
         name: "Process automation (Excel & Python)",
-        priceText: "From £199",
+        price: { type:"from", amount: 199, currency:"GBP" },
         sku: "SVC-AUTO-001",
         description: "Excel VBA, Python scripts, workflow automation.",
         page: "services/automation.html"
       },
       {
         name: "Accounting services",
-        priceText: "From £149",
+        price: { type:"from", amount: 149, currency:"GBP" },
         sku: "SVC-ACC-001",
         description: "Setup, cleanup, reporting, and finance ops support.",
         page: "services/accounting.html"
@@ -774,54 +919,94 @@
     const productsGridProductions = document.getElementById("productsGridProductions");
     const servicesGrid = document.getElementById("servicesGrid");
 
-    function productCard(p){
+    function productCard(p, localeInfo, t){
+      let priceText = formatPrice(p.price, localeInfo);
+
+      // Optional special case to show "FREE – From <amount>" in the selected currency.
+      if (p.priceDisplayOverride === "free_to_from") {
+        const freeText = (localeInfo.lang === "zh") ? "免费" : "FREE";
+        const fromText = (localeInfo.lang === "zh")
+          ? `起 ${money(convertAmount(3.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`
+          : `From ${money(convertAmount(3.99, "GBP", localeInfo.currency), localeInfo.currency, localeInfo.numberLocale)}`;
+        priceText = `${freeText} – ${fromText}`;
+      }
+
       return `
         <div class="product">
           <div class="name">${escapeHtml(p.name)}</div>
           <div class="desc">${escapeHtml(p.description)}</div>
-    
+
           <div class="meta">
-            <div>${escapeHtml(p.priceText)}</div>
+            <div>${escapeHtml(priceText)}</div>
             <div class="sku">${escapeHtml(p.sku)}</div>
           </div>
-    
+
           <div class="btnRow">
-            <a class="btn" href="${p.page}">View</a>
-            <a class="btn secondary" href="${p.page}#buy">Get</a>
+            <a class="btn" href="${p.page}">${escapeHtml(t.view)}</a>
+            <a class="btn secondary" href="${p.page}#buy">${escapeHtml(t.get)}</a>
           </div>
         </div>
       `;
     }
-    
-    function renderProducts(){
-      const byCat = (cat) => PRODUCTS.filter(p => p.category === cat).map(productCard).join("");
-    
-      productsGridProducts.innerHTML = byCat("products");
-      productsGridApps.innerHTML = byCat("apps");
-      productsGridProductions.innerHTML = byCat("productions");
-    }
 
-    function renderServices(){
-      servicesGrid.innerHTML = SERVICES.map(s => `
+    function serviceCard(s, localeInfo, t){
+      const priceText = formatPrice(s.price, localeInfo);
+      return `
         <div class="product">
           <div class="name">${escapeHtml(s.name)}</div>
           <div class="desc">${escapeHtml(s.description)}</div>
 
           <div class="meta">
-            <div>${escapeHtml(s.priceText)}</div>
+            <div>${escapeHtml(priceText)}</div>
             <div class="sku">${escapeHtml(s.sku)}</div>
           </div>
 
           <div class="btnRow">
-            <a class="btn" href="${s.page}">View service</a>
-            <a class="btn secondary" href="${s.page}#quote">Request a quote</a>
+            <a class="btn" href="${s.page}">${escapeHtml(t.viewService)}</a>
+            <a class="btn secondary" href="${s.page}#quote">${escapeHtml(t.requestQuote)}</a>
           </div>
         </div>
-      `).join("");
+      `;
     }
 
-    renderProducts();
-    renderServices();
+    function renderAll(){
+      const localeKey = getSavedLocaleKey();
+      const localeInfo = LOCALES[localeKey];
+      const t = I18N[localeInfo.lang] || I18N.en;
+
+      // Apply text
+      applyText(localeInfo.lang);
+
+      // Set html lang attr
+      document.documentElement.lang = (localeInfo.lang === "zh") ? "zh-Hans" : "en";
+
+      // Update page title/meta a bit
+      document.title = (localeInfo.country === "SG") ? "Ezion (SG)" : "Ezion UK";
+
+      // Render products by category
+      const byCat = (cat) => PRODUCTS
+        .filter(p => p.category === cat)
+        .map(p => productCard(p, localeInfo, t))
+        .join("");
+
+      productsGridProducts.innerHTML = byCat("products");
+      productsGridApps.innerHTML = byCat("apps");
+      productsGridProductions.innerHTML = byCat("productions");
+
+      // Render services
+      servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
+    }
+
+    // Locale selector init
+    const localeSelect = document.getElementById("localeSelect");
+    localeSelect.value = getSavedLocaleKey();
+    localeSelect.addEventListener("change", () => {
+      setSavedLocaleKey(localeSelect.value);
+      renderAll();
+    });
+
+    // Init
+    renderAll();
     onRoute();
   </script>
 </body>

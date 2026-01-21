@@ -162,34 +162,52 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* Top-right language switch (flag pill) */
     .lang{
       position: fixed;
       top: 18px;
       right: 18px;
       z-index: 6;
     }
-
+    
+    /* row container so buttons sit side-by-side */
+    .langRow{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    /* shared pill sizing */
+    :root{
+      --pillH: 44px;     /* tweak if needed */
+      --pillPadX: 14px;
+    }
+    
     .langBtn{
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      min-height: 44px;
+    
+      height: var(--pillH);
+      padding: 0 var(--pillPadX);   /* IMPORTANT: no vertical padding */
+      line-height: 1;
+    
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
       color: rgba(255,255,255,.92);
       border-radius: 999px;
-      padding: 10px 14px;
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;        /* for <a> */
+      box-sizing: border-box;
     }
-
+    
     /* Invisible icon spacer for buttons without flag */
     .langBtn .iconSpacer{
       width: 28px;
       height: 28px;
       display: inline-block;
+      flex: 0 0 28px;
     }
     
     .langBtn:hover{
@@ -197,7 +215,7 @@
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-
+    
     .flag{
       width: 28px;
       height: 28px;
@@ -208,17 +226,19 @@
       font-size: 16px;
       background: rgba(255,255,255,.08);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
     }
-
+    
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
-
+    
+    /* Menu should anchor under the locale pill */
     .langMenu{
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(var(--pillH) + 10px);   /* aligns with row height */
       right: 0;
       min-width: 240px;
       border-radius: 16px;
@@ -229,9 +249,9 @@
       padding: 8px;
       display: none;
     }
-
+    
     .lang.open .langMenu{ display: block; }
-
+    
     .langItem{
       width: 100%;
       display: grid;
@@ -246,21 +266,23 @@
       cursor: pointer;
       text-align: left;
     }
-
+    
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-
+    
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
       letter-spacing: .02em;
     }
-
-    /* Top-right Home pill (right of locale selector) */
+    
+    /* Home pill tweaks */
     .homeBtn{
-      padding: 10px 14px;
+      gap: 10px;
+      justify-content: center;
+      min-width: 92px; /* optional; remove if you want it tighter */
     }
     
     /* Slide-over About panel */
@@ -491,11 +513,18 @@
 
   <!-- Top-right language/country switch + Home Button-->
   <div class="lang" id="lang">
-    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
-      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
-      <span class="langText" id="langText">English</span>
-    </button>
-
+    <div class="langRow">
+      <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+        <span class="langText" id="langText">English</span>
+      </button>
+  
+      <a class="langBtn homeBtn" href="#" id="topHomeBtn" aria-label="Home">
+        <span class="iconSpacer" aria-hidden="true"></span>
+        <span class="langText" id="topHomeText">主页</span>
+      </a>
+    </div>
+  
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
       <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
         <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
@@ -519,10 +548,6 @@
         <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
       </button>
     </div>
-    <a class="langBtn homeBtn" href="#" id="topHomeBtn">
-      <span class="iconSpacer" aria-hidden="true"></span>
-      <span class="langText" id="topHomeText">主页</span>
-    </a>
   </div>
 
   <main class="wrap">

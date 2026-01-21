@@ -162,39 +162,6 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* Locale selector */
-    .localeWrap{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      border-radius: 999px;
-      padding: 6px 10px;
-      backdrop-filter: blur(12px) saturate(1.15);
-    }
-    .localeWrap label{
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.62);
-      user-select: none;
-    }
-    .localeSelect{
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      letter-spacing: .02em;
-      cursor: pointer;
-      outline: none;
-    }
-
     /* Top-right language switch (flag pill) */
     .lang{
       position: fixed;
@@ -202,7 +169,7 @@
       right: 18px;
       z-index: 6;
     }
-    
+
     .langBtn{
       display: inline-flex;
       align-items: center;
@@ -216,13 +183,13 @@
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
-    
+
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-    
+
     .flag{
       width: 28px;
       height: 28px;
@@ -234,13 +201,13 @@
       background: rgba(255,255,255,.08);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
     }
-    
+
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
-    
+
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -254,9 +221,9 @@
       padding: 8px;
       display: none;
     }
-    
+
     .lang.open .langMenu{ display: block; }
-    
+
     .langItem{
       width: 100%;
       display: grid;
@@ -271,12 +238,12 @@
       cursor: pointer;
       text-align: left;
     }
-    
+
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-    
+
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
@@ -515,16 +482,25 @@
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
       <span class="langText" id="langText">English</span>
     </button>
-  
+
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
       <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
         <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
         <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
       </button>
       <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
         <span class="flag">🇸🇬</span><span>中文</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>中文</span><span class="langMeta">HKD · HK</span>
       </button>
     </div>
   </div>
@@ -647,27 +623,35 @@
 
         <div class="card">
           <div class="h" id="contactTitle">Contact</div>
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
-            <div>
-              <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
-              <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <div>
+                <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+                <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
+              </div>
+              <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
             </div>
-            <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email>Copy</button>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn secondary" data-phone href="#">Call</a>
+              <a class="btn secondary" data-whatsapp href="#" style="display:none;">WhatsApp</a>
+            </div>
           </div>
 
           <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
           <p class="p" id="companyBlock">
             <strong id="companyLegalLabel">Legal name:</strong>
             <span id="companyLegal"></span><br/>
-          
+
             <strong id="companyJurisdictionLabel">Jurisdiction:</strong>
             <span id="companyJurisdiction"></span><br/>
-          
+
             <strong id="companyStatusLabel">Status:</strong>
             <span id="companyStatus"></span>
           </p>
-          
-          <p class="p" id="companyReg">
+
+          <p class="p" id="companyReg" style="margin-top:10px; color: rgba(255,255,255,.62);">
             <span id="companyRegLabel"></span>:
             <span id="companyRegValue"></span>
           </p>
@@ -714,7 +698,7 @@
   <script src="assets/locale.js"></script>
   <script>
     // -----------------------------
-    // Locale + Currency + Language
+    // Text (includes HK Traditional)
     // -----------------------------
     const I18N = {
       en: {
@@ -731,7 +715,7 @@
         servicesNotes: "For custom scopes, request a quote on the service page.",
         homeSub: "Quietly building useful ventures.<br/>Developing practical products and digital solutions to make everyone's life easier.",
         aboutTitle: "ABOUT US",
-        aboutBody: "Ezion Ltd develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
+        aboutBody: "Ezion develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
         principles: "Principles",
         contact: "Contact",
         contactSub: "General enquiries",
@@ -740,8 +724,20 @@
         focusSub: "A concise snapshot (broad by design).",
         productsSectionTools: "Physical and Operational Tools",
         productsSectionApps: "Apps",
-        productsSectionProductions: "Productions"
+        productsSectionProductions: "Productions",
+
+        legalNameLabel: "Legal name:",
+        jurisdictionLabel: "Jurisdiction:",
+        statusLabel: "Status:",
+        copy: "Copy",
+        copied: "Copied",
+        copyFailed: "Copy failed",
+        call: "Call",
+        whatsapp: "WhatsApp",
+        close: "Close"
       },
+
+      // Simplified Chinese (SG-zh)
       zh: {
         locale: "地区",
         about: "关于我们",
@@ -754,9 +750,9 @@
         requestQuote: "索取报价",
         notes: "备注",
         servicesNotes: "如需定制范围，请在服务页面提交报价请求。",
-        homeSub: "低调打造实用项目。<br/>提供实用产品与数字化解决方案，让生活更简单。",
+        homeSub: "低调打造实用项目。<br/>提供实用产品与数码解决方案，让生活更简单。",
         aboutTitle: "关于我们",
-        aboutBody: "Ezion Ltd 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表更少，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
+        aboutBody: "Ezion 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表更少，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
         principles: "原则",
         contact: "联系",
         contactSub: "一般咨询",
@@ -765,12 +761,65 @@
         focusSub: "简要概览（刻意保持宽泛）。",
         productsSectionTools: "实体与运营工具",
         productsSectionApps: "应用",
-        productsSectionProductions: "作品"
+        productsSectionProductions: "作品",
+
+        legalNameLabel: "法定名称：",
+        jurisdictionLabel: "司法辖区：",
+        statusLabel: "状态：",
+        copy: "复制",
+        copied: "已复制",
+        copyFailed: "复制失败",
+        call: "致电",
+        whatsapp: "WhatsApp",
+        close: "关闭"
+      },
+
+      // Traditional Chinese (HK-zh)
+      zhHant: {
+        locale: "地區",
+        about: "關於我們",
+        products: "產品",
+        services: "服務",
+        home: "主頁",
+        view: "查看",
+        get: "獲取",
+        viewService: "查看服務",
+        requestQuote: "索取報價",
+        notes: "備註",
+        servicesNotes: "如需自訂範圍，請於服務頁面提出報價要求。",
+        homeSub: "低調打造實用項目。<br/>提供實用產品與數碼解決方案，令生活更簡單。",
+        aboutTitle: "關於我們",
+        aboutBody: "Ezion 研發並營運消費產品、數碼工具與營運系統。<br/><br/>小團隊不代表更少，而是更清晰。我們偏好簡單、可靠、影響深遠的產品。",
+        principles: "原則",
+        contact: "聯絡",
+        contactSub: "一般查詢",
+        company: "公司",
+        focus: "方向",
+        focusSub: "簡要概覽（刻意保持寬泛）。",
+        productsSectionTools: "實體與營運工具",
+        productsSectionApps: "應用程式",
+        productsSectionProductions: "作品",
+
+        legalNameLabel: "法定名稱：",
+        jurisdictionLabel: "司法管轄區：",
+        statusLabel: "狀態：",
+        copy: "複製",
+        copied: "已複製",
+        copyFailed: "複製失敗",
+        call: "致電",
+        whatsapp: "WhatsApp",
+        close: "關閉"
       }
     };
 
-    function applyText(langKey){
-      const t = I18N[langKey] || I18N.en;
+    function getTextPack(ctx){
+      // hk-zh => Traditional Chinese pack
+      if (ctx && ctx.key === "hk-zh") return I18N.zhHant;
+      return (ctx && ctx.lang === "zh") ? I18N.zh : I18N.en;
+    }
+
+    function applyText(ctx){
+      const t = getTextPack(ctx);
 
       document.getElementById("openInfo").textContent = t.about;
       document.getElementById("btnProducts").textContent = t.products;
@@ -801,6 +850,18 @@
       document.getElementById("productsSectionTools").textContent = t.productsSectionTools;
       document.getElementById("productsSectionApps").textContent = t.productsSectionApps;
       document.getElementById("productsSectionProductions").textContent = t.productsSectionProductions;
+
+      const copyBtn = document.getElementById("copyBtn");
+      if (copyBtn) copyBtn.textContent = t.copy;
+
+      document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
+      document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
+
+      document.getElementById("closeInfo").textContent = t.close;
+
+      document.getElementById("companyLegalLabel").textContent = t.legalNameLabel;
+      document.getElementById("companyJurisdictionLabel").textContent = t.jurisdictionLabel;
+      document.getElementById("companyStatusLabel").textContent = t.statusLabel;
     }
 
     // -----------------------------
@@ -829,7 +890,7 @@
       if (e.key === "Escape") closePanel();
     });
 
-    // Copy + toast
+    // Copy + toast (message depends on locale)
     const toast = document.getElementById("toast");
     let toastTimer;
     function showToast(msg){
@@ -842,8 +903,10 @@
       const btn = e.target.closest("[data-copy]");
       if (!btn) return;
       const text = btn.getAttribute("data-copy");
-      try { await navigator.clipboard.writeText(text); showToast("Copied"); }
-      catch { showToast("Copy failed"); }
+      const ctx = EzionLocale.getContext();
+      const t = getTextPack(ctx);
+      try { await navigator.clipboard.writeText(text); showToast(t.copied); }
+      catch { showToast(t.copyFailed); }
     });
 
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -882,33 +945,6 @@
         .replaceAll("'", "&#039;");
     }
 
-    function applyContactEmail(){
-      const email = EzionLocale.getContactEmail();
-    
-      // Update mailto links
-      document.querySelectorAll("[data-contact-email]").forEach(el => {
-        el.textContent = email;
-        el.href = `mailto:${email}`;
-      });
-    
-      // Update copy buttons
-      document.querySelectorAll("[data-copy-email]").forEach(btn => {
-        btn.setAttribute("data-copy", email);
-      });
-    }
-    
-    function applyCompanyInfo(){
-      const c = EzionLocale.getCompanyInfo();
-      if (!c) return;
-    
-      document.getElementById("companyLegal").textContent = c.legalName || "";
-      document.getElementById("companyJurisdiction").textContent = c.jurisdiction || "";
-      document.getElementById("companyStatus").textContent = c.status || "";
-    
-      document.getElementById("companyRegLabel").textContent = c.registrationLabel || "";
-      document.getElementById("companyRegValue").textContent = c.registrationValue || "";
-    }
-
     // -----------------------------
     // Data (prices are BASE in GBP)
     // -----------------------------
@@ -935,11 +971,11 @@
       {
         category: "apps",
         name: "TODAY — Minimalist’s Diary",
-        price: { type:"from", amount: 0.00, currency:"GBP" }, // shown as FREE/From depends below
+        price: { type:"from", amount: 0.00, currency:"GBP" },
         sku: "MD-LIFE-001",
         description: "Minimalist's daily journaling app.",
         page: "products/today.html",
-        priceDisplayOverride: "free_to_from" // special: show FREE – From ...
+        priceDisplayOverride: "free_to_from"
       },
       {
         category: "apps",
@@ -948,7 +984,7 @@
         sku: "YADA-APP-001",
         description: "One biblical insight a day that goes a long way.",
         page: "products/yada.html",
-        priceDisplayOverride: "free_to_from" 
+        priceDisplayOverride: "free_to_from"
       },
 
       // Productions
@@ -994,13 +1030,15 @@
     function productCard(p, ctx, t){
       let priceText = EzionLocale.formatPrice(p.price, ctx);
 
-      // Optional special case to show "FREE – From <amount>" in the selected currency.
       if (p.priceDisplayOverride === "free_to_from") {
-        const freeText = (ctx.lang === "zh") ? "免费" : "FREE";
-        const fromText = (ctx.lang === "zh")
-          ? `${EzionLocale.money(EzionLocale.convertAmount(0.99, "GBP", ctx.currency), ctx.currency, ctx.numberLocale)} 起`
-          : `From ${EzionLocale.money(EzionLocale.convertAmount(0.99, "GBP", ctx.currency), ctx.currency, ctx.numberLocale)}`;
-        priceText = `${freeText} – ${fromText}`;
+        const freeText = (ctx.key === "hk-zh" || ctx.lang === "zh") ? "免費" : "FREE";
+        const fromLabel = (ctx.key === "hk-zh" || ctx.lang === "zh") ? "起" : "From";
+        const fromVal = EzionLocale.money(
+          EzionLocale.convertAmount(0.99, "GBP", ctx.currency),
+          ctx.currency,
+          ctx.numberLocale
+        );
+        priceText = `${freeText} – ${fromVal} ${fromLabel}`;
       }
 
       return `
@@ -1043,18 +1081,17 @@
 
     function renderAll(ctx){
       const localeInfo = ctx || EzionLocale.getContext();
-      const t = I18N[localeInfo.lang] || I18N.en;
+      const t = getTextPack(localeInfo);
 
-      // Apply text
-      applyText(localeInfo.lang);
+      applyText(localeInfo);
 
-      // Set html lang attr
-      document.documentElement.lang = (localeInfo.lang === "zh") ? "zh-Hans" : "en";
+      // Title tweak only (no content changes elsewhere)
+      document.title =
+        (localeInfo.country === "SG") ? "Ezion SG" :
+        (localeInfo.country === "HK") ? "Ezion HK" :
+        (localeInfo.country === "US") ? "Ezion US" :
+        "Ezion UK";
 
-      // Update page title/meta a bit
-      document.title = (localeInfo.country === "SG") ? "Ezion SG" : "Ezion UK";
-
-      // Render products by category
       const byCat = (cat) => PRODUCTS
         .filter(p => p.category === cat)
         .map(p => productCard(p, localeInfo, t))
@@ -1064,30 +1101,23 @@
       productsGridApps.innerHTML = byCat("apps");
       productsGridProductions.innerHTML = byCat("productions");
 
-      // Render services
       servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
 
+      // Apply shared locale helpers
       EzionLocale.applyContactTargets();
       EzionLocale.applyCompanyInfo();
     }
 
     // Init
     EzionLocale.init({
-      onReady(){
-        renderAll();                // prices, text, etc.
-        applyContactEmail();
-        applyCompanyInfo();
-        EzionLocale.applyContactTargets();
+      onReady(ctx){
+        renderAll(ctx);
+        onRoute();
       },
-      onChange(){
-        renderAll();
-        applyContactEmail();
-        applyCompanyInfo();
-        EzionLocale.applyContactTargets();
+      onChange(ctx){
+        renderAll(ctx);
       }
     });
-
-    onRoute();
   </script>
 </body>
 </html>

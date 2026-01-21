@@ -278,11 +278,18 @@
       letter-spacing: .02em;
     }
     
-    /* Home pill tweaks */
+    /* Home pill — content-sized, same height as lang */
     .homeBtn{
-      gap: 10px;
+      padding: 0 14px;          /* same horizontal padding as lang */
+      gap: 8px;
+      min-width: unset;         /* IMPORTANT: remove forced width */
       justify-content: center;
-      min-width: 92px; /* optional; remove if you want it tighter */
+      letter-spacing: .06em;
+    }
+    
+    /* Home does NOT reserve flag space */
+    .homeBtn .iconSpacer{
+      display: none;
     }
     
     /* Slide-over About panel */

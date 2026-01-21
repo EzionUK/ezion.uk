@@ -23,6 +23,32 @@
       background:var(--bg);
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    /* Background (match accounting.html) */
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
     }
 
     .wrap{
@@ -67,19 +93,6 @@
       line-height: 1.7;
       font-size: 14px;
       max-width: 70ch;
-    }
-
-    .badge{
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.86);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      user-select: none;
-      white-space: nowrap;
     }
 
     .videoWrap{
@@ -141,7 +154,7 @@
       color: rgba(255,255,255,.60);
       line-height: 1.6;
     }
-    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+
     .btn{
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
@@ -158,12 +171,6 @@
     }
     .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
     .btn.secondary{ background: rgba(255,255,255,.06); }
-    .fine{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
-      line-height: 1.6;
-    }
 
     /* Store badges */
     .storeRow{
@@ -202,15 +209,168 @@
       border-bottom:1px solid rgba(255,255,255,.16);
     }
     .backLink:hover{ border-bottom-color: rgba(255,255,255,.34); }
+
+    /* Top-right language/country switch + Home pill (match accounting.html) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display: block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
+
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+
+    .lang[data-route="home"] .homeBtn{ display:none; }
   </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <!-- HOME: in apps pages use ../index.html -->
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
   <main class="wrap">
     <article class="card">
       <div class="topRow">
         <div>
-          <p class="kicker">Ezion Apps</p>
+          <p class="kicker" id="kickerApps">Ezion Apps</p>
           <h1 id="appName">Yada</h1>
           <p class="sub" id="appTagline">A biblical insight a day keeps spirit awake.</p>
         </div>
@@ -231,23 +391,23 @@
       <div class="grid">
         <!-- Left: details -->
         <section class="box">
-          <div class="h">What it is</div>
+          <div class="h" id="hWhat">What it is</div>
           <ul id="listWhat"></ul>
 
           <div class="divider"></div>
 
-          <div class="h">What you get</div>
+          <div class="h" id="hGet">What you get</div>
           <ul id="listWhy"></ul>
 
           <div class="divider"></div>
 
-          <div class="h">Pro</div>
+          <div class="h" id="hPro">Pro</div>
           <ul id="listPro"></ul>
         </section>
 
         <!-- Right: store badges + support -->
         <aside class="box">
-          <div class="h">Get the app</div>
+          <div class="h" id="hGetApp">Get the app</div>
 
           <div class="storeRow">
             <!-- App Store badge -->
@@ -284,79 +444,154 @@
 
           <div class="divider"></div>
 
-          <div class="h">Support</div>
+          <div class="h" id="hSupport">Support</div>
           <p class="fine" style="margin-top:6px;">
-            Questions: <a class="backLink" href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+            <span id="supportLabel">Questions:</span>
+            <a class="backLink" href="mailto:contact@ezion.uk" data-contact-email id="supportEmail">contact@ezion.uk</a>
           </p>
+
           <p class="fine">
-            <a class="btn secondary" href="../index.html#products">Back to Products</a>
+            <a class="btn secondary" href="../index.html#products" id="backToProducts">Back to Products</a>
           </p>
         </aside>
       </div>
     </article>
   </main>
 
+  <script src="../assets/locale.js"></script>
   <script>
     /**
      * PAGE CONFIG — edit only this object
+     * (Store links and content translated below via I18N)
      */
     const APP = {
       name: "Yada - Know Deeply",
-      tagline: "One biblical insight a day that goes a long a way.",
-      youtubeId: "vowRpsbM3OI",  // set to YouTube ID (e.g. "abcd1234") or keep "" to hide embed
+      youtubeId: "vowRpsbM3OI",  // set to "" to hide embed
       appStoreUrl: "PASTE_APP_STORE_LINK_HERE",
-      playStoreUrl: "PASTE_GOOGLE_PLAY_LINK_HERE",
-      whatItIs: [
-        "Yada, in Hebrew, means to know deeply and personally. In Scripture, yada describes knowing God and being known.",
-        "Therefore, Yada is a daily Bible insight app built for clarity and calm - one biblical insight a day that goes a long way.",
-        "Every biblical insight aims to pique your thought and interest with just one thought, one that is reflective and practical.",
-        "Every insight includes a Bible reference so you can read the passage for yourself later.",
-        "Yada avoids noise by design: no endless feed, no pressure, no clutter—just a simple daily moment with Scripture.",
-        "Your low engagement minimal pause that brings maximum return.",
-      ],
-      whyItWorks: [
-        "One biblical insight per day",
-        "Clear “Read more” references for deeper reading",
-        "Minimalist experience that stays out of your way",
-        "A growing library across the Bible’s major sections",
-      ],
-      whyPro: [
-        "Access to End-Time category",
-        "All future new categories",
-        "Updates to existing categories",
-        "The library expands",
-      ],
+      playStoreUrl: "PASTE_GOOGLE_PLAY_LINK_HERE"
     };
 
-    // Apply config
-    document.title = `${APP.name} | Ezion UK`;
-    document.getElementById("appName").textContent = APP.name;
-    document.getElementById("appTagline").textContent = APP.tagline;
-    //document.getElementById("appBadge").textContent = APP.badge;
-    document.getElementById("iapNote").textContent = APP.iapNote;
+    const I18N = {
+      en: {
+        home: "Home",
+        kicker: "Ezion Apps",
+        name: "Yada - Know Deeply",
+        tagline: "One biblical insight a day that goes a long way.",
 
-    // Lists
-    const listWhat = document.getElementById("listWhat");
-    const listWhy = document.getElementById("listWhy");
-    const listPro = document.getElementById("listPro");
-    listWhat.innerHTML = APP.whatItIs.map(x => `<li>${escapeHtml(x)}</li>`).join("");
-    listWhy.innerHTML  = APP.whyItWorks.map(x => `<li>${escapeHtml(x)}</li>`).join("");
-    listPro.innerHTML  = APP.whyPro.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+        hWhat: "What it is",
+        hGet: "What you get",
+        hPro: "Pro",
+        hGetApp: "Get the app",
+        hSupport: "Support",
+        supportLabel: "Questions:",
+        backToProducts: "Back to Products",
 
-    // Store links
-    document.getElementById("appStoreLink").href = APP.appStoreUrl;
-    document.getElementById("playStoreLink").href = APP.playStoreUrl;
+        iapNote: "Optional in-app purchase may be available depending on your release.",
 
-    // YouTube
-    const videoWrap = document.getElementById("videoWrap");
-    const ytFrame = document.getElementById("ytFrame");
-    const ytLink = document.getElementById("ytLink");
-    if (!APP.youtubeId) {
-      videoWrap.style.display = "none";
-      ytLink.parentElement.style.display = "none";
-    } else {
-      ytFrame.src = `https://www.youtube-nocookie.com/embed/${APP.youtubeId}`;
-      ytLink.href = `https://youtu.be/${APP.youtubeId}`;
+        whatItIs: [
+          "“Yada” (Hebrew) means to know deeply and personally. In Scripture, it describes knowing God and being known.",
+          "Yada is a calm daily Bible insight app—one insight per day that goes a long way.",
+          "Each insight is short, reflective, and practical—designed to spark thought without overload.",
+          "Every insight includes a Bible reference so you can read the passage later.",
+          "No endless feed, no pressure, no clutter—just a simple daily moment with Scripture.",
+          "Low engagement, minimal pause—maximum return."
+        ],
+        whatYouGet: [
+          "One biblical insight per day",
+          "Clear “Read more” references for deeper reading",
+          "Minimalist experience that stays out of your way",
+          "A growing library across the Bible’s major sections"
+        ],
+        pro: [
+          "Access to the End-Time category",
+          "All future new categories",
+          "Updates to existing categories",
+          "The library keeps expanding"
+        ]
+      },
+
+      "zh-Hans": {
+        home: "主页",
+        kicker: "Ezion 应用",
+        name: "Yada - Know Deeply",
+        tagline: "每天一条圣经洞见，带来长久的影响。",
+
+        hWhat: "它是什么",
+        hGet: "你将获得",
+        hPro: "专业版",
+        hGetApp: "获取应用",
+        hSupport: "支持",
+        supportLabel: "咨询：",
+        backToProducts: "返回产品",
+
+        iapNote: "是否提供应用内购买取决于你的发布版本。",
+
+        whatItIs: [
+          "“Yada”（希伯来语）意为“深刻且亲密地认识”。在圣经中，它描述认识神，也被神所认识。",
+          "Yada 是一款安静的每日圣经洞见应用——每天一条洞见，却能走得很远。",
+          "每条洞见都短小、可反思、也实用：只给你一个想法，不造成负担。",
+          "每条洞见都附带经文出处，方便你之后自行阅读原文。",
+          "刻意避免噪音：没有无限信息流、没有压力、没有杂乱——只有每日与经文相遇的一刻。",
+          "低打扰、短暂停留，却带来更高回报。"
+        ],
+        whatYouGet: [
+          "每天一条圣经洞见",
+          "清晰的“延伸阅读”经文指引",
+          "极简体验，不打扰你的节奏",
+          "覆盖圣经主要部分的持续扩展内容库"
+        ],
+        pro: [
+          "解锁“末世”分类",
+          "未来新增分类全部包含",
+          "现有分类的持续更新",
+          "内容库持续扩展"
+        ]
+      },
+
+      "zh-Hant": {
+        home: "主頁",
+        kicker: "Ezion 應用",
+        name: "Yada - Know Deeply",
+        tagline: "每日一則聖經洞見，帶來長久的影響。",
+
+        hWhat: "它是什麼",
+        hGet: "你將獲得",
+        hPro: "專業版",
+        hGetApp: "取得應用",
+        hSupport: "支援",
+        supportLabel: "查詢：",
+        backToProducts: "返回產品",
+
+        iapNote: "是否提供 App 內購買視你的發佈版本而定。",
+
+        whatItIs: [
+          "「Yada」（希伯來語）意為「深刻且親密地認識」。在聖經中，它描述認識神，也被神所認識。",
+          "Yada 是一款安靜的每日聖經洞見應用——每日一則洞見，卻能走得很遠。",
+          "每則洞見都精簡、可反思且實用：只給你一個想法，不造成負擔。",
+          "每則洞見都附上經文出處，方便你日後自行閱讀原文。",
+          "刻意避免噪音：沒有無限資訊流、沒有壓力、沒有雜亂——只有每日與經文相遇的一刻。",
+          "低打擾、短暫停留，卻帶來更高回報。"
+        ],
+        whatYouGet: [
+          "每日一則聖經洞見",
+          "清晰的「延伸閱讀」經文指引",
+          "極簡體驗，不打擾你的節奏",
+          "覆蓋聖經主要部分、持續擴展的內容庫"
+        ],
+        pro: [
+          "解鎖「末世」分類",
+          "未來新增分類全部包含",
+          "既有分類持續更新",
+          "內容庫持續擴展"
+        ]
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
     }
 
     function escapeHtml(s){
@@ -367,6 +602,76 @@
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
+
+    function renderList(items, el){
+      if (!el) return;
+      el.innerHTML = (items || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      // Home label + route marker
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+
+      // Text
+      document.getElementById("kickerApps").textContent = t.kicker;
+      document.getElementById("appName").textContent = t.name;
+      document.getElementById("appTagline").textContent = t.tagline;
+
+      document.getElementById("hWhat").textContent = t.hWhat;
+      document.getElementById("hGet").textContent = t.hGet;
+      document.getElementById("hPro").textContent = t.hPro;
+      document.getElementById("hGetApp").textContent = t.hGetApp;
+      document.getElementById("hSupport").textContent = t.hSupport;
+      document.getElementById("supportLabel").textContent = t.supportLabel;
+      document.getElementById("backToProducts").textContent = t.backToProducts;
+
+      document.getElementById("iapNote").textContent = t.iapNote;
+
+      // Lists
+      renderList(t.whatItIs, document.getElementById("listWhat"));
+      renderList(t.whatYouGet, document.getElementById("listWhy"));
+      renderList(t.pro, document.getElementById("listPro"));
+
+      // Store links
+      document.getElementById("appStoreLink").href = APP.appStoreUrl || "#";
+      document.getElementById("playStoreLink").href = APP.playStoreUrl || "#";
+
+      // YouTube
+      const videoWrap = document.getElementById("videoWrap");
+      const ytFrame = document.getElementById("ytFrame");
+      if (!APP.youtubeId) {
+        if (videoWrap) videoWrap.style.display = "none";
+      } else {
+        if (ytFrame) ytFrame.src = `https://www.youtube-nocookie.com/embed/${APP.youtubeId}`;
+      }
+
+      // Support email (use locale contact if you want later)
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      const supportEmail = document.getElementById("supportEmail");
+      if (supportEmail){
+        supportEmail.textContent = email;
+        supportEmail.href = `mailto:${email}`;
+      }
+
+      // Title per country (localized title string)
+      document.title =
+        (ctx.country === "SG") ? `${t.name} | Ezion SG` :
+        (ctx.country === "HK") ? `${t.name} | Ezion HK` :
+        (ctx.country === "US") ? `${t.name} | Ezion US` :
+        `${t.name} | Ezion UK`;
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
+    });
   </script>
 </body>
 </html>

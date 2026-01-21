@@ -23,7 +23,34 @@
       background:var(--bg);
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
     }
+
+    /* Background (match accounting.html) */
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
     .wrap{
       min-height:100%;
       display:grid;
@@ -38,6 +65,7 @@
       padding: 18px;
       box-shadow: var(--shadow);
     }
+
     .kicker{
       font-size: 12px;
       letter-spacing: .18em;
@@ -51,11 +79,13 @@
       letter-spacing: .02em;
     }
     .sub{
-      margin: 0 0 14px;
+      margin: 0;
       color: var(--muted);
       line-height: 1.7;
       font-size: 14px;
+      max-width: 70ch;
     }
+
     .grid{
       display:grid;
       grid-template-columns: 1fr;
@@ -65,6 +95,7 @@
     @media (min-width: 920px){
       .grid{ grid-template-columns: 1.2fr .8fr; }
     }
+
     .box{
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
@@ -78,13 +109,23 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.78);
     }
-    ul{ margin: 0; padding-left: 18px; color: rgba(255,255,255,.74); line-height:1.7; }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
     .price{
       font-size: 16px;
       font-weight: 700;
       margin-top: 6px;
       color: rgba(255,255,255,.90);
     }
+
     .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
     .btn{
       border: 1px solid rgba(255,255,255,.16);
@@ -99,20 +140,24 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      cursor:pointer;
     }
     .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
     .btn.secondary{ background: rgba(255,255,255,.06); }
+
     .fine{
       margin-top: 10px;
       font-size: 12px;
       color: rgba(255,255,255,.60);
       line-height: 1.6;
     }
+
     .divider{
       height:1px;
       background: rgba(255,255,255,.12);
       margin: 14px 0;
     }
+
     .videoWrap{
       margin-top: 14px;
       border: 1px solid rgba(255,255,255,.12);
@@ -122,101 +167,507 @@
       box-shadow: 0 18px 48px rgba(0,0,0,.35);
       aspect-ratio: 16 / 9;
     }
-    
     .videoWrap iframe{
       width: 100%;
       height: 100%;
       display: block;
     }
+
+    /* Top-right language/country switch + Home pill (match accounting.html) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display:block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
+
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+
+    .lang[data-route="home"] .homeBtn{ display:none; }
   </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <!-- HOME: in product pages use ../index.html -->
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
   <main class="wrap">
     <article class="card">
-      <p class="kicker">Ezion Products</p>
-      <h1>Workmate — Professional Edition</h1>
-      <p class="sub">
-        Professional MULTIPLE Time Logging, Tracking, Managing & Invoicing — All in One Excel File THAT WORKS
+      <p class="kicker" id="kickerProducts">Ezion Products</p>
+      <h1 id="pageTitle">Workmate — Professional Edition</h1>
+      <p class="sub" id="pageSub">
+        Professional multiple time logging, tracking, managing & invoicing — all in one Excel file that works.
       </p>
 
-      <div class="videoWrap" aria-label="Product demo video">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/tJIAtrTavPE"
-              title="Product demo"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
+      <div class="videoWrap" aria-label="Product demo video" id="videoWrap">
+        <iframe
+          id="ytFrame"
+          src=""
+          title="Product demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
 
       <div class="grid">
         <section class="box">
-
-          
-          <div class="h">What you get</div>
-          <ul>
-            <li>Real-time live time tracking</li>
-            <li>Parallel timers</li>
-            <li>Session-based tracking</li>
-            <li>Client & project assignment</li>
-            <li>Billable hour calculations</li>
-            <li>Auto roundings</li>
-            <li>Auto invoice generation</li>
-            <li>Invoice-ready summaries</li>
-          </ul>
+          <div class="h" id="hWhat">What you get</div>
+          <ul id="listWhat"></ul>
 
           <div class="divider"></div>
 
-          <div class="h">Ideal for</div>
-          <ul>
-            <li>Consultants</li>
-            <li>Accountants</li>
-            <li>Lawyers</li>
-            <Li>Contractors</Li>
-            <li>Freelancers</li>
-            <li>Developers</li>
-            <li>Business owners</li>
-            <li>Project managers</li>
-            <li>Anyone billing by hours/projects</li>
-          </ul>
+          <div class="h" id="hIdeal">Ideal for</div>
+          <ul id="listIdeal"></ul>
+
           <div class="divider"></div>
 
-          <div class="h">Files Included</div>
-          <ul>
-            <li>Excel Time Tracker & Invoicing file</li>
-            <li>Sample data file</li>
-            <li>PDF Setup & Usage Guide</li>
-          </ul>
+          <div class="h" id="hFiles">Files included</div>
+          <ul id="listFiles"></ul>
+
           <div class="divider"></div>
 
-          <div class="h">Requirements</div>
-          <ul>
-            <li>Microsoft Excel 365 / 2019+ (Desktop recommended)</li>
-            <li>Windows or Mac</li>
-          </ul>
+          <div class="h" id="hReq">Requirements</div>
+          <ul id="listReq"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hDemo">Demo</div>
+          <p class="fine" style="margin-top:6px;">
+            <a id="ytLink" class="backLink" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
+          </p>
         </section>
 
         <aside class="box">
-          <div class="h">Purchase</div>
-          <div class="price">£9.99</div>
-          <div class="fine">SKU: WM-PRO-001</div>
+          <div class="h" id="hPurchase">Purchase</div>
+          <div class="price" id="priceText"></div>
+          <div class="fine" id="skuText">SKU: WM-PRO-001</div>
 
-          <div class="btnRow" id="buy">
-            <!-- Replace href with your Stripe Payment Link -->
-            <a class="btn" href="https://buy.stripe.com/28E00k3Jt1Lb3KydT26sw00" target="_blank" rel="noopener">
-              Checkout</a>
+          <div class="btnRow" id="buyRow">
+            <a class="btn" id="checkoutBtn" href="https://buy.stripe.com/28E00k3Jt1Lb3KydT26sw00" target="_blank" rel="noopener">
+              Checkout
+            </a>
           </div>
 
-          <p class="fine">
+          <p class="fine" id="checkoutNote">
             Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.
           </p>
-            <p class="fine">
-            <a class="btn secondary" href="../index.html#products">Back to Products</a>
+
+          <p class="fine">
+            <a class="btn secondary" href="../index.html#products" id="backToProducts">Back to Products</a>
           </p>
         </aside>
       </div>
     </article>
   </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    /**
+     * PRODUCT CONFIG — edit only this object for variants.
+     * Price base is GBP; converted/displayed using EzionLocale.formatPrice.
+     */
+    const PRODUCT = {
+      base: { amount: 9.99, currency: "GBP" },
+      sku: "WM-PRO-001",
+      checkoutUrl: "https://buy.stripe.com/28E00k3Jt1Lb3KydT26sw00",
+      youtubeId: "tJIAtrTavPE", // set "" to hide video
+
+      i18n: {
+        en: {
+          kicker: "Ezion Products",
+          title: "Workmate — Professional Edition",
+          sub: "Professional multiple time logging, tracking, managing & invoicing — all in one Excel file that works.",
+
+          hWhat: "What you get",
+          what: [
+            "Real-time live time tracking",
+            "Parallel timers",
+            "Session-based tracking",
+            "Client & project assignment",
+            "Billable hour calculations",
+            "Auto roundings",
+            "Auto invoice generation",
+            "Invoice-ready summaries"
+          ],
+
+          hIdeal: "Ideal for",
+          ideal: [
+            "Consultants",
+            "Accountants",
+            "Lawyers",
+            "Contractors",
+            "Freelancers",
+            "Developers",
+            "Business owners",
+            "Project managers",
+            "Anyone billing by hours/projects"
+          ],
+
+          hFiles: "Files included",
+          files: [
+            "Excel Time Tracker & Invoicing file",
+            "Sample data file",
+            "PDF Setup & Usage Guide"
+          ],
+
+          hReq: "Requirements",
+          req: [
+            "Microsoft Excel 365 / 2019+ (Desktop recommended)",
+            "Windows or Mac"
+          ],
+
+          hDemo: "Demo",
+          watchYT: "Watch on YouTube",
+
+          hPurchase: "Purchase",
+          checkout: "Checkout",
+          checkoutNote: "Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.",
+          backToProducts: "Back to Products"
+        },
+
+        "zh-Hans": {
+          kicker: "Ezion 产品",
+          title: "Workmate — 专业版",
+          sub: "专业级多计时记录、追踪、管理与开票 —— 全部集成在一个真正好用的 Excel 文件里。",
+
+          hWhat: "你将获得",
+          what: [
+            "实时计时追踪",
+            "多计时器并行运行",
+            "按会话记录（Session-based）",
+            "客户与项目归属分配",
+            "可计费工时计算",
+            "自动进位/四舍五入",
+            "自动生成发票",
+            "可直接开票的汇总输出"
+          ],
+
+          hIdeal: "适合人群",
+          ideal: [
+            "顾问",
+            "会计",
+            "律师",
+            "承包商",
+            "自由职业者",
+            "开发者",
+            "小企业主",
+            "项目经理",
+            "按小时/项目计费的所有人"
+          ],
+
+          hFiles: "包含文件",
+          files: [
+            "Excel 计时与开票主文件",
+            "示例数据文件",
+            "PDF 设置与使用指南"
+          ],
+
+          hReq: "系统要求",
+          req: [
+            "Microsoft Excel 365 / 2019+（推荐桌面版）",
+            "Windows 或 Mac"
+          ],
+
+          hDemo: "演示",
+          watchYT: "在 YouTube 观看",
+
+          hPurchase: "购买",
+          checkout: "结账",
+          checkoutNote: "结账会在 Stripe 打开。付款后你会收到确认邮件与交付说明。",
+          backToProducts: "返回产品"
+        },
+
+        "zh-Hant": {
+          kicker: "Ezion 產品",
+          title: "Workmate — 專業版",
+          sub: "專業級多計時記錄、追蹤、管理與開票 —— 全部整合在一個真正好用的 Excel 檔案裡。",
+
+          hWhat: "你將獲得",
+          what: [
+            "即時計時追蹤",
+            "多計時器並行運作",
+            "按工作階段記錄（Session-based）",
+            "客戶與專案歸屬分配",
+            "可計費工時計算",
+            "自動進位/四捨五入",
+            "自動產生發票",
+            "可直接開票的彙總輸出"
+          ],
+
+          hIdeal: "適合對象",
+          ideal: [
+            "顧問",
+            "會計",
+            "律師",
+            "承包商",
+            "自由工作者",
+            "開發者",
+            "企業主",
+            "專案經理",
+            "按小時/專案計費的所有人"
+          ],
+
+          hFiles: "包含檔案",
+          files: [
+            "Excel 計時與開票主檔",
+            "示例資料檔",
+            "PDF 設定與使用指南"
+          ],
+
+          hReq: "系統需求",
+          req: [
+            "Microsoft Excel 365 / 2019+（建議桌面版）",
+            "Windows 或 Mac"
+          ],
+
+          hDemo: "示範",
+          watchYT: "在 YouTube 觀看",
+
+          hPurchase: "購買",
+          checkout: "結帳",
+          checkoutNote: "結帳會在 Stripe 開啟。付款後你會收到確認郵件與交付說明。",
+          backToProducts: "返回產品"
+        }
+      }
+    };
+
+    const UI_I18N = {
+      en: { home: "Home" },
+      "zh-Hans": { home: "主页" },
+      "zh-Hant": { home: "主頁" }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderList(items, el){
+      if (!el) return;
+      el.innerHTML = (items || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      const key = langKeyFromCtx(ctx);
+
+      const ui = UI_I18N[key] || UI_I18N.en;
+      const t = PRODUCT.i18n[key] || PRODUCT.i18n.en;
+
+      // Home label + route marker
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = ui.home;
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+
+      // Head
+      document.getElementById("kickerProducts").textContent = t.kicker;
+      document.getElementById("pageTitle").textContent = t.title;
+      document.getElementById("pageSub").textContent = t.sub;
+
+      // Sections
+      document.getElementById("hWhat").textContent = t.hWhat;
+      document.getElementById("hIdeal").textContent = t.hIdeal;
+      document.getElementById("hFiles").textContent = t.hFiles;
+      document.getElementById("hReq").textContent = t.hReq;
+      document.getElementById("hDemo").textContent = t.hDemo;
+
+      renderList(t.what, document.getElementById("listWhat"));
+      renderList(t.ideal, document.getElementById("listIdeal"));
+      renderList(t.files, document.getElementById("listFiles"));
+      renderList(t.req, document.getElementById("listReq"));
+
+      // Demo link + video
+      const videoWrap = document.getElementById("videoWrap");
+      const ytFrame = document.getElementById("ytFrame");
+      const ytLink = document.getElementById("ytLink");
+
+      if (!PRODUCT.youtubeId) {
+        if (videoWrap) videoWrap.style.display = "none";
+        if (ytLink && ytLink.parentElement) ytLink.parentElement.style.display = "none";
+      } else {
+        if (ytFrame) ytFrame.src = `https://www.youtube-nocookie.com/embed/${PRODUCT.youtubeId}`;
+        if (ytLink){
+          ytLink.href = `https://youtu.be/${PRODUCT.youtubeId}`;
+          ytLink.textContent = t.watchYT;
+        }
+      }
+
+      // Purchase
+      document.getElementById("hPurchase").textContent = t.hPurchase;
+      document.getElementById("skuText").textContent = `SKU: ${PRODUCT.sku}`;
+      document.getElementById("checkoutBtn").textContent = t.checkout;
+      document.getElementById("checkoutBtn").href = PRODUCT.checkoutUrl || "#";
+      document.getElementById("checkoutNote").textContent = t.checkoutNote;
+      document.getElementById("backToProducts").textContent = t.backToProducts;
+
+      // Price (formatted)
+      const price = EzionLocale.formatPrice({ type: "exact", amount: PRODUCT.base.amount, currency: PRODUCT.base.currency }, ctx);
+      document.getElementById("priceText").textContent = price;
+
+      // Title per country
+      document.title =
+        (ctx.country === "SG") ? `${t.title} | Ezion SG` :
+        (ctx.country === "HK") ? `${t.title} | Ezion HK` :
+        (ctx.country === "US") ? `${t.title} | Ezion US` :
+        `${t.title} | Ezion UK`;
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
+    });
+  </script>
 </body>
 </html>

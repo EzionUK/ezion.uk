@@ -174,16 +174,24 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-height: 44px;
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
       color: rgba(255,255,255,.92);
       border-radius: 999px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
 
+    /* Invisible icon spacer for buttons without flag */
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+    }
+    
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
@@ -512,7 +520,8 @@
       </button>
     </div>
     <a class="langBtn homeBtn" href="#" id="topHomeBtn">
-      <span class="langText" id="topHomeText">Home</span>
+      <span class="iconSpacer" aria-hidden="true"></span>
+      <span class="langText" id="topHomeText">主页</span>
     </a>
   </div>
 
@@ -1080,12 +1089,24 @@
     if (panel.classList.contains("open")) closePanel();
     document.body.style.overflow = "";
   }
-
+    
+  function updateHomeButtonVisibility() {
+    const homeBtn = document.getElementById("topHomeBtn");
+    if (!homeBtn) return;
+  
+    const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
+  
+    // Hide on home, show otherwise
+    homeBtn.style.display = (hash === "" ? "none" : "inline-flex");
+  }
+    
   function onRoute(){
     const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
     if (hash === "products") setView("products");
     else if (hash === "services") setView("services");
     else setView("home");
+  
+    updateHomeButtonVisibility();
   }
   window.addEventListener("hashchange", onRoute);
 
@@ -1235,6 +1256,7 @@
     onReady(ctx){
       renderAll(ctx);
       onRoute();
+      updateHomeButtonVisibility();
     },
     onChange(ctx){
       renderAll(ctx);

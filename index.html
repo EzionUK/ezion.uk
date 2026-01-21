@@ -939,76 +939,70 @@
     }
   };
 
-  function getTextPack(ctx){
+    function getTextPack(ctx){
       if (ctx && ctx.key === "hk-zh") return I18N.zhHant;
       if (ctx && ctx.lang === "zh") return I18N.zhHans; // sg-zh + cn-zh
       return I18N.en;
     }
-  
+    
     function setText(id, value, asHtml=false){
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (asHtml) el.innerHTML = value;
-    else el.textContent = value;
-  }
-  
-  function applyText(ctx){
-    const t = getTextPack(ctx);
-  
-    setText("openInfo", t.about);
-    setText("btnProducts", t.products);
-    setText("btnServices", t.services);
-  
-    // These buttons no longer exist in your HTML; keep safe anyway
-    setText("btnHomeFromProducts", t.home);
-    setText("btnHomeFromServices", t.home);
-  
-    setText("productsTitle", t.products);
-    setText("servicesTitle", t.services);
-  
-    setText("servicesNotesTitle", t.notes);
-    setText("servicesNotesText", t.servicesNotes);
-  
-    setText("homeSub", t.homeSub, true);
-  
-    setText("aboutTitle", t.aboutTitle);
-    setText("aboutBody", t.aboutBody, true);
-    setText("aboutPrinciplesTitle", t.principles);
-  
-    setText("contactTitle", t.contact);
-    setText("contactSub", t.contactSub);
-    setText("companyTitle", t.company);
-  
-    setText("focusTitle", t.focus);
-    setText("focusSub", t.focusSub);
-  
-    setText("productsSectionTools", t.productsSectionTools);
-    setText("productsSectionApps", t.productsSectionApps);
-    setText("productsSectionProductions", t.productsSectionProductions);
-  
-    setText("p1Title", t.p1Title); setText("p1Body", t.p1Body);
-    setText("p2Title", t.p2Title); setText("p2Body", t.p2Body);
-    setText("p3Title", t.p3Title); setText("p3Body", t.p3Body);
-  
-    setText("f1Title", t.f1Title); setText("f1Body", t.f1Body);
-    setText("f2Title", t.f2Title); setText("f2Body", t.f2Body);
-    setText("f3Title", t.f3Title); setText("f3Body", t.f3Body);
-    setText("f4Title", t.f4Title); setText("f4Body", t.f4Body);
-  
-    setText("companyLegalLabel", t.legalNameLabel);
-    setText("companyJurisdictionLabel", t.jurisdictionLabel);
-    setText("companyStatusLabel", t.statusLabel);
-  
-    setText("closeInfo", t.close);
-  
-    const copyBtn = document.getElementById("copyBtn");
-    if (copyBtn) copyBtn.textContent = t.copy;
-  
-    document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
-    document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
-  }
-    document.getElementById("closeInfo").textContent = t.close;
-  }
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (asHtml) el.innerHTML = value;
+      else el.textContent = value;
+    }
+    
+    function applyText(ctx){
+      const t = getTextPack(ctx);
+    
+      setText("openInfo", t.about);
+      setText("btnProducts", t.products);
+      setText("btnServices", t.services);
+    
+      setText("productsTitle", t.products);
+      setText("servicesTitle", t.services);
+    
+      setText("servicesNotesTitle", t.notes);
+      setText("servicesNotesText", t.servicesNotes);
+    
+      setText("homeSub", t.homeSub, true);
+    
+      setText("aboutTitle", t.aboutTitle);
+      setText("aboutBody", t.aboutBody, true);
+      setText("aboutPrinciplesTitle", t.principles);
+    
+      setText("contactTitle", t.contact);
+      setText("contactSub", t.contactSub);
+      setText("companyTitle", t.company);
+    
+      setText("focusTitle", t.focus);
+      setText("focusSub", t.focusSub);
+    
+      setText("productsSectionTools", t.productsSectionTools);
+      setText("productsSectionApps", t.productsSectionApps);
+      setText("productsSectionProductions", t.productsSectionProductions);
+    
+      setText("p1Title", t.p1Title); setText("p1Body", t.p1Body);
+      setText("p2Title", t.p2Title); setText("p2Body", t.p2Body);
+      setText("p3Title", t.p3Title); setText("p3Body", t.p3Body);
+    
+      setText("f1Title", t.f1Title); setText("f1Body", t.f1Body);
+      setText("f2Title", t.f2Title); setText("f2Body", t.f2Body);
+      setText("f3Title", t.f3Title); setText("f3Body", t.f3Body);
+      setText("f4Title", t.f4Title); setText("f4Body", t.f4Body);
+    
+      setText("companyLegalLabel", t.legalNameLabel);
+      setText("companyJurisdictionLabel", t.jurisdictionLabel);
+      setText("companyStatusLabel", t.statusLabel);
+    
+      setText("closeInfo", t.close);
+    
+      const copyBtn = document.getElementById("copyBtn");
+      if (copyBtn) copyBtn.textContent = t.copy;
+    
+      document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
+      document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
+    }
 
   // -----------------------------
   // About panel open/close

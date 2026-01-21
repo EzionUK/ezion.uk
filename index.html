@@ -166,7 +166,7 @@
     .lang{
       position: fixed;
       top: 18px;
-      right: 60px;
+      right: 18px;
       z-index: 6;
     }
 
@@ -251,11 +251,8 @@
     }
 
     /* Top-right Home pill (right of locale selector) */
-    .topHome{
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 6;
+    .homeBtn{
+      padding: 10px 14px;
     }
     
     /* Slide-over About panel */
@@ -514,10 +511,7 @@
         <span class="flag">🇨🇳</span><span>中文</span><span class="langMeta">CNY · CN</span>
       </button>
     </div>
-  </div>
-  
-  <div class="topHome">
-    <a class="langBtn" href="#" id="topHomeBtn" aria-label="Home">
+    <a class="langBtn homeBtn" href="#" id="topHomeBtn">
       <span class="langText" id="topHomeText">Home</span>
     </a>
   </div>

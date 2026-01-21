@@ -250,6 +250,19 @@
       letter-spacing: .02em;
     }
 
+    /* Top-right Home pill (right of locale selector) */
+    .topHome{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+    }
+    
+    /* Push locale pill left so Home can sit to its right */
+    .lang{
+      right: 132px; /* tweak if you want more/less spacing */
+    }
+    
     /* Slide-over About panel */
     .panel{
       position: fixed;
@@ -506,6 +519,13 @@
         <span class="flag">🇨🇳</span><span>中文</span><span class="langMeta">CNY · CN</span>
       </button>
     </div>
+  </div>
+  
+  <div class="topHome">
+    <a class="langBtn" href="#" id="topHomeBtn" aria-label="Home">
+      <span class="flag" aria-hidden="true">⌂</span>
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
   </div>
 
   <main class="wrap">
@@ -996,6 +1016,8 @@
       setText("companyStatusLabel", t.statusLabel);
     
       setText("closeInfo", t.close);
+
+      setText("topHomeText", t.home);
     
       const copyBtn = document.getElementById("copyBtn");
       if (copyBtn) copyBtn.textContent = t.copy;

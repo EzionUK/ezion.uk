@@ -170,10 +170,10 @@
     "uk-en": { flag: "🇬🇧", text: "English" },
     "us-en": { flag: "🇺🇸", text: "English" },
     "sg-en": { flag: "🇸🇬", text: "English" },
-    "sg-zh": { flag: "🇸🇬", text: "中文" },
+    "sg-zh": { flag: "🇸🇬", text: "简中" },
     "hk-en": { flag: "🇭🇰", text: "English" },
-    "hk-zh": { flag: "🇭🇰", text: "中文" },
-    "cn-zh": { flag: "🇨🇳", text: "中文" }
+    "hk-zh": { flag: "🇭🇰", text: "繁中" },
+    "cn-zh": { flag: "🇨🇳", text: "简中" }
   };
 
   const STORAGE_KEY = "ezion_locale";

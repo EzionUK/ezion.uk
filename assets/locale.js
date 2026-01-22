@@ -30,7 +30,7 @@
       country: "SG",
       currency: "SGD",
       numberLocale: "en-SG",
-      contact: { email: "ezionsg@gmail.com", phone: "+65 9622 2887", whatsapp: "+6596222887" },
+      contact: { email: "hello@ezion.co", phone: "+65 9622 2887", whatsapp: "+6596222887" },
       company: {
         legalName: "Ezion Pte Ltd",
         jurisdiction: "Singapore",
@@ -46,7 +46,7 @@
       country: "SG",
       currency: "SGD",
       numberLocale: "zh-SG",
-      contact: { email: "ezionsg@gmail.com", phone: "+65 9622 2887", whatsapp: "+6596222887" },
+      contact: { email: "hello@ezion.co", phone: "+65 9622 2887", whatsapp: "+6596222887" },
       company: {
         legalName: "Ezion Pte Ltd",
         jurisdiction: "新加坡",
@@ -62,7 +62,7 @@
       country: "HK",
       currency: "HKD",
       numberLocale: "en-HK",
-      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532", whatsapp: null },
+      contact: { email: "hello@ezion.co", phone: "+852 5704 4532", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "United Kingdom",
@@ -78,7 +78,7 @@
       country: "HK",
       currency: "HKD",
       numberLocale: "zh-HK",
-      contact: { email: "contact@ezion.uk", phone: "+852 5704 4532", whatsapp: null },
+      contact: { email: "hello@ezion.co", phone: "+852 5704 4532", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "英國",
@@ -94,7 +94,7 @@
       country: "US",
       currency: "USD",
       numberLocale: "en-US",
-      contact: { email: "contact@ezion.uk", phone: "+1 (864) 468-9899", whatsapp: null },
+      contact: { email: "hello@ezion.co", phone: "+1 (864) 468-9899", whatsapp: null },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "United Kingdom",
@@ -114,7 +114,7 @@
       numberLocale: "zh-CN",
 
       contact: {
-        email: "ezionsg@gmail.com",
+        email: "hello@ezion.co",
         phone: "+86 1717 0494 532",
         whatsapp: null
       },

@@ -15,7 +15,7 @@
       country: "UK",
       currency: "GBP",
       numberLocale: "en-GB",
-      contact: { email: "contact@ezion.uk", phone: "+44 7733 9344449", whatsapp: null },
+      contact: { email: "contact@ezion.uk", phone: "+44 7782 278868", whatsapp: "+447782278868" },
       company: {
         legalName: "Ezion Ltd",
         jurisdiction: "United Kingdom",

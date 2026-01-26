@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enzydrain | Ezion UK</title>
+  <meta name="description" content="Enzydrain — enzymatic drain maintenance tablets. Simple routine care to keep drains flowing." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .kicker{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(22px,2.4vw,30px);
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      max-width:78ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.78);
+    }
+    .p{
+      margin:0;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
+
+    ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+
+    .metaRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.14);
+    }
+    .metaLeft{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .price{
+      font-size:16px;
+      font-weight:750;
+      letter-spacing:.01em;
+      color:rgba(255,255,255,.92);
+    }
+    .sku{
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    .backLink{
+      color:rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color:rgba(255,255,255,.34); }
+
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.6;
+    }
+
+    /* Top-right locale + Home */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    .lang.open .langMenu{ display:block; }
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right locale + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker" id="kickerProducts">Products</p>
+      <h1 id="pageTitle">Enzydrain</h1>
+      <p class="sub" id="pageSub">
+        Enzymatic drain maintenance tablets — simple routine care to reduce buildup and keep drains flowing.
+      </p>
+
+      <div class="metaRow" aria-label="Product meta">
+        <div class="metaLeft">
+          <div class="price" id="priceText"></div>
+          <div class="sku" id="skuText">SKU: EZD-TRIAL-001</div>
+        </div>
+        <div class="btnRow" style="margin-top:0;">
+          <a class="btn" href="#buy" id="btnBuyNow">Get</a>
+          <a class="btn secondary" href="../index.html#products" id="btnBack">Back</a>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Left: details -->
+        <section class="box">
+          <div class="h" id="whatTitle">What it is</div>
+          <p class="p" id="whatBody">
+            A lightweight routine product for drains: drop in, let it work, rinse through. Designed for ongoing maintenance rather than emergency unclogging.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="useTitle">How to use</div>
+          <ul>
+            <li id="u1">Use during low-flow hours (e.g., at night)</li>
+            <li id="u2">Drop 1 tablet into the drain opening</li>
+            <li id="u3">Let sit, then flush with water</li>
+          </ul>
+
+          <p class="fine" id="useNote">
+            Frequency depends on usage and local conditions. Start monthly and adjust as needed.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="includedTitle">What’s included</div>
+          <ul>
+            <li id="i1">Enzydrain maintenance tablets (pack size varies by listing)</li>
+            <li id="i2">Basic usage notes</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="notesTitle">Notes</div>
+          <p class="p" id="notesBody">
+            Not a substitute for professional plumbing for severe blockages. Keep away from children and pets. Follow local disposal guidance.
+          </p>
+        </section>
+
+        <!-- Right: buy -->
+        <aside class="box" id="buy">
+          <div class="h" id="buyTitle">Get Enzydrain</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="buyBody">
+            Request a purchase link or place an order by email. Include quantity and delivery country.
+          </p>
+
+          <div class="btnRow">
+            <a class="btn" href="#" id="btnOrderEmail">Order by email</a>
+            <a class="btn secondary" href="#" id="btnAsk">Ask a question</a>
+          </div>
+
+          <p class="fine" id="buyFine">
+            You’ll receive confirmation with availability and delivery options.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="relatedTitle">Related</div>
+          <p class="p">
+            <a class="backLink" href="../index.html#products" id="relatedLink">View other products</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    const PRODUCT = {
+      name: "Enzydrain",
+      price: { type:"fixed", amount: 8.50, currency:"GBP" },
+      sku: "EZD-TRIAL-001"
+    };
+
+    const I18N = {
+      en: {
+        home: "Home",
+        kickerProducts: "Products",
+        pageTitle: "Enzydrain",
+        pageSub: "Enzymatic drain maintenance tablets — simple routine care to reduce buildup and keep drains flowing.",
+        btnBuyNow: "Get",
+        btnBack: "Back",
+        whatTitle: "What it is",
+        whatBody: "A lightweight routine product for drains: drop in, let it work, rinse through. Designed for ongoing maintenance rather than emergency unclogging.",
+        useTitle: "How to use",
+        u1: "Use during low-flow hours (e.g., at night)",
+        u2: "Drop 1 tablet into the drain opening",
+        u3: "Let sit, then flush with water",
+        useNote: "Frequency depends on usage and local conditions. Start monthly and adjust as needed.",
+        includedTitle: "What’s included",
+        i1: "Enzydrain maintenance tablets (pack size varies by listing)",
+        i2: "Basic usage notes",
+        notesTitle: "Notes",
+        notesBody: "Not a substitute for professional plumbing for severe blockages. Keep away from children and pets. Follow local disposal guidance.",
+        buyTitle: "Get Enzydrain",
+        buyBody: "Request a purchase link or place an order by email. Include quantity and delivery country.",
+        btnOrderEmail: "Order by email",
+        btnAsk: "Ask a question",
+        buyFine: "You’ll receive confirmation with availability and delivery options.",
+        relatedTitle: "Related",
+        relatedLink: "View other products",
+        emailSubjectOrder: "Order: Enzydrain",
+        emailSubjectQuestion: "Question: Enzydrain"
+      },
+
+      "zh-Hans": {
+        home: "主页",
+        kickerProducts: "产品",
+        pageTitle: "Enzydrain",
+        pageSub: "酶解型下水道养护清洁片——用于日常维护，减少堆积，让排水更顺畅。",
+        btnBuyNow: "获取",
+        btnBack: "返回",
+        whatTitle: "这是什么",
+        whatBody: "用于下水道的轻量日常养护：放入、等待、冲洗。定位为长期维护，而非紧急强力疏通。",
+        useTitle: "使用方法",
+        u1: "建议在低流量时段使用（如夜间）",
+        u2: "将 1 片放入下水口",
+        u3: "静置后用清水冲洗",
+        useNote: "频率取决于使用情况与环境。建议先按每月一次开始，再按需调整。",
+        includedTitle: "包含内容",
+        i1: "Enzydrain 养护片（包装数量以实际为准）",
+        i2: "基础使用说明",
+        notesTitle: "备注",
+        notesBody: "严重堵塞请联系专业人士处理。请远离儿童与宠物，并遵循当地处置指引。",
+        buyTitle: "获取 Enzydrain",
+        buyBody: "可邮件索取购买链接或直接下单。请注明数量与收货国家/地区。",
+        btnOrderEmail: "邮件下单",
+        btnAsk: "咨询问题",
+        buyFine: "我们会确认库存与配送方式后回复。",
+        relatedTitle: "相关",
+        relatedLink: "查看其他产品",
+        emailSubjectOrder: "下单：Enzydrain",
+        emailSubjectQuestion: "咨询：Enzydrain"
+      },
+
+      "zh-Hant": {
+        home: "主頁",
+        kickerProducts: "產品",
+        pageTitle: "Enzydrain",
+        pageSub: "酵素型去水渠保養清潔片——用於日常保養，減少積聚，令排水更順暢。",
+        btnBuyNow: "獲取",
+        btnBack: "返回",
+        whatTitle: "這是什麼",
+        whatBody: "用於去水渠的輕量日常保養：放入、等待、沖洗。定位為長期保養，而非緊急強力通渠。",
+        useTitle: "使用方法",
+        u1: "建議於低用水時段使用（例如夜間）",
+        u2: "將 1 片放入去水口",
+        u3: "靜置後以清水沖洗",
+        useNote: "頻率視乎使用情況與環境而定。建議先每月一次，再按需要調整。",
+        includedTitle: "包含內容",
+        i1: "Enzydrain 保養片（包裝數量以實際為準）",
+        i2: "基本使用說明",
+        notesTitle: "備註",
+        notesBody: "嚴重堵塞請交由專業人士處理。請遠離兒童及寵物，並遵循當地處置指引。",
+        buyTitle: "獲取 Enzydrain",
+        buyBody: "可電郵索取購買連結或直接下單。請註明數量及收貨國家/地區。",
+        btnOrderEmail: "電郵下單",
+        btnAsk: "查詢問題",
+        buyFine: "我們會確認庫存及配送方式後回覆。",
+        relatedTitle: "相關",
+        relatedLink: "查看其他產品",
+        emailSubjectOrder: "下單：Enzydrain",
+        emailSubjectQuestion: "查詢：Enzydrain"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function buildOrderBody(ctx){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh" || ctx.lang === "zh");
+
+      const base = {
+        sku: PRODUCT.sku,
+        country: ctx.country,
+        currency: ctx.currency
+      };
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想訂購 Enzydrain：
+
+- 產品：Enzydrain
+- SKU：${base.sku}
+- 數量：
+- 收貨國家/地區：
+- 收貨地址（可稍後提供）：
+- 聯絡電話（可選）：
+- 地區：${base.country}
+- 偏好貨幣：${base.currency}
+
+謝謝。`;
+      }
+
+      if (isSimplified){
+        return `你好 Ezion，
+
+我想订购 Enzydrain：
+
+- 产品：Enzydrain
+- SKU：${base.sku}
+- 数量：
+- 收货国家/地区：
+- 收货地址（可稍后提供）：
+- 联系电话（可选）：
+- 地区：${base.country}
+- 偏好货币：${base.currency}
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
+
+I'd like to order Enzydrain:
+
+- Product: Enzydrain
+- SKU: ${base.sku}
+- Quantity:
+- Delivery country:
+- Delivery address (can provide later):
+- Phone (optional):
+- Country: ${base.country}
+- Preferred currency: ${base.currency}
+
+Thanks.`;
+    }
+
+    function buildQuestionBody(ctx){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh" || ctx.lang === "zh");
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想諮詢 Enzydrain：
+
+- 問題：
+- 使用情況（例如：廚房/浴室、使用頻率）：
+- 地區：${ctx.country}
+
+謝謝。`;
+      }
+
+      if (isSimplified){
+        return `你好 Ezion，
+
+我想咨询 Enzydrain：
+
+- 问题：
+- 使用情况（例如：厨房/浴室、使用频率）：
+- 地区：${ctx.country}
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
+
+I have a question about Enzydrain:
+
+- Question:
+- Context (e.g., kitchen/bathroom, frequency):
+- Country: ${ctx.country}
+
+Thanks.`;
+    }
+
+    function mailto(email, subject, body){
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function applyText(ctx){
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+
+      document.getElementById("kickerProducts").textContent = t.kickerProducts;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("btnBuyNow").textContent = t.btnBuyNow;
+      document.getElementById("btnBack").textContent = t.btnBack;
+
+      document.getElementById("whatTitle").textContent = t.whatTitle;
+      document.getElementById("whatBody").textContent = t.whatBody;
+
+      document.getElementById("useTitle").textContent = t.useTitle;
+      document.getElementById("u1").textContent = t.u1;
+      document.getElementById("u2").textContent = t.u2;
+      document.getElementById("u3").textContent = t.u3;
+      document.getElementById("useNote").textContent = t.useNote;
+
+      document.getElementById("includedTitle").textContent = t.includedTitle;
+      document.getElementById("i1").textContent = t.i1;
+      document.getElementById("i2").textContent = t.i2;
+
+      document.getElementById("notesTitle").textContent = t.notesTitle;
+      document.getElementById("notesBody").textContent = t.notesBody;
+
+      document.getElementById("buyTitle").textContent = t.buyTitle;
+      document.getElementById("buyBody").textContent = t.buyBody;
+      document.getElementById("btnOrderEmail").textContent = t.btnOrderEmail;
+      document.getElementById("btnAsk").textContent = t.btnAsk;
+      document.getElementById("buyFine").textContent = t.buyFine;
+
+      document.getElementById("relatedTitle").textContent = t.relatedTitle;
+      document.getElementById("relatedLink").textContent = t.relatedLink;
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+
+      applyText(ctx);
+
+      // Price display (localized)
+      const priceText = EzionLocale.formatPrice(PRODUCT.price, ctx);
+      document.getElementById("priceText").textContent = priceText;
+      document.getElementById("skuText").textContent = `SKU: ${PRODUCT.sku}`;
+
+      // Mailto CTAs (localized)
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
+      document.getElementById("btnOrderEmail").href = mailto(email, t.emailSubjectOrder, buildOrderBody(ctx));
+      document.getElementById("btnAsk").href = mailto(email, t.emailSubjectQuestion, buildQuestionBody(ctx));
+
+      document.title =
+        (ctx.country === "SG") ? "Enzydrain | Ezion SG" :
+        (ctx.country === "HK") ? "Enzydrain | Ezion HK" :
+        (ctx.country === "US") ? "Enzydrain | Ezion US" :
+        "Enzydrain | Ezion UK";
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
+    });
+  </script>
+</body>
+</html>

@@ -1190,7 +1190,7 @@
       p.category === "apps" && p.key === "today" ? c.apps.todayName :
       p.category === "apps" && p.key === "yada" ? c.apps.yadaName :
       p.category === "productions" && p.key === "book" ? c.productions.bookName :
-      p.categoty === "productions" && p.key === "course" ? c.productions.AIName :
+      p.category === "productions" && p.key === "course" ? c.productions.AIName :
       "";
 
     const desc =
@@ -1199,7 +1199,7 @@
       p.category === "apps" && p.key === "today" ? c.apps.todayDesc :
       p.category === "apps" && p.key === "yada" ? c.apps.yadaDesc :
       p.category === "productions" && p.key === "book" ? c.productions.bookDesc :
-      p.categoty === "productions" && p.key === "course" ? c.productions.AIDesc :
+      p.category === "productions" && p.key === "course" ? c.productions.AIDesc :
       "";
 
     let priceText = EzionLocale.formatPrice(p.price, ctx);

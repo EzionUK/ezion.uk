@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Business Building Consultancy | Ezion UK</title>
+  <meta name="description" content="AI business building consultancy — 1:1 strategy, offer, pricing, go-to-market, and automation." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .kicker{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(22px,2.4vw,30px);
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      max-width:70ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.78);
+    }
+    .p{
+      margin:0;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
+
+    .tier{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:12px;
+      margin-top:10px;
+    }
+    .tierTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+    }
+    .tierName{
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.88);
+    }
+    .tierPrice{
+      font-size:13px;
+      color:rgba(255,255,255,.78);
+    }
+    ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    .backLink{
+      color:rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color:rgba(255,255,255,.34); }
+
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.6;
+    }
+
+    /* Top-right language/country switch + Home pill */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    .lang.open .langMenu{ display: block; }
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+    .lang[data-route="home"] .homeBtn{ display:none; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker" id="kickerServices">Services</p>
+      <h1 id="pageTitle">Consultancy on AI Business Building</h1>
+      <p class="sub" id="pageSub">
+        1:1 consulting to build and launch an AI-enabled business: offer, pricing, go-to-market, and automation.
+      </p>
+
+      <div class="grid">
+        <!-- Left: what you get -->
+        <section class="box">
+          <div class="h" id="whatWeDoTitle">What we do</div>
+          <p class="p" id="whatWeDoBody">
+            We help you turn an idea into a workable offer and launch plan — then design the AI workflows that make it operational.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="deliverablesTitle">Typical deliverables</div>
+          <ul>
+            <li id="d1">Offer & positioning: who it’s for, outcomes, and scope</li>
+            <li id="d2">Pricing & packaging: tiers, upsells, and delivery model</li>
+            <li id="d3">Go-to-market plan: channels, messaging, and first 30–60 days</li>
+            <li id="d4">Automation map: tools, prompts, data flow, and SOPs</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="quoteTitle">Request a quote</div>
+          <p class="p" id="quoteBody">
+            Email your business idea, target customer, and what stage you’re at. We’ll recommend a scope and next steps.
+          </p>
+
+          <div class="btnRow">
+            <a class="btn" id="btnQuote" href="#">Request a quote</a>
+          </div>
+
+          <p class="fine" id="discoveryLine">
+            Prefer a quick call? <a class="backLink" data-contact-email href="#">Request a discovery call</a>.
+          </p>
+
+          <p class="fine" id="fineNote">
+            Note: This is consultancy (strategy + implementation guidance). Done-for-you builds and automation delivery can be quoted separately.
+          </p>
+        </section>
+
+        <!-- Right: packages -->
+        <aside class="box">
+          <div class="h" id="pricingTitle">Packages</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="pricingSub">
+            Starting prices. Final quote depends on scope, urgency, and complexity.
+          </p>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName" id="tierClarityName">Clarity</div>
+              <div class="tierPrice" id="priceClarity"></div>
+            </div>
+            <ul>
+              <li id="c1">Offer and positioning workshop</li>
+              <li id="c2">Pricing / packaging recommendations</li>
+              <li id="c3">Next-step action plan</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Clarity" id="btnClarity">Request Clarity quote</a>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName" id="tierLaunchName">Launch</div>
+              <div class="tierPrice" id="priceLaunch"></div>
+            </div>
+            <ul>
+              <li id="l1">Go-to-market plan + messaging</li>
+              <li id="l2">Sales funnel outline (landing, lead magnet, follow-up)</li>
+              <li id="l3">30-day launch execution cadence</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Launch" id="btnLaunch">Request Launch quote</a>
+            </div>
+          </div>
+
+          <div class="tier">
+            <div class="tierTop">
+              <div class="tierName" id="tierSystemsName">Systems</div>
+              <div class="tierPrice" id="priceSystems"></div>
+            </div>
+            <ul>
+              <li id="sy1">Automation map (tools + workflows)</li>
+              <li id="sy2">Prompt library + templates</li>
+              <li id="sy3">SOPs and handover documentation</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn" href="#" data-tier="Systems" id="btnSystems">Request Systems quote</a>
+            </div>
+          </div>
+
+          <p class="fine" id="note1">
+            If you’re not sure where to start, choose Clarity. We can expand into Launch or Systems after.
+          </p>
+          <p class="fine">
+            <a class="btn secondary" href="../index.html#services" id="backToServices">Back to Services</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    const I18N = {
+      en: {
+        home: "Home",
+        kickerServices: "Services",
+        pageTitle: "Consultancy on AI Business Building",
+        pageSub: "1:1 consulting to build and launch an AI-enabled business: offer, pricing, go-to-market, and automation.",
+        whatWeDoTitle: "What we do",
+        whatWeDoBody: "We help you turn an idea into a workable offer and launch plan — then design the AI workflows that make it operational.",
+        deliverablesTitle: "Typical deliverables",
+        d1: "Offer & positioning: who it’s for, outcomes, and scope",
+        d2: "Pricing & packaging: tiers, upsells, and delivery model",
+        d3: "Go-to-market plan: channels, messaging, and first 30–60 days",
+        d4: "Automation map: tools, prompts, data flow, and SOPs",
+        quoteTitle: "Request a quote",
+        quoteBody: "Email your business idea, target customer, and what stage you’re at. We’ll recommend a scope and next steps.",
+        btnQuote: "Request a quote",
+        discoveryLinePrefix: "Prefer a quick call? ",
+        discoveryLink: "Request a discovery call",
+        discoveryLineSuffix: ".",
+        fineNote: "Note: This is consultancy (strategy + implementation guidance). Done-for-you builds and automation delivery can be quoted separately.",
+        pricingTitle: "Packages",
+        pricingSub: "Starting prices. Final quote depends on scope, urgency, and complexity.",
+        tierClarityName: "Clarity",
+        tierLaunchName: "Launch",
+        tierSystemsName: "Systems",
+        btnClarity: "Request Clarity quote",
+        btnLaunch: "Request Launch quote",
+        btnSystems: "Request Systems quote",
+        c1: "Offer and positioning workshop",
+        c2: "Pricing / packaging recommendations",
+        c3: "Next-step action plan",
+        l1: "Go-to-market plan + messaging",
+        l2: "Sales funnel outline (landing, lead magnet, follow-up)",
+        l3: "30-day launch execution cadence",
+        sy1: "Automation map (tools + workflows)",
+        sy2: "Prompt library + templates",
+        sy3: "SOPs and handover documentation",
+        note1: "If you’re not sure where to start, choose Clarity. We can expand into Launch or Systems after.",
+        backToServices: "Back to Services",
+        perMonth: "/mo"
+      },
+
+      "zh-Hans": {
+        home: "主页",
+        kickerServices: "服务",
+        pageTitle: "AI 商业构建咨询",
+        pageSub: "一对一咨询，协助你打造并启动 AI 驱动的业务：产品定位、定价、市场进入策略及自动化体系。",
+        whatWeDoTitle: "我们做什么",
+        whatWeDoBody: "我们帮助你把想法落地成可销售的方案与启动计划，并设计可执行的 AI 工作流，让业务能运转起来。",
+        deliverablesTitle: "常见交付物",
+        d1: "产品定位与方案：目标客户、结果导向与服务范围",
+        d2: "定价与打包：套餐层级、加购项与交付方式",
+        d3: "市场进入计划：渠道、话术与前 30–60 天节奏",
+        d4: "自动化蓝图：工具选择、提示词、数据流与 SOP",
+        quoteTitle: "索取报价",
+        quoteBody: "请邮件说明你的业务想法、目标客户，以及目前阶段。我们将建议合适的范围与下一步。",
+        btnQuote: "索取报价",
+        discoveryLinePrefix: "想先快速沟通？",
+        discoveryLink: "预约一次沟通电话",
+        discoveryLineSuffix: "。",
+        fineNote: "说明：本服务为咨询（策略 + 落地指导）。如需代建（网站/系统/自动化交付），可另行报价。",
+        pricingTitle: "服务套餐",
+        pricingSub: "起步价。最终报价取决于范围、紧急程度与复杂度。",
+        tierClarityName: "清晰方案",
+        tierLaunchName: "启动方案",
+        tierSystemsName: "系统方案",
+        btnClarity: "索取清晰方案报价",
+        btnLaunch: "索取启动方案报价",
+        btnSystems: "索取系统方案报价",
+        c1: "产品定位与方案梳理",
+        c2: "定价 / 打包建议",
+        c3: "下一步行动计划",
+        l1: "市场进入计划 + 话术",
+        l2: "销售漏斗框架（落地页、引流、跟进）",
+        l3: "30 天游程执行节奏",
+        sy1: "自动化蓝图（工具 + 工作流）",
+        sy2: "提示词库 + 模板",
+        sy3: "SOP 与交接文档",
+        note1: "不确定从哪里开始，先选「清晰方案」。之后可再扩展到「启动」或「系统」。",
+        backToServices: "返回服务列表",
+        perMonth: "/月"
+      },
+
+      "zh-Hant": {
+        home: "主頁",
+        kickerServices: "服務",
+        pageTitle: "AI 商業建構顧問服務",
+        pageSub: "一對一顧問諮詢，協助你建立並啟動 AI 驅動的業務：產品定位、定價、市場進入策略及自動化系統。",
+        whatWeDoTitle: "我們做什麼",
+        whatWeDoBody: "我們協助你把想法落地成可銷售的方案與啟動計劃，並設計可執行的 AI 工作流程，令業務能運作起來。",
+        deliverablesTitle: "常見交付內容",
+        d1: "產品定位與方案：目標客群、成果導向與服務範圍",
+        d2: "定價與打包：方案層級、加購項與交付模式",
+        d3: "市場進入計劃：渠道、訊息與首 30–60 天節奏",
+        d4: "自動化藍圖：工具選擇、提示詞、資料流與 SOP",
+        quoteTitle: "索取報價",
+        quoteBody: "請電郵說明你的業務想法、目標客戶，以及目前階段。我們會建議合適範圍與下一步。",
+        btnQuote: "索取報價",
+        discoveryLinePrefix: "想先簡短溝通？",
+        discoveryLink: "預約一次溝通電話",
+        discoveryLineSuffix: "。",
+        fineNote: "說明：本服務為顧問諮詢（策略 + 落地指導）。如需代建（網站/系統/自動化交付），可另行報價。",
+        pricingTitle: "服務套餐",
+        pricingSub: "起步價。最終報價取決於範圍、緊急程度與複雜度。",
+        tierClarityName: "清晰方案",
+        tierLaunchName: "啟動方案",
+        tierSystemsName: "系統方案",
+        btnClarity: "索取清晰方案報價",
+        btnLaunch: "索取啟動方案報價",
+        btnSystems: "索取系統方案報價",
+        c1: "產品定位與方案梳理",
+        c2: "定價 / 打包建議",
+        c3: "下一步行動計劃",
+        l1: "市場進入計劃 + 訊息",
+        l2: "銷售漏斗框架（落地頁、引流、跟進）",
+        l3: "30 天執行節奏",
+        sy1: "自動化藍圖（工具 + 工作流程）",
+        sy2: "提示詞庫 + 模板",
+        sy3: "SOP 與交接文件",
+        note1: "不確定從哪裡開始，可先選「清晰方案」。之後可再擴展到「啟動」或「系統」。",
+        backToServices: "返回服務列表",
+        perMonth: "/月"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function applyText(ctx){
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+
+      document.getElementById("kickerServices").textContent = t.kickerServices;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("whatWeDoTitle").textContent = t.whatWeDoTitle;
+      document.getElementById("whatWeDoBody").textContent = t.whatWeDoBody;
+
+      document.getElementById("deliverablesTitle").textContent = t.deliverablesTitle;
+      document.getElementById("d1").textContent = t.d1;
+      document.getElementById("d2").textContent = t.d2;
+      document.getElementById("d3").textContent = t.d3;
+
+      // Optional extra deliverable
+      const d4 = document.getElementById("d4");
+      if (d4) d4.textContent = t.d4;
+
+      document.getElementById("quoteTitle").textContent = t.quoteTitle;
+      document.getElementById("quoteBody").textContent = t.quoteBody;
+      document.getElementById("btnQuote").textContent = t.btnQuote;
+
+      const discoveryLine = document.getElementById("discoveryLine");
+      if (discoveryLine){
+        discoveryLine.innerHTML = `${t.discoveryLinePrefix} <a class="backLink" data-contact-email href="#">${t.discoveryLink}</a>${t.discoveryLineSuffix}`;
+      }
+
+      const fineNote = document.getElementById("fineNote");
+      if (fineNote) fineNote.textContent = t.fineNote;
+
+      document.getElementById("pricingTitle").textContent = t.pricingTitle;
+      document.getElementById("pricingSub").textContent = t.pricingSub;
+
+      document.getElementById("tierClarityName").textContent = t.tierClarityName;
+      document.getElementById("tierLaunchName").textContent = t.tierLaunchName;
+      document.getElementById("tierSystemsName").textContent = t.tierSystemsName;
+
+      document.getElementById("btnClarity").textContent = t.btnClarity;
+      document.getElementById("btnLaunch").textContent = t.btnLaunch;
+      document.getElementById("btnSystems").textContent = t.btnSystems;
+
+      document.getElementById("c1").textContent = t.c1;
+      document.getElementById("c2").textContent = t.c2;
+      document.getElementById("c3").textContent = t.c3;
+
+      document.getElementById("l1").textContent = t.l1;
+      document.getElementById("l2").textContent = t.l2;
+      document.getElementById("l3").textContent = t.l3;
+
+      document.getElementById("sy1").textContent = t.sy1;
+      document.getElementById("sy2").textContent = t.sy2;
+      document.getElementById("sy3").textContent = t.sy3;
+
+      document.getElementById("note1").textContent = t.note1;
+      document.getElementById("backToServices").textContent = t.backToServices;
+
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+    }
+
+    function buildQuoteBody(ctx, tier){
+      const isTraditional = (ctx.key === "hk-zh");
+      const isSimplified = (ctx.key === "sg-zh");
+      const lang = ctx.lang;
+
+      if (isTraditional){
+        return `你好 Ezion，
+
+我想索取以下服務的報價：
+
+- 服務：AI 商業建構顧問服務
+- 方案：${tier || "自訂／未確定"}
+- 地區：${ctx.country}
+- 偏好貨幣：${ctx.currency}
+- 你的業務想法（一句話）：
+- 目標客戶：
+- 目前階段（想法/驗證/已上線）：
+- 你想達成的目標：
+- 目前使用的工具（可選）：
+- 時間表：
+- 預算範圍（可選）：
+
+謝謝。`;
+      }
+
+      if (isSimplified || lang === "zh"){
+        return `你好 Ezion，
+
+我想索取以下服务的报价：
+
+- 服务：AI 商业构建咨询
+- 方案：${tier || "自定义 / 不确定"}
+- 地区：${ctx.country}
+- 偏好货币：${ctx.currency}
+- 你的业务想法（一句话）：
+- 目标客户：
+- 目前阶段（想法/验证/已上线）：
+- 想达成的目标：
+- 目前使用的工具（可选）：
+- 时间表：
+- 预算范围（可选）：
+
+谢谢。`;
+      }
+
+      return `Hello Ezion,
+
+I'd like to request a quote for:
+
+- Service: AI business building consultancy
+- Package: ${tier || "Custom / Not sure"}
+- Country: ${ctx.country}
+- Preferred currency: ${ctx.currency}
+- Business idea (1 sentence):
+- Target customer:
+- Current stage (idea/validation/launched):
+- Desired outcome:
+- Current tools (optional):
+- Timeline:
+- Budget range (optional):
+
+Thanks.`;
+    }
+
+    function mailto(subject, tier){
+      const ctx = EzionLocale.getContext();
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      const body = buildQuoteBody(ctx, tier);
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      applyText(ctx);
+
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
+      // Prices (base in GBP)
+      const clarity = EzionLocale.formatPrice({ type:"from", amount:149, currency:"GBP" }, ctx);
+      const launch = EzionLocale.formatPrice({ type:"from", amount:499, currency:"GBP" }, ctx);
+      const systems = EzionLocale.formatPrice({ type:"from", amount:999, currency:"GBP" }, ctx);
+
+      document.getElementById("priceClarity").textContent = `${clarity}${t.perMonth}`;
+      document.getElementById("priceLaunch").textContent = `${launch}${t.perMonth}`;
+      document.getElementById("priceSystems").textContent = `${systems}${t.perMonth}`;
+
+      // Quote buttons
+      document.getElementById("btnQuote").href = mailto("Quote: AI Business Building (Custom)", "");
+
+      document.querySelectorAll("a[data-tier]").forEach(a => {
+        const tier = a.getAttribute("data-tier") || "";
+        a.href = mailto(`Quote: AI Business Building (${tier})`, tier);
+      });
+
+      // Contact email links
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      document.querySelectorAll("[data-contact-email]").forEach(a => {
+        a.href = `mailto:${email}`;
+      });
+
+      document.title =
+        (ctx.country === "SG") ? "AI Business Building Consultancy | Ezion SG" :
+        (ctx.country === "HK") ? "AI Business Building Consultancy | Ezion HK" :
+        (ctx.country === "US") ? "AI Business Building Consultancy | Ezion US" :
+        "AI Business Building Consultancy | Ezion UK";
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
+    });
+  </script>
+</body>
+</html>

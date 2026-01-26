@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Certainty in Uncertainty — Prepare | Ezion UK</title>
+  <meta name="description" content="Prepare page for Certainty in Uncertainty — updates, preview notes, and interest signup." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    /* Background (match accounting.html) */
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .kicker{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(22px,2.4vw,30px);
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      max-width:70ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.78);
+    }
+    .p{
+      margin:0;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
+
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.6;
+    }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.92);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    .backLink{
+      color:rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color:rgba(255,255,255,.34); }
+
+    /* Top-right language/country switch + Home pill (match accounting.html) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    .lang.open .langMenu{ display:block; }
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .lang[data-route="home"] .homeBtn{ display:none; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <!-- HOME: in book pages use ../index.html -->
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker" id="kicker">Ezion Books</p>
+      <h1 id="title">Certainty in Uncertainty</h1>
+      <p class="sub" id="sub">
+        A book in progress based on my thesis. This page is for early previews, notes, and update requests.
+      </p>
+
+      <div class="grid">
+        <!-- Left -->
+        <section class="box">
+          <div class="h" id="hAbout">What this is</div>
+          <p class="p" id="aboutP">
+            A structured, chapter-based book that expands the thesis into a more readable, practical format.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hPreview">What you’ll get (when ready)</div>
+          <ul id="listPreview"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hStatus">Current status</div>
+          <ul id="listStatus"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hDownloads">Preview downloads</div>
+          <p class="fine" id="downloadsNote">
+            Coming soon. When you have draft PDFs/chapters, paste links into the config at the bottom.
+          </p>
+
+          <div class="btnRow" id="downloadBtns"></div>
+
+          <p class="fine" id="disclaimer">
+            Note: This is a working draft. Content may change during editing.
+          </p>
+        </section>
+
+        <!-- Right -->
+        <aside class="box">
+          <div class="h" id="hUpdates">Get updates</div>
+          <p class="p" id="updatesP">
+            If you want to be notified when new chapters or preview PDFs are available, email us.
+          </p>
+
+          <div class="btnRow">
+            <a class="btn" id="btnNotify" href="#">Request updates</a>
+            <a class="btn secondary" id="btnFeedback" href="#">Send feedback</a>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hSupport">Support</div>
+          <p class="fine" style="margin-top:6px;">
+            <span id="supportLabel">Email:</span>
+            <a class="backLink" id="supportEmail" data-contact-email href="mailto:contact@ezion.uk">contact@ezion.uk</a>
+          </p>
+
+          <p class="fine">
+            <a class="btn secondary" href="../index.html#products" id="backBtn">Back</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    /**
+     * CONFIG — edit only this object
+     * Add draft links, change contact email, etc.
+     */
+    const BOOK = {
+      slug: "certainty-in-uncertainty",
+      // optional: if you want a different contact per locale later:
+      // contactEmailKey: "books",
+
+      // draft/preview links (optional)
+      downloads: [
+        // { label: "Chapter 1 (PDF)", url: "PASTE_LINK_HERE" },
+        // { label: "Outline (PDF)", url: "PASTE_LINK_HERE" }
+      ]
+    };
+
+    const I18N = {
+      en: {
+        home: "Home",
+        kicker: "Ezion Books",
+        title: "Certainty in Uncertainty",
+        sub: "A book in progress based on my thesis. This page is for early previews, notes, and update requests.",
+
+        hAbout: "What this is",
+        aboutP: "A structured, chapter-based book that expands the thesis into a more readable, practical format.",
+
+        hPreview: "What you’ll get (when ready)",
+        preview: [
+          "A clear chapter structure with definitions and key claims",
+          "Biblical / theological reasoning with references (as used in the thesis)",
+          "Practical synthesis: why it matters and how to apply it",
+          "Appendices for terms, timelines, and reading lists (where relevant)"
+        ],
+
+        hStatus: "Current status",
+        status: [
+          "Drafting and restructuring chapters from thesis material",
+          "Editing for readability and flow",
+          "Preparing preview PDFs for early readers"
+        ],
+
+        hDownloads: "Preview downloads",
+        downloadsNote: "Coming soon. When you have draft PDFs/chapters, paste links into the config at the bottom.",
+        disclaimer: "Note: This is a working draft. Content may change during editing.",
+
+        hUpdates: "Get updates",
+        updatesP: "If you want to be notified when new chapters or preview PDFs are available, email us.",
+        btnNotify: "Request updates",
+        btnFeedback: "Send feedback",
+
+        hSupport: "Support",
+        supportLabel: "Email:",
+        backBtn: "Back"
+      },
+
+      "zh-Hans": {
+        home: "主页",
+        kicker: "Ezion 书籍",
+        title: "不确定中的确定",
+        sub: "基于我的论文整理与扩展的写作项目。本页用于早期预览、笔记与更新通知。",
+
+        hAbout: "这是什么",
+        aboutP: "一本按章节结构整理的书，将论文内容改写为更易读、也更具实践性的版本。",
+
+        hPreview: "你将获得（完成后）",
+        preview: [
+          "清晰的章节结构：定义、论点与关键结论",
+          "基于论文的圣经/神学推理与引用",
+          "实践性总结：为什么重要、如何应用",
+          "附录：术语、时间线与延伸阅读（如适用）"
+        ],
+
+        hStatus: "当前进度",
+        status: [
+          "将论文材料拆分并重组为章节草稿",
+          "提升可读性：语气、结构与行文流畅度",
+          "准备面向早期读者的预览 PDF"
+        ],
+
+        hDownloads: "预览下载",
+        downloadsNote: "即将上线。你可以在页面底部的配置区粘贴草稿 PDF/章节链接。",
+        disclaimer: "提示：本书仍在编辑中，内容可能会调整。",
+
+        hUpdates: "获取更新",
+        updatesP: "如需在新章节或预览 PDF 发布时收到通知，请发送邮件。",
+        btnNotify: "申请接收更新",
+        btnFeedback: "提交反馈",
+
+        hSupport: "支持",
+        supportLabel: "邮箱：",
+        backBtn: "返回"
+      },
+
+      "zh-Hant": {
+        home: "主頁",
+        kicker: "Ezion 書籍",
+        title: "不確定中的確定",
+        sub: "基於我的論文整理與擴展的寫作計畫。本頁用於早期預覽、筆記與更新通知。",
+
+        hAbout: "這是什麼",
+        aboutP: "一本按章節結構整理的書，將論文內容改寫為更易讀、也更具實踐性的版本。",
+
+        hPreview: "你將獲得（完成後）",
+        preview: [
+          "清晰的章節結構：定義、論點與關鍵結論",
+          "基於論文的聖經/神學推理與引用",
+          "實踐性總結：為何重要、如何應用",
+          "附錄：術語、時間線與延伸閱讀（如適用）"
+        ],
+
+        hStatus: "目前進度",
+        status: [
+          "將論文材料拆分並重組為章節草稿",
+          "提升可讀性：語氣、結構與行文流暢度",
+          "準備提供給早期讀者的預覽 PDF"
+        ],
+
+        hDownloads: "預覽下載",
+        downloadsNote: "即將上線。你可在頁面底部的設定區貼上草稿 PDF/章節連結。",
+        disclaimer: "提示：本書仍在編輯中，內容可能會調整。",
+
+        hUpdates: "取得更新",
+        updatesP: "如需在新章節或預覽 PDF 發佈時收到通知，請發送電郵。",
+        btnNotify: "申請接收更新",
+        btnFeedback: "提交意見",
+
+        hSupport: "支援",
+        supportLabel: "電郵：",
+        backBtn: "返回"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderList(items, el){
+      if (!el) return;
+      el.innerHTML = (items || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    }
+
+    function mailto(email, subject, body){
+      return `mailto:${email}?subject=${encodeURIComponent(subject || "")}&body=${encodeURIComponent(body || "")}`;
+    }
+
+    function renderDownloads(downloads){
+      const wrap = document.getElementById("downloadBtns");
+      if (!wrap) return;
+      wrap.innerHTML = "";
+      (downloads || []).forEach(d => {
+        if (!d || !d.url) return;
+        const a = document.createElement("a");
+        a.className = "btn secondary";
+        a.href = d.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = d.label || "Download";
+        wrap.appendChild(a);
+      });
+      if (!downloads || downloads.length === 0){
+        wrap.style.display = "none";
+      } else {
+        wrap.style.display = "flex";
+      }
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      // Home label + route marker
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+
+      // Text
+      document.getElementById("kicker").textContent = t.kicker;
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("sub").textContent = t.sub;
+
+      document.getElementById("hAbout").textContent = t.hAbout;
+      document.getElementById("aboutP").textContent = t.aboutP;
+
+      document.getElementById("hPreview").textContent = t.hPreview;
+      renderList(t.preview, document.getElementById("listPreview"));
+
+      document.getElementById("hStatus").textContent = t.hStatus;
+      renderList(t.status, document.getElementById("listStatus"));
+
+      document.getElementById("hDownloads").textContent = t.hDownloads;
+      document.getElementById("downloadsNote").textContent = t.downloadsNote;
+      document.getElementById("disclaimer").textContent = t.disclaimer;
+
+      document.getElementById("hUpdates").textContent = t.hUpdates;
+      document.getElementById("updatesP").textContent = t.updatesP;
+      document.getElementById("btnNotify").textContent = t.btnNotify;
+      document.getElementById("btnFeedback").textContent = t.btnFeedback;
+
+      document.getElementById("hSupport").textContent = t.hSupport;
+      document.getElementById("supportLabel").textContent = t.supportLabel;
+      document.getElementById("backBtn").textContent = t.backBtn;
+
+      // Contact email
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      document.querySelectorAll("[data-contact-email]").forEach(a => {
+        a.textContent = email;
+        a.href = `mailto:${email}`;
+      });
+
+      // Update mailto buttons
+      const subjectBase =
+        (key === "zh-Hant") ? `《${t.title}》更新通知` :
+        (key === "zh-Hans") ? `《${t.title}》更新通知` :
+        `${t.title} — Updates`;
+
+      const bodyNotify =
+        (key === "zh-Hant") ? `你好 Ezion，\n\n我希望收到《${t.title}》的更新通知（新章節/預覽 PDF）。\n\n謝謝。` :
+        (key === "zh-Hans") ? `你好 Ezion，\n\n我希望收到《${t.title}》的更新通知（新章节/预览 PDF）。\n\n谢谢。` :
+        `Hello Ezion,\n\nPlease notify me when new chapters or preview PDFs for "${t.title}" are available.\n\nThanks.`;
+
+      const bodyFeedback =
+        (key === "zh-Hant") ? `你好 Ezion，\n\n我想對《${t.title}》提供一些回饋：\n\n- 章節/段落：\n- 回饋內容：\n\n謝謝。` :
+        (key === "zh-Hans") ? `你好 Ezion，\n\n我想对《${t.title}》提供一些反馈：\n\n- 章节/段落：\n- 反馈内容：\n\n谢谢。` :
+        `Hello Ezion,\n\nI'd like to share feedback on "${t.title}":\n\n- Chapter/section:\n- Notes:\n\nThanks.`;
+
+      document.getElementById("btnNotify").href = mailto(email, subjectBase, bodyNotify);
+      document.getElementById("btnFeedback").href = mailto(email, `${subjectBase} — Feedback`, bodyFeedback);
+
+      // Downloads
+      renderDownloads(BOOK.downloads);
+
+      // Title per country
+      document.title =
+        (ctx.country === "SG") ? `${t.title} — Prepare | Ezion SG` :
+        (ctx.country === "HK") ? `${t.title} — Prepare | Ezion HK` :
+        (ctx.country === "US") ? `${t.title} — Prepare | Ezion US` :
+        `${t.title} — Prepare | Ezion UK`;
+    }
+
+    EzionLocale.init({ onReady: renderPage, onChange: renderPage });
+  </script>
+</body>
+</html>

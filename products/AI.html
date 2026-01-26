@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Using AI to Build Business from Scratch | Ezion UK</title>
+  <meta name="description" content="Step-by-step guide on how to use AI to build your dream business from scratch." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    /* Background (match accounting.html) */
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 28px;
+    }
+
+    .card{
+      width: min(var(--max), 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .topRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin: 0 0 10px;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .videoWrap{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0,0,0,.35);
+      aspect-ratio: 16 / 9;
+    }
+    .videoWrap iframe{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (min-width: 920px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .box{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .h{
+      margin:0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.12);
+      margin: 14px 0;
+    }
+
+    .fine{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      line-height: 1.6;
+    }
+
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
+    .btn.secondary{ background: rgba(255,255,255,.06); }
+
+    .backLink{
+      color: rgba(255,255,255,.80);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .backLink:hover{ border-bottom-color: rgba(255,255,255,.34); }
+
+    /* Top-right language/country switch + Home pill (match accounting.html) */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display: block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
+
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+    }
+    .homeBtn .iconSpacer{ display:none; }
+
+    .lang[data-route="home"] .homeBtn{ display:none; }
+
+    /* Simple product/course CTA block */
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center; }
+    .price{
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 6px;
+      color: rgba(255,255,255,.90);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang" data-route="other">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
+
+    <!-- HOME: course/product pages use ../index.html -->
+    <a class="langBtn homeBtn" href="../index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <div class="topRow">
+        <div>
+          <p class="kicker" id="kickerProducts">Ezion Products</p>
+          <h1 id="courseName">Using AI to Build Business from Scratch</h1>
+          <p class="sub" id="courseTagline">Step-by-step guide on how to use AI to build your dream business from scratch.</p>
+        </div>
+      </div>
+
+      <!-- Demo video (optional) -->
+      <div class="videoWrap" aria-label="Course demo video" id="videoWrap">
+        <iframe
+          id="ytFrame"
+          src=""
+          title="AI Course Intro"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div class="grid">
+        <!-- Left: details -->
+        <section class="box">
+          <div class="h" id="hWhat">What it is</div>
+          <ul id="listWhat"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hYouGet">What you get</div>
+          <ul id="listGet"></ul>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hWho">Ideal for</div>
+          <ul id="listWho"></ul>
+        </section>
+
+        <!-- Right: purchase + support -->
+        <aside class="box">
+          <div class="h" id="hPurchase">Purchase</div>
+
+          <div class="price" id="priceLine"></div>
+          <div class="fine" id="skuLine"></div>
+
+          <div class="ctaRow" id="buyRow">
+            <a class="btn" id="buyBtn" href="#" target="_blank" rel="noopener">Checkout</a>
+          </div>
+
+          <p class="fine" id="deliveryNote">
+            Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="hSupport">Support</div>
+          <p class="fine" style="margin-top:6px;">
+            <span id="supportLabel">Questions:</span>
+            <a class="backLink" href="mailto:contact@ezion.uk" data-contact-email id="supportEmail">contact@ezion.uk</a>
+          </p>
+
+          <p class="fine">
+            <a class="btn secondary" href="../index.html#products" id="backToProducts">Back to Products</a>
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    /**
+     * PAGE CONFIG — edit only this object
+     */
+    const COURSE = {
+      sku: "AI-COURSE-001",
+      // If you want pricing to be formatted by locale.js, keep baseCurrency/baseAmount in GBP.
+      baseCurrency: "GBP",
+      baseAmount: 29.99, // change as needed
+      checkoutUrl: "PASTE_STRIPE_PAYMENT_LINK_HERE",
+
+      // Optional YouTube intro (set "" to hide)
+      youtubeId: "",
+
+      // Optional: if you later want per-locale checkout links, you can add mapping here.
+      // checkoutUrlByLocaleKey: { "sg-zh": "...", "hk-zh": "...", "uk-en": "..." }
+    };
+
+    const I18N = {
+      en: {
+        home: "Home",
+        kicker: "Ezion Products",
+        name: "Using AI to Build Business from Scratch",
+        tagline: "Step-by-step guide on how to use AI to build your dream business from scratch.",
+
+        hWhat: "What it is",
+        hYouGet: "What you get",
+        hWho: "Ideal for",
+        hPurchase: "Purchase",
+        hSupport: "Support",
+        supportLabel: "Questions:",
+        backToProducts: "Back to Products",
+
+        buy: "Checkout",
+        deliveryNote: "Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.",
+        skuPrefix: "SKU:",
+        pricePrefix: "Price:",
+
+        whatItIs: [
+          "A practical AI course focused on building a real business, not theory",
+          "Step-by-step workflow: idea → validation → offer → content → simple systems",
+          "Prompt frameworks you can reuse for your own niche and audience"
+        ],
+        whatYouGet: [
+          "A repeatable build process (with prompts and checklists)",
+          "Examples for positioning, landing pages, and sales copy",
+          "Simple operating system: tasks, templates, and outputs",
+          "How to use AI safely and realistically (limits + quality control)"
+        ],
+        idealFor: [
+          "Solo founders and side-project builders",
+          "Creators who want a simple productized offer",
+          "Service providers turning experience into digital products",
+          "Anyone starting from zero and needing structure"
+        ]
+      },
+
+      "zh-Hans": {
+        home: "主页",
+        kicker: "Ezion 产品",
+        name: "使用 AI 从零开始打造业务",
+        tagline: "一步一步指导你如何利用 AI 从零开始建立属于自己的理想业务。",
+
+        hWhat: "它是什么",
+        hYouGet: "你将获得",
+        hWho: "适合人群",
+        hPurchase: "购买",
+        hSupport: "支持",
+        supportLabel: "咨询：",
+        backToProducts: "返回产品",
+
+        buy: "结账",
+        deliveryNote: "结账将在 Stripe 打开。付款后你会收到确认信息与交付说明。",
+        skuPrefix: "SKU：",
+        pricePrefix: "价格：",
+
+        whatItIs: [
+          "一门以“真正做出业务”为目标的 AI 实操课程，而不是讲概念",
+          "按步骤推进：想法 → 验证 → 方案/报价 → 内容产出 → 简单系统化",
+          "可复用的提示词框架，适配你的细分领域与受众"
+        ],
+        whatYouGet: [
+          "可重复执行的搭建流程（含提示词与清单）",
+          "定位、落地页与销售文案的示例参考",
+          "简单的运营系统：任务、模板与可交付结果",
+          "如何更现实地用 AI（边界、风险与质量把控）"
+        ],
+        idealFor: [
+          "独立创业者与副业项目",
+          "想做“产品化服务/数字产品”的创作者",
+          "想把经验变成可售产品的服务提供者",
+          "从零开始、需要清晰结构与步骤的人"
+        ]
+      },
+
+      "zh-Hant": {
+        home: "主頁",
+        kicker: "Ezion 產品",
+        name: "使用 AI 從零開始打造業務",
+        tagline: "一步一步指導你如何利用 AI 從零開始建立屬於自己的理想業務。",
+
+        hWhat: "它是什麼",
+        hYouGet: "你將獲得",
+        hWho: "適合對象",
+        hPurchase: "購買",
+        hSupport: "支援",
+        supportLabel: "查詢：",
+        backToProducts: "返回產品",
+
+        buy: "結帳",
+        deliveryNote: "結帳將在 Stripe 開啟。付款後你會收到確認資訊與交付說明。",
+        skuPrefix: "SKU：",
+        pricePrefix: "價格：",
+
+        whatItIs: [
+          "一門以「真正做出業務」為目標的 AI 實作課程，而不是只講概念",
+          "按步驟推進：想法 → 驗證 → 方案/報價 → 內容產出 → 簡單系統化",
+          "可重複使用的提示詞框架，適配你的細分領域與受眾"
+        ],
+        whatYouGet: [
+          "可重複執行的打造流程（含提示詞與清單）",
+          "定位、落地頁與銷售文案的示例參考",
+          "簡單的營運系統：任務、模板與可交付成果",
+          "如何更務實地用 AI（邊界、風險與品質把控）"
+        ],
+        idealFor: [
+          "獨立創業者與副業專案",
+          "想做「產品化服務/數位產品」的創作者",
+          "想把經驗變成可售產品的服務提供者",
+          "從零開始、需要清晰結構與步驟的人"
+        ]
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.key === "sg-zh") return "zh-Hans";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderList(items, el){
+      if (!el) return;
+      el.innerHTML = (items || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    }
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      const key = langKeyFromCtx(ctx);
+      const t = I18N[key] || I18N.en;
+
+      // Home label + route marker
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+      const lang = document.getElementById("lang");
+      if (lang) lang.dataset.route = "other";
+
+      // Headings / labels
+      document.getElementById("kickerProducts").textContent = t.kicker;
+      document.getElementById("courseName").textContent = t.name;
+      document.getElementById("courseTagline").textContent = t.tagline;
+
+      document.getElementById("hWhat").textContent = t.hWhat;
+      document.getElementById("hYouGet").textContent = t.hYouGet;
+      document.getElementById("hWho").textContent = t.hWho;
+      document.getElementById("hPurchase").textContent = t.hPurchase;
+      document.getElementById("hSupport").textContent = t.hSupport;
+      document.getElementById("supportLabel").textContent = t.supportLabel;
+      document.getElementById("backToProducts").textContent = t.backToProducts;
+
+      // Lists
+      renderList(t.whatItIs, document.getElementById("listWhat"));
+      renderList(t.whatYouGet, document.getElementById("listGet"));
+      renderList(t.idealFor, document.getElementById("listWho"));
+
+      // Price + SKU (locale-aware)
+      const price = EzionLocale.formatPrice({ type:"from", amount: COURSE.baseAmount, currency: COURSE.baseCurrency }, ctx);
+      document.getElementById("priceLine").textContent = `${t.pricePrefix} ${price}`;
+      document.getElementById("skuLine").textContent = `${t.skuPrefix} ${COURSE.sku}`;
+
+      // Checkout button
+      const buyBtn = document.getElementById("buyBtn");
+      buyBtn.textContent = t.buy;
+      buyBtn.href = COURSE.checkoutUrl || "#";
+
+      // Delivery note
+      document.getElementById("deliveryNote").textContent = t.deliveryNote;
+
+      // Video
+      const videoWrap = document.getElementById("videoWrap");
+      const ytFrame = document.getElementById("ytFrame");
+      if (!COURSE.youtubeId) {
+        if (videoWrap) videoWrap.style.display = "none";
+      } else {
+        if (ytFrame) ytFrame.src = `https://www.youtube-nocookie.com/embed/${COURSE.youtubeId}`;
+      }
+
+      // Support email
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+      const supportEmail = document.getElementById("supportEmail");
+      if (supportEmail){
+        supportEmail.textContent = email;
+        supportEmail.href = `mailto:${email}`;
+      }
+
+      // Title by country
+      document.title =
+        (ctx.country === "SG") ? `${t.name} | Ezion SG` :
+        (ctx.country === "HK") ? `${t.name} | Ezion HK` :
+        (ctx.country === "US") ? `${t.name} | Ezion US` :
+        `${t.name} | Ezion UK`;
+    }
+
+    EzionLocale.init({
+      onReady: renderPage,
+      onChange: renderPage
+    });
+  </script>
+</body>
+</html>

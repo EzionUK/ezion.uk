@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>APP_NAME | Ezion UK</title>
-  <meta name="description" content="APP_DESCRIPTION" />
+  <title>TODAY — Minimalist’s Diary | Ezion UK</title>
+  <meta name="description" content="TODAY — Minimalist’s Diary. A minimalist daily journaling app." />
 
   <style>
     :root{
@@ -26,7 +26,6 @@
       overflow-x:hidden;
     }
 
-    /* Background (match accounting.html) */
     .bg{
       position:fixed; inset:0;
       background:
@@ -55,175 +54,170 @@
       min-height:100%;
       display:grid;
       place-items:center;
-      padding: 28px;
+      padding:28px;
     }
 
     .card{
-      width: min(var(--max), 100%);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .topRow{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
     }
 
     .kicker{
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.72);
-      margin: 0 0 10px;
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
     }
     h1{
-      margin: 0 0 10px;
-      font-size: clamp(22px, 2.4vw, 30px);
-      letter-spacing: .02em;
+      margin:0 0 10px;
+      font-size:clamp(22px,2.4vw,30px);
+      letter-spacing:.02em;
     }
     .sub{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-      max-width: 70ch;
-    }
-
-    .videoWrap{
-      margin-top: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      background: rgba(0,0,0,.14);
-      overflow: hidden;
-      box-shadow: 0 18px 48px rgba(0,0,0,.35);
-      aspect-ratio: 16 / 9;
-    }
-    .videoWrap iframe{
-      width: 100%;
-      height: 100%;
-      display: block;
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      max-width:78ch;
     }
 
     .grid{
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 14px;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:14px;
     }
     @media (min-width: 920px){
       .grid{ grid-template-columns: 1.2fr .8fr; }
     }
 
     .box{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      padding: 14px;
-      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(0,0,0,.14);
     }
     .h{
       margin:0 0 8px;
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.78);
     }
-    ul{
-      margin: 0;
-      padding-left: 18px;
-      color: rgba(255,255,255,.74);
+    .p{
+      margin:0;
+      color:rgba(255,255,255,.74);
       line-height:1.7;
-      font-size: 14px;
+      font-size:14px;
     }
-    li{ margin: 6px 0; }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
 
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.12);
-      margin: 14px 0;
+    ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.7;
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+
+    .metaRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.14);
+    }
+    .metaLeft{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .price{
+      font-size:16px;
+      font-weight:750;
+      letter-spacing:.01em;
+      color:rgba(255,255,255,.92);
+    }
+    .sku{
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-    .fine{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
-      line-height: 1.6;
-    }
-
-    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .btn{
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
       text-decoration:none;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       cursor:pointer;
-    }
-    .btn:hover{ border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.26); }
-    .btn.secondary{ background: rgba(255,255,255,.06); }
-
-    /* Store badges */
-    .storeRow{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      align-items: center;
-    }
-    .storeBadge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius: 12px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      transition: transform .16s ease, border-color .16s ease, background .16s ease;
-      text-decoration:none;
       user-select:none;
     }
-    .storeBadge:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      background: rgba(0,0,0,.28);
-    }
-    .storeBadge svg{
-      display:block;
-      height: 44px;
-      width: auto;
-    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
 
     .backLink{
-      color: rgba(255,255,255,.80);
+      color:rgba(255,255,255,.80);
       text-decoration:none;
       border-bottom:1px solid rgba(255,255,255,.16);
     }
-    .backLink:hover{ border-bottom-color: rgba(255,255,255,.34); }
+    .backLink:hover{ border-bottom-color:rgba(255,255,255,.34); }
 
-    /* Top-right language/country switch + Home pill (match accounting.html) */
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(255,255,255,.60);
+      line-height:1.6;
+    }
+
+    /* Inline badges */
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .badge{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.12);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      color:rgba(255,255,255,.78);
+      letter-spacing:.02em;
+      white-space:nowrap;
+    }
+
+    /* Top-right locale + Home */
     .lang{
       position: fixed;
       top: 18px;
       right: 18px;
       z-index: 6;
-
       display: inline-flex;
       align-items: center;
       gap: 10px;
     }
-
     .langBtn{
       display: inline-flex;
       align-items: center;
@@ -239,13 +233,11 @@
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
       text-decoration: none;
     }
-
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-
     .flag{
       width: 28px;
       height: 28px;
@@ -258,14 +250,12 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
       flex: 0 0 28px;
     }
-
     .langText{
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
       white-space: nowrap;
     }
-
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -279,9 +269,7 @@
       padding: 8px;
       display: none;
     }
-
     .lang.open .langMenu{ display:block; }
-
     .langItem{
       width: 100%;
       display: grid;
@@ -296,25 +284,15 @@
       cursor: pointer;
       text-align: left;
     }
-
     .langItem:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.10);
     }
-
     .langMeta{
       font-size: 12px;
       color: rgba(255,255,255,.60);
       letter-spacing: .02em;
     }
-
-    .langBtn .iconSpacer{
-      width: 28px;
-      height: 28px;
-      display: inline-block;
-      flex: 0 0 28px;
-    }
-
     .homeBtn{
       padding: 0 14px;
       gap: 8px;
@@ -322,8 +300,6 @@
       justify-content: center;
     }
     .homeBtn .iconSpacer{ display:none; }
-
-    .lang[data-route="home"] .homeBtn{ display:none; }
   </style>
 </head>
 
@@ -332,7 +308,7 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- Top-right language/country switch + Home -->
+  <!-- Top-right locale + Home -->
   <div class="lang" id="lang" data-route="other">
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
@@ -370,92 +346,89 @@
 
   <main class="wrap">
     <article class="card">
-      <div class="topRow">
-        <div>
-          <p class="kicker" id="kickerApps">Ezion Apps</p>
-          <h1 id="appName">APP_NAME</h1>
-          <p class="sub" id="appTagline">APP_TAGLINE</p>
-        </div>
+      <p class="kicker" id="kickerApps">Apps</p>
+      <h1 id="pageTitle">TODAY — Minimalist’s Diary</h1>
+      <p class="sub" id="pageSub">
+        A minimalist daily journaling app for quick entries, gentle reflection, and consistency.
+      </p>
+
+      <div class="badges" aria-label="Highlights">
+        <span class="badge" id="b1">Minimal UI</span>
+        <span class="badge" id="b2">Daily entries</span>
+        <span class="badge" id="b3">Private by default</span>
+        <span class="badge" id="b4">Export-ready</span>
       </div>
 
-      <!-- Demo video (optional) -->
-      <div class="videoWrap" aria-label="App demo video" id="videoWrap">
-        <iframe
-          id="ytFrame"
-          src=""
-          title="App demo"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+      <div class="metaRow" aria-label="App meta">
+        <div class="metaLeft">
+          <div class="price" id="priceText"></div>
+          <div class="sku" id="skuText">SKU: MD-LIFE-001</div>
+        </div>
+        <div class="btnRow" style="margin-top:0;">
+          <a class="btn" href="#buy" id="btnGet">Get</a>
+          <a class="btn secondary" href="../index.html#products" id="btnBack">Back</a>
+        </div>
       </div>
 
       <div class="grid">
         <!-- Left: details -->
         <section class="box">
-          <div class="h" id="hWhat">What it is</div>
-          <ul id="listWhat"></ul>
+          <div class="h" id="whatTitle">What it is</div>
+          <p class="p" id="whatBody">
+            TODAY is a minimalist diary designed for speed and clarity. Write a few lines each day, stay consistent, and keep your thoughts organized without distractions.
+          </p>
 
           <div class="divider"></div>
 
-          <div class="h" id="hWhy">Why it works</div>
-          <ul id="listWhy"></ul>
+          <div class="h" id="whoTitle">Who it’s for</div>
+          <ul>
+            <li id="w1">Anyone who wants a calm, minimal journaling space</li>
+            <li id="w2">Busy people who prefer short daily entries</li>
+            <li id="w3">Users who want a simple habit that compounds over time</li>
+          </ul>
 
           <div class="divider"></div>
 
-          <div class="h" id="hDemo">Demo</div>
-          <p class="fine" style="margin-top:6px;">
-            <a id="ytLink" class="backLink" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
+          <div class="h" id="featuresTitle">Key features</div>
+          <ul>
+            <li id="f1">Fast daily entry flow</li>
+            <li id="f2">Simple structure for reflection (no clutter)</li>
+            <li id="f3">Export / backup (project-friendly)</li>
+          </ul>
+
+          <p class="fine" id="privacyNote">
+            Privacy note: keep your entries local where possible. If you enable sync, treat it like any cloud storage.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="h" id="faqTitle">FAQ</div>
+          <p class="p" id="faqBody">
+            Want a feature or a specific workflow? Send a short note—this app is intentionally small and can evolve carefully.
           </p>
         </section>
 
-        <!-- Right: store buttons + support -->
-        <aside class="box">
-          <div class="h" id="hGet">Get the app</div>
+        <!-- Right: buy / links -->
+        <aside class="box" id="buy">
+          <div class="h" id="buyTitle">Get TODAY</div>
+          <p class="p" style="color:rgba(255,255,255,.70);" id="buyBody">
+            Download is free. Optional upgrade(s) may be available in-app depending on region.
+          </p>
 
-          <div class="storeRow">
-            <!-- App Store badge -->
-            <a class="storeBadge" id="appStoreLink" href="#" target="_blank" rel="noopener" aria-label="Download on the App Store">
-              <svg viewBox="0 0 135 40" role="img" aria-label="Download on the App Store">
-                <rect x="0.5" y="0.5" width="134" height="39" rx="8" ry="8" fill="#000"/>
-                <rect x="0.5" y="0.5" width="134" height="39" rx="8" ry="8" fill="none" stroke="#FFFFFF" opacity="0.18"/>
-                <path fill="#fff" d="M28.6 20.7c0-2.5 2-3.7 2.1-3.8-1.1-1.6-2.9-1.8-3.5-1.8-1.5-.1-2.9.9-3.7.9-.7 0-1.9-.9-3.1-.9-1.6 0-3.1.9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.5 1.2 0 1.7-.8 3.1-.8 1.4 0 1.8.8 3.1.8 1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.2-2.6 1.2-2.7-.1 0-2.4-.9-2.5-3.5zm-2.1-7.0c.6-.8 1-2 .9-3.1-1 .0-2.3.7-3 1.5-.6.7-1.1 1.9-.9 3.0 1.1.1 2.4-.6 3.0-1.4z"/>
-                <text x="44" y="16" fill="#fff" font-size="9" font-family="system-ui, -apple-system, Segoe UI, Roboto">Download on</text>
-                <text x="44" y="29" fill="#fff" font-size="15" font-weight="700" font-family="system-ui, -apple-system, Segoe UI, Roboto">App Store</text>
-              </svg>
-            </a>
-
-            <!-- Google Play badge -->
-            <a class="storeBadge" id="playStoreLink" href="#" target="_blank" rel="noopener" aria-label="Get it on Google Play">
-              <svg viewBox="0 0 150 40" role="img" aria-label="Get it on Google Play">
-                <rect x="0.5" y="0.5" width="149" height="39" rx="8" ry="8" fill="#000"/>
-                <rect x="0.5" y="0.5" width="149" height="39" rx="8" ry="8" fill="none" stroke="#FFFFFF" opacity="0.18"/>
-                <g transform="translate(12,8)">
-                  <path d="M2 2v20l12-10z" fill="#3DDC84"/>
-                  <path d="M14 12l4-3 6 3-6 3z" fill="#00B0FF"/>
-                  <path d="M2 2l12 10 4-3z" fill="#FFEA00"/>
-                  <path d="M2 22l16-13 6 3-20 10z" fill="#FF5252"/>
-                </g>
-                <text x="50" y="16" fill="#fff" font-size="9" font-family="system-ui, -apple-system, Segoe UI, Roboto">Download on</text>
-                <text x="50" y="29" fill="#fff" font-size="15" font-weight="700" font-family="system-ui, -apple-system, Segoe UI, Roboto">Google Play</text>
-              </svg>
-            </a>
+          <div class="btnRow">
+            <a class="btn" href="#" id="btnStore">Open store link</a>
+            <a class="btn secondary" href="#" id="btnSupport">Contact support</a>
           </div>
 
-          <p class="fine" id="iapNote">
-            The Lifetime unlock is available as an in-app purchase inside the app.
+          <p class="fine" id="buyFine">
+            If the store link isn’t available yet, use “Contact support” and we’ll send you the correct link for your region.
           </p>
 
           <div class="divider"></div>
 
-          <div class="h" id="hSupport">Support</div>
-          <p class="fine" style="margin-top:6px;">
-            <span id="supportLabel">Questions:</span>
-            <a class="backLink" id="supportEmailLink" href="mailto:contact@ezion.uk">contact@ezion.uk</a>
-          </p>
-
-          <p class="fine">
-            <a class="btn secondary" href="../index.html#products" id="backToProducts">Back to Products</a>
+          <div class="h" id="relatedTitle">Related</div>
+          <p class="p">
+            <a class="backLink" href="../index.html#products" id="relatedLink">View other products</a>
           </p>
         </aside>
       </div>
@@ -464,102 +437,125 @@
 
   <script src="../assets/locale.js"></script>
   <script>
-    /**
-     * TEMPLATE CONFIG — edit only this object for a new app page
-     * Provide translations inside i18n.* so the page fully localises.
-     */
     const APP = {
-      youtubeId: "tJIAtrTavPE", // set to "" to hide video
-      appStoreUrl: "PASTE_APP_STORE_LINK_HERE",
-      playStoreUrl: "PASTE_GOOGLE_PLAY_LINK_HERE",
-
-      i18n: {
-        en: {
-          name: "Minimalist Diary",
-          tagline: "A quiet journaling app for daily use. Minimal friction, clean writing space, and a simple habit you can keep.",
-          iapNote: "The Lifetime unlock is available as an in-app purchase inside the app.",
-          whatItIs: [
-            "Minimal, distraction-free daily diary",
-            "Open → write → close workflow",
-            "Designed for consistency, not feature overload"
-          ],
-          whyItWorks: [
-            "No feeds, no prompts, no noise",
-            "Fast launch, instant writing",
-            "Encourages small, repeatable entries"
-          ]
-        },
-
-        "zh-Hans": {
-          name: "极简日记",
-          tagline: "一款安静的日常写作应用。低摩擦、干净的书写空间，让你更容易坚持下去。",
-          iapNote: "「终身解锁」可在应用内以一次性内购购买。",
-          whatItIs: [
-            "极简、无干扰的日记",
-            "打开 → 写下 → 关闭的顺手流程",
-            "为长期坚持而设计，而非功能堆叠"
-          ],
-          whyItWorks: [
-            "没有信息流、没有提示轰炸、没有噪音",
-            "启动快，立刻进入书写",
-            "鼓励短小、可重复的每日记录"
-          ]
-        },
-
-        "zh-Hant": {
-          name: "極簡日記",
-          tagline: "一款安靜的日常書寫 App。低摩擦、乾淨的書寫空間，讓你更容易持續下去。",
-          iapNote: "「終身解鎖」可在 App 內以一次性內購購買。",
-          whatItIs: [
-            "極簡、無干擾的日記",
-            "打開 → 書寫 → 關閉的順手流程",
-            "為長期持續而設計，而非功能堆疊"
-          ],
-          whyItWorks: [
-            "沒有資訊流、沒有提示轟炸、沒有噪音",
-            "啟動快，立即進入書寫",
-            "鼓勵短小、可重複的每日記錄"
-          ]
-        }
+      name: "TODAY — Minimalist’s Diary",
+      sku: "MD-LIFE-001",
+      // Site logic shows "FREE – <price> From" on index; keep consistent here:
+      freeFrom: { amount: 0.99, currency: "GBP" }, // for "FREE – £0.99 From" style
+      // Optional: set your real store URLs when ready
+      store: {
+        ios: "",     // e.g. "https://apps.apple.com/app/idXXXXXXXXXX"
+        android: ""  // e.g. "https://play.google.com/store/apps/details?id=..."
       }
     };
 
-    const UI_I18N = {
+    const I18N = {
       en: {
         home: "Home",
-        kickerApps: "Ezion Apps",
-        hWhat: "What it is",
-        hWhy: "Why it works",
-        hDemo: "Demo",
-        watchYT: "Watch on YouTube",
-        hGet: "Get the app",
-        hSupport: "Support",
-        supportLabel: "Questions:",
-        backToProducts: "Back to Products"
+        kickerApps: "Apps",
+        pageTitle: "TODAY — Minimalist’s Diary",
+        pageSub: "A minimalist daily journaling app for quick entries, gentle reflection, and consistency.",
+        b1: "Minimal UI",
+        b2: "Daily entries",
+        b3: "Private by default",
+        b4: "Export-ready",
+        btnGet: "Get",
+        btnBack: "Back",
+        whatTitle: "What it is",
+        whatBody: "TODAY is a minimalist diary designed for speed and clarity. Write a few lines each day, stay consistent, and keep your thoughts organized without distractions.",
+        whoTitle: "Who it’s for",
+        w1: "Anyone who wants a calm, minimal journaling space",
+        w2: "Busy people who prefer short daily entries",
+        w3: "Users who want a simple habit that compounds over time",
+        featuresTitle: "Key features",
+        f1: "Fast daily entry flow",
+        f2: "Simple structure for reflection (no clutter)",
+        f3: "Export / backup (project-friendly)",
+        privacyNote: "Privacy note: keep your entries local where possible. If you enable sync, treat it like any cloud storage.",
+        faqTitle: "FAQ",
+        faqBody: "Want a feature or a specific workflow? Send a short note—this app is intentionally small and can evolve carefully.",
+        buyTitle: "Get TODAY",
+        buyBody: "Download is free. Optional upgrade(s) may be available in-app depending on region.",
+        btnStore: "Open store link",
+        btnSupport: "Contact support",
+        buyFine: "If the store link isn’t available yet, use “Contact support” and we’ll send you the correct link for your region.",
+        relatedTitle: "Related",
+        relatedLink: "View other products",
+        emailSubjectSupport: "Support: TODAY — Minimalist’s Diary",
+        priceFree: "FREE",
+        priceFrom: "From"
       },
+
       "zh-Hans": {
         home: "主页",
-        kickerApps: "Ezion 应用",
-        hWhat: "是什么",
-        hWhy: "为什么有效",
-        hDemo: "演示",
-        watchYT: "在 YouTube 观看",
-        hGet: "获取应用",
-        hSupport: "支持",
-        supportLabel: "问题咨询：",
-        backToProducts: "返回产品"
+        kickerApps: "应用",
+        pageTitle: "TODAY — 极简日记",
+        pageSub: "一款极简每日记录应用：快速输入、温和反思、长期坚持。",
+        b1: "极简界面",
+        b2: "每日记录",
+        b3: "默认私密",
+        b4: "可导出备份",
+        btnGet: "获取",
+        btnBack: "返回",
+        whatTitle: "这是什么",
+        whatBody: "TODAY 是为速度与清晰而设计的极简日记。每天写几行，保持连续性，在没有干扰的情况下把想法整理好。",
+        whoTitle: "适合谁",
+        w1: "想要安静、极简写作空间的人",
+        w2: "更喜欢短记录的忙碌用户",
+        w3: "希望养成可长期复利的简单习惯的人",
+        featuresTitle: "核心功能",
+        f1: "快速的每日记录流程",
+        f2: "清爽的反思结构（不臃肿）",
+        f3: "导出 / 备份（方便整理归档）",
+        privacyNote: "隐私说明：尽量将内容保留在本地；如开启同步，请像对待任何云存储一样谨慎。",
+        faqTitle: "常见问题",
+        faqBody: "想要某个功能或特定使用方式？欢迎简短留言——本应用会保持小而美，并谨慎迭代。",
+        buyTitle: "获取 TODAY",
+        buyBody: "可免费下载。根据地区不同，可能提供应用内可选升级。",
+        btnStore: "打开商店链接",
+        btnSupport: "联系支持",
+        buyFine: "如果暂时没有商店链接，请点击“联系支持”，我们会按你的地区发送正确链接。",
+        relatedTitle: "相关",
+        relatedLink: "查看其他产品",
+        emailSubjectSupport: "支持：TODAY — 极简日记",
+        priceFree: "免费",
+        priceFrom: "起"
       },
+
       "zh-Hant": {
         home: "主頁",
-        kickerApps: "Ezion 應用",
-        hWhat: "是什麼",
-        hWhy: "為什麼有效",
-        hDemo: "示範",
-        watchYT: "在 YouTube 觀看",
-        hGet: "取得 App",
-        hSupport: "支援",
-        supportLabel: "問題查詢：",
-        backToProducts: "返回產品"
+        kickerApps: "應用程式",
+        pageTitle: "TODAY — 極簡日記",
+        pageSub: "一款極簡每日記錄應用程式：快速輸入、溫和反思、長期堅持。",
+        b1: "極簡介面",
+        b2: "每日記錄",
+        b3: "預設私密",
+        b4: "可匯出備份",
+        btnGet: "獲取",
+        btnBack: "返回",
+        whatTitle: "這是什麼",
+        whatBody: "TODAY 為速度與清晰而設計的極簡日記。每天寫幾行，保持連續性，在沒有干擾的情況下把想法整理好。",
+        whoTitle: "適合誰",
+        w1: "想要安靜、極簡書寫空間的人",
+        w2: "偏好短記錄的忙碌用戶",
+        w3: "希望養成可長期複利的簡單習慣的人",
+        featuresTitle: "核心功能",
+        f1: "快速的每日記錄流程",
+        f2: "清爽的反思結構（不臃腫）",
+        f3: "匯出 / 備份（方便整理歸檔）",
+        privacyNote: "隱私說明：盡量將內容保留在本機；如啟用同步，請像對待任何雲端儲存一樣謹慎。",
+        faqTitle: "常見問題",
+        faqBody: "想要某個功能或特定使用方式？歡迎簡短留言——本應用會保持小而美，並謹慎迭代。",
+        buyTitle: "獲取 TODAY",
+        buyBody: "可免費下載。視乎地區，可能提供應用內可選升級。",
+        btnStore: "打開商店連結",
+        btnSupport: "聯絡支援",
+        buyFine: "如暫時未有商店連結，請點擊「聯絡支援」，我們會按你的地區發送正確連結。",
+        relatedTitle: "相關",
+        relatedLink: "查看其他產品",
+        emailSubjectSupport: "支援：TODAY — 極簡日記",
+        priceFree: "免費",
+        priceFrom: "起"
       }
     };
 
@@ -570,86 +566,145 @@
       return "en";
     }
 
-    function escapeHtml(s){
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    function pickStoreLink(){
+      // You can improve this later (OS sniff). For now: prefer iOS, else android, else blank.
+      return APP.store.ios || APP.store.android || "";
     }
 
-    function renderLists(items, el){
-      if (!el) return;
-      el.innerHTML = (items || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+    function buildSupportBody(ctx){
+      const key = langKeyFromCtx(ctx);
+      const isHant = (key === "zh-Hant");
+      const isHans = (key === "zh-Hans");
+
+      if (isHant){
+        return `你好 Ezion，
+
+我需要 TODAY（極簡日記）的協助：
+
+- 問題／需求：
+- 使用裝置（iPhone / Android）：
+- 地區：${ctx.country}
+- 偏好語言：繁中
+- App 版本（如知道）：
+
+謝謝。`;
+      }
+      if (isHans){
+        return `你好 Ezion，
+
+我需要 TODAY（极简日记）的协助：
+
+- 问题 / 需求：
+- 使用设备（iPhone / Android）：
+- 地区：${ctx.country}
+- 偏好语言：简中
+- App 版本（如知道）：
+
+谢谢。`;
+      }
+      return `Hello Ezion,
+
+I need support for TODAY — Minimalist’s Diary:
+
+- Issue / request:
+- Device (iPhone / Android):
+- Country: ${ctx.country}
+- Preferred language: English
+- App version (if known):
+
+Thanks.`;
+    }
+
+    function mailto(email, subject, body){
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function applyText(ctx){
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
+
+      const homeEl = document.getElementById("topHomeText");
+      if (homeEl) homeEl.textContent = t.home;
+
+      document.getElementById("kickerApps").textContent = t.kickerApps;
+      document.getElementById("pageTitle").textContent = t.pageTitle;
+      document.getElementById("pageSub").textContent = t.pageSub;
+
+      document.getElementById("b1").textContent = t.b1;
+      document.getElementById("b2").textContent = t.b2;
+      document.getElementById("b3").textContent = t.b3;
+      document.getElementById("b4").textContent = t.b4;
+
+      document.getElementById("btnGet").textContent = t.btnGet;
+      document.getElementById("btnBack").textContent = t.btnBack;
+
+      document.getElementById("whatTitle").textContent = t.whatTitle;
+      document.getElementById("whatBody").textContent = t.whatBody;
+
+      document.getElementById("whoTitle").textContent = t.whoTitle;
+      document.getElementById("w1").textContent = t.w1;
+      document.getElementById("w2").textContent = t.w2;
+      document.getElementById("w3").textContent = t.w3;
+
+      document.getElementById("featuresTitle").textContent = t.featuresTitle;
+      document.getElementById("f1").textContent = t.f1;
+      document.getElementById("f2").textContent = t.f2;
+      document.getElementById("f3").textContent = t.f3;
+
+      document.getElementById("privacyNote").textContent = t.privacyNote;
+
+      document.getElementById("faqTitle").textContent = t.faqTitle;
+      document.getElementById("faqBody").textContent = t.faqBody;
+
+      document.getElementById("buyTitle").textContent = t.buyTitle;
+      document.getElementById("buyBody").textContent = t.buyBody;
+      document.getElementById("btnStore").textContent = t.btnStore;
+      document.getElementById("btnSupport").textContent = t.btnSupport;
+      document.getElementById("buyFine").textContent = t.buyFine;
+
+      document.getElementById("relatedTitle").textContent = t.relatedTitle;
+      document.getElementById("relatedLink").textContent = t.relatedLink;
     }
 
     function renderPage(){
       const ctx = EzionLocale.getContext();
-      const key = langKeyFromCtx(ctx);
+      const t = I18N[langKeyFromCtx(ctx)] || I18N.en;
 
-      const ui = UI_I18N[key] || UI_I18N.en;
-      const app = APP.i18n[key] || APP.i18n.en;
+      applyText(ctx);
 
-      // Top-right home label + route marker
-      const homeEl = document.getElementById("topHomeText");
-      if (homeEl) homeEl.textContent = ui.home;
-      const lang = document.getElementById("lang");
-      if (lang) lang.dataset.route = "other";
+      // Price display: FREE – <converted 0.99> From (or "起")
+      const freeText = t.priceFree;
+      const fromLabel = t.priceFrom;
 
-      // Headings / labels
-      document.getElementById("kickerApps").textContent = ui.kickerApps;
-      document.getElementById("hWhat").textContent = ui.hWhat;
-      document.getElementById("hWhy").textContent = ui.hWhy;
-      document.getElementById("hDemo").textContent = ui.hDemo;
-      document.getElementById("hGet").textContent = ui.hGet;
-      document.getElementById("hSupport").textContent = ui.hSupport;
-      document.getElementById("supportLabel").textContent = ui.supportLabel;
-      document.getElementById("backToProducts").textContent = ui.backToProducts;
+      const fromVal = EzionLocale.money(
+        EzionLocale.convertAmount(APP.freeFrom.amount, APP.freeFrom.currency, ctx.currency),
+        ctx.currency,
+        ctx.numberLocale
+      );
 
-      // App content
-      document.title =
-        (ctx.country === "SG") ? `${app.name} | Ezion SG` :
-        (ctx.country === "HK") ? `${app.name} | Ezion HK` :
-        (ctx.country === "US") ? `${app.name} | Ezion US` :
-        `${app.name} | Ezion UK`;
+      document.getElementById("priceText").textContent = `${freeText} – ${fromVal} ${fromLabel}`;
+      document.getElementById("skuText").textContent = `SKU: ${APP.sku}`;
 
-      document.getElementById("appName").textContent = app.name;
-      document.getElementById("appTagline").textContent = app.tagline;
-      document.getElementById("iapNote").textContent = app.iapNote;
-
-      renderLists(app.whatItIs, document.getElementById("listWhat"));
-      renderLists(app.whyItWorks, document.getElementById("listWhy"));
-
-      // Store links
-      const appStoreLink = document.getElementById("appStoreLink");
-      const playStoreLink = document.getElementById("playStoreLink");
-      if (appStoreLink) appStoreLink.href = APP.appStoreUrl || "#";
-      if (playStoreLink) playStoreLink.href = APP.playStoreUrl || "#";
-
-      // YouTube
-      const videoWrap = document.getElementById("videoWrap");
-      const ytFrame = document.getElementById("ytFrame");
-      const ytLink = document.getElementById("ytLink");
-
-      if (!APP.youtubeId) {
-        if (videoWrap) videoWrap.style.display = "none";
-        if (ytLink && ytLink.parentElement) ytLink.parentElement.style.display = "none";
+      // CTA links
+      const storeLink = pickStoreLink();
+      const storeBtn = document.getElementById("btnStore");
+      if (storeLink){
+        storeBtn.href = storeLink;
+        storeBtn.target = "_blank";
+        storeBtn.rel = "noopener";
       } else {
-        if (ytFrame) ytFrame.src = `https://www.youtube-nocookie.com/embed/${APP.youtubeId}`;
-        if (ytLink) {
-          ytLink.href = `https://youtu.be/${APP.youtubeId}`;
-          ytLink.textContent = ui.watchYT;
-        }
+        // If no store link yet, repurpose to mailto
+        const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+        storeBtn.href = mailto(email, "Store link: TODAY", buildSupportBody(ctx));
       }
 
-      // Support email (consistent with accounting.html)
       const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
-      const supportEmailLink = document.getElementById("supportEmailLink");
-      if (supportEmailLink){
-        supportEmailLink.textContent = email;
-        supportEmailLink.href = `mailto:${email}`;
-      }
+      document.getElementById("btnSupport").href = mailto(email, t.emailSubjectSupport, buildSupportBody(ctx));
+
+      document.title =
+        (ctx.country === "SG") ? "TODAY — Minimalist’s Diary | Ezion SG" :
+        (ctx.country === "HK") ? "TODAY — Minimalist’s Diary | Ezion HK" :
+        (ctx.country === "US") ? "TODAY — Minimalist’s Diary | Ezion US" :
+        "TODAY — Minimalist’s Diary | Ezion UK";
     }
 
     EzionLocale.init({

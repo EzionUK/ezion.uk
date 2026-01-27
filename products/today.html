@@ -293,6 +293,26 @@
       color: rgba(255,255,255,.60);
       letter-spacing: .02em;
     }
+    .storeRow{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;   /* or center */
+      flex-wrap: nowrap;               /* keep side-by-side */
+    }
+    
+    .storeBadge{
+      display: inline-flex;
+      flex: 1 1 0;                     /* both take equal space */
+      max-width: 260px;                /* prevents “giant” badges */
+      text-decoration: none;
+    }
+    
+    .storeBadge svg{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
     .homeBtn{
       padding: 0 14px;
       gap: 8px;
@@ -411,9 +431,6 @@
         <!-- Right: buy / links -->
         <aside class="box" id="buy">
           <div class="h" id="buyTitle">Get TODAY</div>
-          <p class="p" style="color:rgba(255,255,255,.70);" id="buyBody">
-            Download is free. Optional upgrade(s) may be available in-app depending on region.
-          </p>
 
           <div class="storeRow">
             <!-- App Store badge -->

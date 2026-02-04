@@ -380,7 +380,6 @@
         <aside class="box">
           <div class="h" id="hPurchase">Purchase</div>
           <div class="price" id="priceText"></div>
-          <div class="fine" id="skuText">SKU: WM-PRO-001</div>
 
           <div class="btnRow" id="buyRow">
             <a class="btn" id="checkoutBtn" href="https://buy.stripe.com/28E00k3Jt1Lb3KydT26sw00" target="_blank" rel="noopener">
@@ -408,7 +407,6 @@
      */
     const PRODUCT = {
       base: { amount: 9.99, currency: "GBP" },
-      sku: "WM-PRO-001",
       checkoutUrl: "https://buy.stripe.com/28E00k3Jt1Lb3KydT26sw00",
       youtubeId: "tJIAtrTavPE", // set "" to hide video
 
@@ -646,7 +644,6 @@
 
       // Purchase
       document.getElementById("hPurchase").textContent = t.hPurchase;
-      document.getElementById("skuText").textContent = `SKU: ${PRODUCT.sku}`;
       document.getElementById("checkoutBtn").textContent = t.checkout;
       document.getElementById("checkoutBtn").href = PRODUCT.checkoutUrl || "#";
       document.getElementById("checkoutNote").textContent = t.checkoutNote;

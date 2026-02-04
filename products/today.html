@@ -473,7 +473,6 @@
   <script>
     const APP = {
       name: "TODAY — Minimalist’s Diary",
-      sku: "MD-LIFE-001",
       // Site logic shows "FREE – <price> From" on index; keep consistent here:
       freeFrom: { amount: 0.99, currency: "GBP" }, // for "FREE – £0.99 From" style
       // Optional: set your real store URLs when ready
@@ -719,7 +718,6 @@ Thanks.`;
       );
 
       document.getElementById("priceText").textContent = `${freeText} – ${fromVal} ${fromLabel}`;
-      document.getElementById("skuText").textContent = `SKU: ${APP.sku}`;
 
       // CTA links
       const storeLink = pickStoreLink();

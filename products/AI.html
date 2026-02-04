@@ -421,7 +421,6 @@
      * PAGE CONFIG — edit only this object
      */
     const COURSE = {
-      sku: "AI-COURSE-001",
       // If you want pricing to be formatted by locale.js, keep baseCurrency/baseAmount in GBP.
       baseCurrency: "GBP",
       baseAmount: 10.99, // change as needed
@@ -451,7 +450,6 @@
 
         buy: "Checkout",
         deliveryNote: "Checkout opens in Stripe. You’ll receive confirmation and delivery instructions after payment.",
-        skuPrefix: "SKU:",
         pricePrefix: "Price:",
 
         whatItIs: [
@@ -630,12 +628,8 @@
         supportEmail.href = `mailto:${email}`;
       }
 
-      // Title by country
-      document.title =
-        (ctx.country === "SG") ? `${t.name} | Ezion SG` :
-        (ctx.country === "HK") ? `${t.name} | Ezion HK` :
-        (ctx.country === "US") ? `${t.name} | Ezion US` :
-        `${t.name} | Ezion UK`;
+      // Title by country (generic)
+      document.title = `${t.name} | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

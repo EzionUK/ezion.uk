@@ -402,7 +402,6 @@
     const PRODUCT = {
       name: "Enzydrain",
       price: { type:"fixed", amount: 8.50, currency:"GBP" },
-      sku: "EZD-TRIAL-001"
     };
 
     const I18N = {
@@ -509,7 +508,6 @@
       const isSimplified = (ctx.key === "sg-zh" || ctx.lang === "zh");
 
       const base = {
-        sku: PRODUCT.sku,
         country: ctx.country,
         currency: ctx.currency
       };
@@ -553,7 +551,6 @@
 I'd like to order Enzydrain:
 
 - Product: Enzydrain
-- SKU: ${base.sku}
 - Quantity:
 - Delivery country:
 - Delivery address (can provide later):
@@ -654,7 +651,6 @@ Thanks.`;
       // Price display (localized)
       const priceText = EzionLocale.formatPrice(PRODUCT.price, ctx);
       document.getElementById("priceText").textContent = priceText;
-      document.getElementById("skuText").textContent = `SKU: ${PRODUCT.sku}`;
 
       // Mailto CTAs (localized)
       const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
@@ -663,11 +659,7 @@ Thanks.`;
       document.getElementById("btnOrderEmail").href = mailto(email, t.emailSubjectOrder, buildOrderBody(ctx));
       document.getElementById("btnAsk").href = mailto(email, t.emailSubjectQuestion, buildQuestionBody(ctx));
 
-      document.title =
-        (ctx.country === "SG") ? "Enzydrain | Ezion SG" :
-        (ctx.country === "HK") ? "Enzydrain | Ezion HK" :
-        (ctx.country === "US") ? "Enzydrain | Ezion US" :
-        "Enzydrain | Ezion UK";
+      document.title = `Enzydrain | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

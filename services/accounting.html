@@ -737,11 +737,7 @@ Thanks.`;
         a.href = `mailto:${email}`;
       });
 
-      document.title =
-        (ctx.country === "SG") ? "Accounting Services | Ezion SG" :
-        (ctx.country === "HK") ? "Accounting Services | Ezion HK" :
-        (ctx.country === "US") ? "Accounting Services | Ezion US" :
-        "Accounting Services | Ezion UK";
+      document.title = `Accounting Services | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

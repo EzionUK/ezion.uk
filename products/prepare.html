@@ -608,12 +608,8 @@
       // Downloads
       renderDownloads(BOOK.downloads);
 
-      // Title per country
-      document.title =
-        (ctx.country === "SG") ? `${t.title} — Prepare | Ezion SG` :
-        (ctx.country === "HK") ? `${t.title} — Prepare | Ezion HK` :
-        (ctx.country === "US") ? `${t.title} — Prepare | Ezion US` :
-        `${t.title} — Prepare | Ezion UK`;
+      // Title per country (generic)
+      document.title = `${t.title} — Prepare | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({ onReady: renderPage, onChange: renderPage });

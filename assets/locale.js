@@ -104,6 +104,28 @@
       }
     },
 
+    // Malaysia (EN)
+    "my-en": {
+      lang: "en",
+      country: "MY",
+      currency: "MYR",
+      numberLocale: "en-MY",
+
+      contact: {
+        email: "hello@ezion.co",
+        phone: "+60 1111 710735",
+        whatsapp: "+601111710735"
+      },
+
+      company: {
+        legalName: "Ezion Ltd",
+        jurisdiction: "United Kingdom",
+        status: "Operating",
+        registrationLabel: null,
+        registrationValue: null
+      }
+    },
+
     // -----------------------------
     // NEW: China - 中文 (Simplified)
     // -----------------------------
@@ -142,6 +164,10 @@
     "GBP:USD": 1.27,
     "USD:GBP": 1 / 1.27,
 
+    // MYR (live rate as of 2026‑02‑04)
+    "GBP:MYR": 5.2,
+    "MYR:GBP": 1 / 5.2,
+
     // NEW: CNY placeholders (edit to live rates)
     "GBP:CNY": 9.20,
     "CNY:GBP": 1 / 9.20,
@@ -169,12 +195,46 @@
   const PILL_MAP = {
     "uk-en": { flag: "🇬🇧", text: "English" },
     "us-en": { flag: "🇺🇸", text: "English" },
+    "my-en": { flag: "🇲🇾", text: "English" },
     "sg-en": { flag: "🇸🇬", text: "English" },
     "sg-zh": { flag: "🇸🇬", text: "简中" },
     "hk-en": { flag: "🇭🇰", text: "English" },
     "hk-zh": { flag: "🇭🇰", text: "繁中" },
     "cn-zh": { flag: "🇨🇳", text: "简中" }
   };
+
+  // Controls the selector ordering site-wide
+  const MENU_ORDER = [
+    "uk-en",
+    "us-en",
+    "my-en", // NEW: Malaysia before Singapore
+    "sg-en",
+    "sg-zh",
+    "hk-en",
+    "hk-zh",
+    "cn-zh"
+  ];
+
+  function renderLangMenu(menuEl) {
+    if (!menuEl) return;
+
+    const html = MENU_ORDER
+      .filter((k) => LOCALES[k] && PILL_MAP[k])
+      .map((k) => {
+        const loc = LOCALES[k];
+        const pill = PILL_MAP[k];
+        const meta = `${loc.currency} · ${loc.country}`;
+
+        return `
+          <button class="langItem" role="menuitem" type="button" data-locale="${k}">
+            <span class="flag">${pill.flag}</span><span>${pill.text}</span><span class="langMeta">${meta}</span>
+          </button>
+        `;
+      })
+      .join("");
+
+    menuEl.innerHTML = html;
+  }
 
   const STORAGE_KEY = "ezion_locale";
   const DEFAULT_LOCALE = "uk-en";
@@ -201,6 +261,16 @@
   function getContext() {
     const key = getSavedLocaleKey();
     return { key, ...LOCALES[key] };
+  }
+
+  // Branding helpers
+  function regionTag(ctxOverride) {
+    const ctx = ctxOverride || getContext();
+    return (ctx && ctx.country) ? String(ctx.country) : "UK";
+  }
+
+  function brandName(ctxOverride) {
+    return `Ezion ${regionTag(ctxOverride)}`;
   }
 
   function t(k) {
@@ -292,6 +362,11 @@
     });
 
     document.querySelectorAll("[data-phone]").forEach(el => {
+      if (!phone) {
+        el.style.display = "none";
+        return;
+      }
+      el.style.display = "";
       el.textContent = phone;
       el.href = `tel:${String(phone).replace(/\s+/g, "")}`;
     });
@@ -343,6 +418,9 @@
     const menu = $("langMenu");
     if (!wrap || !btn || !menu) return;
 
+    // Ensure all pages share the exact same selector options + ordering
+    renderLangMenu(menu);
+
     btn.onclick = (e) => {
       e.stopPropagation();
       wrap.classList.toggle("open");
@@ -376,6 +454,8 @@
     FX,
 
     getContext,
+    regionTag,
+    brandName,
     formatPrice,
     money,
     convertAmount,

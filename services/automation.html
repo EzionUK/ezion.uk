@@ -728,11 +728,7 @@ Thanks.`;
       document.querySelectorAll("[data-contact-email]").forEach(a => {
         a.href = `mailto:${email}`;
       });
-      document.title =
-        (ctx.country === "SG") ? "Automation (Excel & Python) | Ezion SG" :
-        (ctx.country === "HK") ? "Automation (Excel & Python) | Ezion HK" :
-        (ctx.country === "US") ? "Automation (Excel & Python) | Ezion US" :
-        "Automation (Excel & Python) | Ezion UK";
+      document.title = `Automation (Excel & Python) | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

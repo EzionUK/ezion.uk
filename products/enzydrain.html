@@ -663,11 +663,7 @@ Thanks.`;
       document.getElementById("btnOrderEmail").href = mailto(email, t.emailSubjectOrder, buildOrderBody(ctx));
       document.getElementById("btnAsk").href = mailto(email, t.emailSubjectQuestion, buildQuestionBody(ctx));
 
-      document.title =
-        (ctx.country === "SG") ? "Enzydrain | Ezion SG" :
-        (ctx.country === "HK") ? "Enzydrain | Ezion HK" :
-        (ctx.country === "US") ? "Enzydrain | Ezion US" :
-        "Enzydrain | Ezion UK";
+      document.title = `Enzydrain | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

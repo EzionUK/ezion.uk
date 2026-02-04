@@ -737,11 +737,7 @@ Thanks.`;
       const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
       document.getElementById("btnSupport").href = mailto(email, t.emailSubjectSupport, buildSupportBody(ctx));
 
-      document.title =
-        (ctx.country === "SG") ? "TODAY — Minimalist’s Diary | Ezion SG" :
-        (ctx.country === "HK") ? "TODAY — Minimalist’s Diary | Ezion HK" :
-        (ctx.country === "US") ? "TODAY — Minimalist’s Diary | Ezion US" :
-        "TODAY — Minimalist’s Diary | Ezion UK";
+      document.title = `TODAY — Minimalist’s Diary | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

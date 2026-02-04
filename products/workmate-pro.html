@@ -656,12 +656,8 @@
       const price = EzionLocale.formatPrice({ type: "exact", amount: PRODUCT.base.amount, currency: PRODUCT.base.currency }, ctx);
       document.getElementById("priceText").textContent = price;
 
-      // Title per country
-      document.title =
-        (ctx.country === "SG") ? `${t.title} | Ezion SG` :
-        (ctx.country === "HK") ? `${t.title} | Ezion HK` :
-        (ctx.country === "US") ? `${t.title} | Ezion US` :
-        `${t.title} | Ezion UK`;
+      // Title per country (generic)
+      document.title = `${t.title} | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

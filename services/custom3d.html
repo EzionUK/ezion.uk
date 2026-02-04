@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom 3D Print | Ezion UK</title>
+  <meta name="description" content="Custom 3D print service — design-to-print for prototypes, functional parts, and small-batch production." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.16);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("../hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{ min-height:100%; display:grid; place-items:center; padding:28px; }
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .kicker{ margin:0 0 10px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.72); }
+    h1{ margin:0 0 10px; font-size:clamp(22px,2.4vw,30px); letter-spacing:.02em; }
+    .sub{ margin:0; color:var(--muted); line-height:1.7; font-size:14px; max-width:78ch; }
+
+    .grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px; }
+    @media (min-width: 920px){ .grid{ grid-template-columns: 1.2fr .8fr; } }
+
+    .box{ border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px; background:rgba(0,0,0,.14); }
+    .h{ margin:0 0 8px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.78); }
+    .p{ margin:0; color:rgba(255,255,255,.74); line-height:1.7; font-size:14px; }
+    .divider{ height:1px; background:rgba(255,255,255,.12); margin:14px 0; }
+
+    ul{ margin:10px 0 0; padding-left:18px; color:rgba(255,255,255,.74); line-height:1.7; font-size:14px; }
+    li{ margin:6px 0; }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    /* Top-right language/country switch + Home */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+
+    .langBtn:hover{ transform: translateY(-1px); background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.22); }
+
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+
+    .langText{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+
+    .lang.open .langMenu{ display:block; }
+
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
+    .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
+    .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency"></div>
+
+    <a class="langBtn homeBtn" href="../index.html#services" id="topHomeBtn" aria-label="Back to Services">
+      <span class="langText" id="topHomeText">Back</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <p class="kicker">Services</p>
+      <h1 id="pageTitle">Custom 3D Print</h1>
+      <p class="sub">Design‑to‑print service for prototypes, functional parts, and small‑batch production.</p>
+
+      <div class="grid">
+        <section class="box">
+          <div class="h">What we do</div>
+          <ul>
+            <li>Help refine a concept into a printable model</li>
+            <li>Iterate prototypes quickly</li>
+            <li>Recommend materials/finishes based on use</li>
+            <li>Produce small batches with consistent settings</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="h">What to send us</div>
+          <ul>
+            <li>Any existing files (STL/STEP) or reference images</li>
+            <li>Target dimensions + quantity</li>
+            <li>Intended use (decorative vs functional)</li>
+            <li>Deadline (if any)</li>
+          </ul>
+        </section>
+
+        <aside class="box" id="quote">
+          <div class="h">Pricing</div>
+          <p class="p">Starting from <strong id="priceText">—</strong></p>
+          <p class="p" style="margin-top:10px; color:rgba(255,255,255,.70);">SKU: <span id="skuText">SVC-3DP-UK-001</span></p>
+
+          <div class="divider"></div>
+
+          <div class="h">Request a quote</div>
+          <p class="p">Email us your requirements and we’ll respond with a scoped quote.</p>
+
+          <div class="btnRow">
+            <a class="btn" id="btnQuote" href="#">Request a quote</a>
+            <a class="btn secondary" data-contact-email href="#">Email</a>
+          </div>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script src="../assets/locale.js"></script>
+  <script>
+    const SERVICE = {
+      name: "Custom 3D Print",
+      sku: "SVC-3DP-UK-001",
+      price: { type: "from", amount: 50, currency: "GBP" }
+    };
+
+    function renderPage(){
+      const ctx = EzionLocale.getContext();
+      const email = (ctx && ctx.contact && ctx.contact.email) ? ctx.contact.email : "contact@ezion.uk";
+
+      document.title = `${SERVICE.name} | ${EzionLocale.brandName(ctx)}`;
+      document.getElementById('priceText').textContent = EzionLocale.formatPrice(SERVICE.price, ctx);
+      document.getElementById('skuText').textContent = SERVICE.sku;
+
+      document.getElementById('btnQuote').href = `mailto:${email}?subject=${encodeURIComponent('Quote: Custom 3D Print (UK)')}`;
+
+      EzionLocale.applyContactTargets();
+    }
+
+    EzionLocale.init({ onReady: renderPage, onChange: renderPage });
+  </script>
+</body>
+</html>

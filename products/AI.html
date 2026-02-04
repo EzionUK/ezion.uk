@@ -630,12 +630,8 @@
         supportEmail.href = `mailto:${email}`;
       }
 
-      // Title by country
-      document.title =
-        (ctx.country === "SG") ? `${t.name} | Ezion SG` :
-        (ctx.country === "HK") ? `${t.name} | Ezion HK` :
-        (ctx.country === "US") ? `${t.name} | Ezion US` :
-        `${t.name} | Ezion UK`;
+      // Title by country (generic)
+      document.title = `${t.name} | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

@@ -804,7 +804,9 @@
           workmateName: "Workmate — Professional Edition",
           workmateDesc: "Time tracking + invoicing workbook (Excel).",
           enzydrainName: "Enzydrain",
-          enzydrainDesc: "Enzymatic drain maintenance tablets."
+          enzydrainDesc: "Enzymatic drain maintenance tablets.",
+          printsName: "3D Print Personalised Gifts/Products",
+          printsDesc: "Custom‑printed gifts, prototypes, and small‑batch items."
         },
         apps: {
           todayName: "TODAY — Minimalist’s Diary",
@@ -826,7 +828,9 @@
           accountingName: "Accounting services",
           accountingDesc: "Setup, cleanup, reporting, and finance ops support.",
           AIconsultName: "Consultancy on AI Business Building",
-          AIconsultDesc: "1:1 consulting to build and launch an AI-enabled business: offer, pricing, go-to-market, and automation"
+          AIconsultDesc: "1:1 consulting to build and launch an AI-enabled business: offer, pricing, go-to-market, and automation",
+          custom3dName: "Custom 3D Print",
+          custom3dDesc: "Design‑to‑print service for prototypes, functional parts, and small‑batch production."
         }
       }
     },
@@ -888,7 +892,9 @@
           workmateName: "Workmate — 专业版",
           workmateDesc: "时间记录 + 开票工作簿（Excel）。",
           enzydrainName: "Enzydrain",
-          enzydrainDesc: "酶解型下水道养护清洁片。"
+          enzydrainDesc: "酶解型下水道养护清洁片。",
+          printsName: "3D 打印个性化礼品/产品",
+          printsDesc: "定制打印礼品、原型和小批量产品。"
         },
         apps: {
           todayName: "TODAY — 极简日记",
@@ -910,7 +916,9 @@
           accountingName: "会计服务",
           accountingDesc: "搭建、清理、报表与财务运营支持。",
           AIconsultName: "AI 商业构建咨询",
-          AIconsultDesc: "一对一咨询，协助你打造并启动 AI 驱动的业务：产品定位、定价、市场进入策略及自动化体系。"
+          AIconsultDesc: "一对一咨询，协助你打造并启动 AI 驱动的业务：产品定位、定价、市场进入策略及自动化体系。",
+          custom3dName: "定制 3D 打印",
+          custom3dDesc: "从设计到打印的服务，适用于原型、功能部件和小批量生产。"
         }
       }
     },
@@ -972,7 +980,9 @@
           workmateName: "Workmate — 專業版",
           workmateDesc: "時間記錄 + 開票工作簿（Excel）。",
           enzydrainName: "Enzydrain",
-          enzydrainDesc: "酵素型去水渠保養清潔片。"
+          enzydrainDesc: "酵素型去水渠保養清潔片。",
+          printsName: "3D 打印個人化禮品/產品",
+          printsDesc: "定制打印禮品、原型及小批量產品。"
         },
         apps: {
           todayName: "TODAY — 極簡日記",
@@ -994,7 +1004,9 @@
           accountingName: "會計服務",
           accountingDesc: "建立、整理、報表與財務營運支援。",
           AIconsultName: "AI 商業建構顧問服務",
-          AIconsultDesc: "一對一顧問諮詢，協助你建立並啟動 AI 驅動的業務：產品定位、定價、市場進入策略及自動化系統。"
+          AIconsultDesc: "一對一顧問諮詢，協助你建立並啟動 AI 驅動的業務：產品定位、定價、市場進入策略及自動化系統。",
+          custom3dName: "定制 3D 打印",
+          custom3dDesc: "從設計到打印的服務，適用於原型、功能部件及小批量生產。"
         }
       }
     }
@@ -1169,6 +1181,7 @@
   const PRODUCTS = [
     { category:"products", key:"workmate", price:{ type:"fixed", amount:9.99, currency:"GBP" }, sku:"WM-PRO-001", page:"products/workmate-pro.html" },
     { category:"products", key:"enzydrain", price:{ type:"fixed", amount:8.50, currency:"GBP" }, sku:"EZD-TRIAL-001", page:"products/enzydrain.html" },
+    { category:"products", key:"prints", price:{ type:"from", amount:1.49, currency:"GBP" }, sku:"PRN-UK-001", page:"products/prints.html", onlyCountries: ["UK"] },
 
     { category:"apps", key:"today", price:{ type:"from", amount:0.00, currency:"GBP" }, sku:"MD-LIFE-001", page:"products/today.html", priceDisplayOverride:"free_to_from" },
     { category:"apps", key:"yada", price:{ type:"from", amount:0.99, currency:"GBP" }, sku:"YADA-APP-001", page:"products/yada.html", priceDisplayOverride:"free_to_from" },
@@ -1181,8 +1194,15 @@
     { key:"appdev", price:{ type:"from", amount:499, currency:"GBP" }, sku:"SVC-APP-001", page:"services/appdev.html" },
     { key:"automation", price:{ type:"from", amount:199, currency:"GBP" }, sku:"SVC-AUTO-001", page:"services/automation.html" },
     { key:"accounting", price:{ type:"from", amount:149, currency:"GBP" }, sku:"SVC-ACC-001", page:"services/accounting.html" },
-    { key:"AIconsult", price:{ type:"from", amount:149, currency:"GBP" }, sku:"SVC-CON-001", page:"services/AIconsult.html" }
+    { key:"AIconsult", price:{ type:"from", amount:149, currency:"GBP" }, sku:"SVC-CON-001", page:"services/AIconsult.html" },
+    { key:"custom3d", price:{ type:"from", amount:50, currency:"GBP" }, sku:"SVC-3DP-UK-001", page:"services/custom3d.html", onlyCountries: ["UK"] }
   ];
+
+  // Visibility helper: show item only if allowed for current country
+  function visibleToLocale(item, ctx) {
+    if (!item.onlyCountries) return true;
+    return item.onlyCountries.includes(ctx.country);
+  }
 
   const productsGridProducts = document.getElementById("productsGridProducts");
   const productsGridApps = document.getElementById("productsGridApps");
@@ -1194,6 +1214,7 @@
     const name =
       p.category === "products" && p.key === "workmate" ? c.products.workmateName :
       p.category === "products" && p.key === "enzydrain" ? c.products.enzydrainName :
+      p.category === "products" && p.key === "prints" ? c.products.printsName :
       p.category === "apps" && p.key === "today" ? c.apps.todayName :
       p.category === "apps" && p.key === "yada" ? c.apps.yadaName :
       p.category === "productions" && p.key === "book" ? c.productions.bookName :
@@ -1203,6 +1224,7 @@
     const desc =
       p.category === "products" && p.key === "workmate" ? c.products.workmateDesc :
       p.category === "products" && p.key === "enzydrain" ? c.products.enzydrainDesc :
+      p.category === "products" && p.key === "prints" ? c.products.printsDesc :
       p.category === "apps" && p.key === "today" ? c.apps.todayDesc :
       p.category === "apps" && p.key === "yada" ? c.apps.yadaDesc :
       p.category === "productions" && p.key === "book" ? c.productions.bookDesc :
@@ -1247,13 +1269,15 @@
       s.key === "appdev" ? c.appdevName :
       s.key === "automation" ? c.automationName :
       s.key === "accounting" ? c.accountingName : 
-      s.key === "AIconsult" ? c.AIconsultName : "";
+      s.key === "AIconsult" ? c.AIconsultName :
+      s.key === "custom3d" ? c.custom3dName : "";
 
     const desc =
       s.key === "appdev" ? c.appdevDesc :
       s.key === "automation" ? c.automationDesc :
       s.key === "accounting" ? c.accountingDesc : 
-      s.key === "AIconsult" ? c.AIconsultDesc : "";
+      s.key === "AIconsult" ? c.AIconsultDesc :
+      s.key === "custom3d" ? c.custom3dDesc : "";
 
     const priceText = EzionLocale.formatPrice(s.price, ctx);
 
@@ -1281,14 +1305,10 @@
 
     applyText(localeInfo);
 
-    document.title =
-      (localeInfo.country === "SG") ? "Ezion SG" :
-      (localeInfo.country === "HK") ? "Ezion HK" :
-      (localeInfo.country === "US") ? "Ezion US" :
-      "Ezion UK";
+    document.title = EzionLocale.brandName(localeInfo);
 
     const byCat = (cat) => PRODUCTS
-      .filter(p => p.category === cat)
+      .filter(p => p.category === cat && visibleToLocale(p, localeInfo))
       .map(p => productCard(p, localeInfo, t))
       .join("");
 
@@ -1296,7 +1316,10 @@
     productsGridApps.innerHTML = byCat("apps");
     productsGridProductions.innerHTML = byCat("productions");
 
-    servicesGrid.innerHTML = SERVICES.map(s => serviceCard(s, localeInfo, t)).join("");
+    servicesGrid.innerHTML = SERVICES
+      .filter(s => visibleToLocale(s, localeInfo))
+      .map(s => serviceCard(s, localeInfo, t))
+      .join("");
 
     EzionLocale.applyContactTargets();
     EzionLocale.applyCompanyInfo();

@@ -733,11 +733,7 @@ Thanks.`;
         a.href = `mailto:${email}`;
       });
 
-      document.title =
-        (ctx.country === "SG") ? "App Development | Ezion SG" :
-        (ctx.country === "HK") ? "App Development | Ezion HK" :
-        (ctx.country === "US") ? "App Development | Ezion US" :
-        "App Development | Ezion UK";
+      document.title = `App Development | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

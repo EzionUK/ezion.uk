@@ -734,11 +734,7 @@ Thanks.`;
         a.href = `mailto:${email}`;
       });
 
-      document.title =
-        (ctx.country === "SG") ? "AI Business Building Consultancy | Ezion SG" :
-        (ctx.country === "HK") ? "AI Business Building Consultancy | Ezion HK" :
-        (ctx.country === "US") ? "AI Business Building Consultancy | Ezion US" :
-        "AI Business Building Consultancy | Ezion UK";
+      document.title = `AI Business Building Consultancy | ${EzionLocale.brandName(ctx)}`;
     }
 
     EzionLocale.init({

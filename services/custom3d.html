@@ -251,7 +251,6 @@
 
       document.title = `${SERVICE.name} | ${EzionLocale.brandName(ctx)}`;
       document.getElementById('priceText').textContent = EzionLocale.formatPrice(SERVICE.price, ctx);
-      document.getElementById('skuText').textContent = SERVICE.sku;
 
       document.getElementById('btnQuote').href = `mailto:${email}?subject=${encodeURIComponent('Quote: Custom 3D Print (UK)')}`;
 

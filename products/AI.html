@@ -487,7 +487,6 @@
 
         buy: "结账",
         deliveryNote: "结账将在 Stripe 打开。付款后你会收到确认信息与交付说明。",
-        skuPrefix: "SKU：",
         pricePrefix: "价格：",
 
         whatItIs: [
@@ -525,7 +524,6 @@
 
         buy: "結帳",
         deliveryNote: "結帳將在 Stripe 開啟。付款後你會收到確認資訊與交付說明。",
-        skuPrefix: "SKU：",
         pricePrefix: "價格：",
 
         whatItIs: [
@@ -601,7 +599,6 @@
       // Price + SKU (locale-aware)
       const price = EzionLocale.formatPrice({ type:"from", amount: COURSE.baseAmount, currency: COURSE.baseCurrency }, ctx);
       document.getElementById("priceLine").textContent = `${t.pricePrefix} ${price}`;
-      document.getElementById("skuLine").textContent = `${t.skuPrefix} ${COURSE.sku}`;
 
       // Checkout button
       const buyBtn = document.getElementById("buyBtn");

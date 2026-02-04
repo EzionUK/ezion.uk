@@ -250,7 +250,6 @@
 
       document.title = `${PRODUCT.name} | ${EzionLocale.brandName(ctx)}`;
       document.getElementById('priceText').textContent = EzionLocale.formatPrice(PRODUCT.price, ctx);
-      document.getElementById('skuText').textContent = PRODUCT.sku;
 
       document.getElementById('btnQuote').href = `mailto:${email}?subject=${encodeURIComponent('Quote: 3D Print (UK)')}`;
 

@@ -223,11 +223,16 @@
       .map((k) => {
         const loc = LOCALES[k];
         const pill = PILL_MAP[k];
-        const meta = `${loc.currency} · ${loc.country}`;
+
+        // Requirement: show CCY beside flag (not language)
+        const label = String(loc.currency || "GBP").toUpperCase();
+
+        // Keep language + region as secondary info (useful when CCY is shared across locales)
+        const meta = `${loc.country} · ${pill.text}`;
 
         return `
           <button class="langItem" role="menuitem" type="button" data-locale="${k}">
-            <span class="flag">${pill.flag}</span><span>${pill.text}</span><span class="langMeta">${meta}</span>
+            <span class="flag">${pill.flag}</span><span>${label}</span><span class="langMeta">${meta}</span>
           </button>
         `;
       })
@@ -399,9 +404,14 @@
   // Lang pill wiring
   // -----------------------------
   function setLangPill(key) {
-    const m = PILL_MAP[key] || PILL_MAP[DEFAULT_LOCALE];
+    const k = (key && LOCALES[key]) ? key : DEFAULT_LOCALE;
+    const m = PILL_MAP[k] || PILL_MAP[DEFAULT_LOCALE];
+    const loc = LOCALES[k] || LOCALES[DEFAULT_LOCALE];
+
     if ($("langFlag")) $("langFlag").textContent = m.flag;
-    if ($("langText")) $("langText").textContent = m.text;
+
+    // Requirement: pill shows currency code (CCY) beside the flag.
+    if ($("langText")) $("langText").textContent = String(loc.currency || "GBP").toUpperCase();
   }
 
   function htmlLangFromCtx(ctx){

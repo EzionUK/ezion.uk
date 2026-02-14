@@ -172,6 +172,11 @@
     .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
     .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
     .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+
+    .catalogGrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:10px}
+    .prod{border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;text-decoration:none;background:rgba(0,0,0,.14)}
+    .prod img{width:100%;height:150px;object-fit:cover;display:block}
+    .prod b{display:block;padding:10px 10px 12px;font-size:13px}
   </style>
 </head>
 
@@ -197,7 +202,11 @@
     <article class="card">
       <p class="kicker">Products</p>
       <h1 id="pageTitle">3D Print Personalised Gifts/Products</h1>
-      <p class="sub">Custom‑printed gifts, prototypes, and small‑batch items.</p>
+      <p class="sub">Custom‑printed gifts, prototypes, and small‑batch items.
+      <section class="box" style="margin-top:14px">
+        <div class="h">Shop 3D printed products</div>
+        <div class="catalogGrid" id="catalogGrid"></div>
+      </section></p>
 
       <div class="grid">
         <section class="box">
@@ -244,6 +253,17 @@
       name: "3D Print Personalised Gifts/Products",
       price: { type: "from", amount: 1.49, currency: "GBP" }
     };
+    const CATALOG=[
+     {t:"Key cover",img:"../assets/products/3D-prints/Key_Cover.png",url:"https://www.etsy.com/uk/listing/4450054809"},
+     {t:"Cable tie",img:"../assets/products/3D-prints/Cable_Tie.png",url:"https://www.etsy.com/uk/listing/4452086365"},
+     {t:"Door wedge",img:"../assets/products/3D-prints/Door_Wedge.jpg",url:"https://www.etsy.com/uk/listing/4450061414"},
+     {t:"NFC stand",img:"../assets/products/3D-prints/NFC_Stand.png",url:"https://www.etsy.com/uk/listing/4452105280"},
+     {t:"Cup sleeve",img:"../assets/products/3D-prints/Cup_sleeve.jpg",url:"https://www.etsy.com/uk/listing/4452076101"},
+    ];
+    document.getElementById('catalogGrid').innerHTML = CATALOG.map(p =>
+     `<a class="prod" href="${p.url}" target="_blank" rel="noopener">
+        <img src="${p.img}" alt="${p.t}"><b>${p.t}</b>
+      </a>`).join('');
 
     function renderPage(){
       const ctx = EzionLocale.getContext();

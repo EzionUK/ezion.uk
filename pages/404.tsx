@@ -37,7 +37,7 @@ export default function Custom404() {
       <Head>
         <title>Not found | Ezion</title>
         <meta name="robots" content="noindex,nofollow" />
-        <meta name="description" content="This page hasn't been published yet." />
+        <meta name="description" content="This product is still in development." />
       </Head>
 
       <div className="bg" aria-hidden="true" />
@@ -62,7 +62,7 @@ export default function Custom404() {
             </span>
           </button>
 
-          <Link className="langBtn homeBtn" href="/" id="topHomeBtn" aria-label="Home">
+          <Link className="langBtn homeBtn" href="http://www.ezion.uk" id="topHomeBtn" aria-label="Home">
             <span className="iconSpacer" aria-hidden="true" />
             <span className="langText" id="topHomeText">
               Home
@@ -107,7 +107,7 @@ export default function Custom404() {
           </div>
 
           <div className="btnRow">
-            <Link className="btn" href="/products">
+            <Link className="btn" href="http://www.ezion.uk/#products">
               Back to Products
             </Link>
             <a className="btn secondary" href="mailto:contact@ezion.uk?subject=Ezion%20Page%20Request&body=URL%3A%20">

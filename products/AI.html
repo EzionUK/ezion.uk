@@ -438,7 +438,7 @@
       checkoutUrl: "PASTE_STRIPE_PAYMENT_LINK_HERE",
 
       // Optional YouTube intro (set "" to hide)
-      youtubeId: "",
+      youtubeId: "-xEG4uicdlE",
 
       // Optional: if you later want per-locale checkout links, you can add mapping here.
       // checkoutUrlByLocaleKey: { "sg-zh": "...", "hk-zh": "...", "uk-en": "..." }
@@ -625,7 +625,7 @@
       if (!COURSE.youtubeId) {
         if (videoWrap) videoWrap.style.display = "none";
       } else {
-        if (ytFrame) ytFrame.src = `https://youtu.be/-xEG4uicdlE`;
+        if (ytFrame) ytFrame.src = `https://www.youtube-nocookie.com/embed/${COURSE.youtubeId}`;
       }
 
       // Support email

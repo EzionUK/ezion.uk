@@ -1,13 +1,293 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="robots" content="noindex" />
-    <title>In development</title>
-  </head>
-  <body style="font-family: system-ui; padding:24px; max-width:720px; margin:0 auto;">
-    <h1>This product is still in development</h1>
-    <p>We’re still building this product. Contact us for progress.</p>
-    <p><a href="/products">Back to the products</a> · <a href="/contact">Contact</a></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>In development | Ezion</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="This product page is still in development." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --shadow:0 28px 70px rgba(0,0,0,.55);
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        url("hero.jpg") center/cover no-repeat;
+      z-index:-3;
+    }
+    .vignette{
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
+      opacity:.55;
+      z-index:-2;
+    }
+    .grain{
+      position:fixed; inset:-40%; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity:.10;
+      transform:rotate(6deg);
+      z-index:-1;
+    }
+
+    .wrap{ min-height:100%; display:grid; place-items:center; padding:28px; }
+    .card{
+      width:min(var(--max),100%);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom: 6px;
+      user-select:none;
+    }
+    .brand img{
+      height: 24px;
+      width: auto;
+      opacity: .95;
+    }
+
+    .kicker{ margin:0 0 10px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.72); }
+    h1{ margin:0 0 10px; font-size:clamp(22px,2.4vw,30px); letter-spacing:.02em; }
+    .sub{ margin:0; color:var(--muted); line-height:1.7; font-size:14px; max-width:78ch; }
+
+    .box{ margin-top:14px; border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px; background:rgba(0,0,0,.14); }
+    .h{ margin:0 0 8px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.78); }
+    .p{ margin:0; color:rgba(255,255,255,.74); line-height:1.7; font-size:14px; }
+    .path{
+      margin-top: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
+    .btn.secondary{ background:rgba(255,255,255,.06); }
+
+    /* Top-right language/country switch + Home */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+    .langBtn:hover{ transform: translateY(-1px); background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.22); }
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+    .langText{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    .lang.open .langMenu{ display:block; }
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
+    .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
+    .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">English</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency"></div>
+
+    <a class="langBtn homeBtn" href="index.html#products" id="topHomeBtn" aria-label="Back to Products">
+      <span class="langText" id="topHomeText">Back to Products</span>
+    </a>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <div class="brand" aria-hidden="true">
+        <img src="Ezion_logo_invert.png" alt="" />
+      </div>
+
+      <p class="kicker" id="kicker">Products</p>
+      <h1 id="title">This product is still in development</h1>
+      <p class="sub" id="subtitle">
+        This page hasn’t been published yet. If you want it prioritised, send us the URL you tried to open.
+      </p>
+
+      <div class="box">
+        <div class="h" id="hRequested">Requested URL</div>
+        <div class="path" id="requestedPath">—</div>
+
+        <div class="btnRow">
+          <a class="btn" href="index.html#products" id="btnBack">Back to Products</a>
+          <a class="btn secondary" data-contact-email href="#" id="btnEmail">Email us</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script src="assets/locale.js"></script>
+  <script>
+    const TEXT = {
+      en: {
+        kicker: "Products",
+        title: "This product is still in development",
+        subtitle: "We’re still building this product. Contact us for progress.",
+        requested: "Requested URL",
+        back: "Back to Products",
+        email: "Email us"
+      },
+      "zh-Hans": {
+        kicker: "产品",
+        title: "此产品仍在开发中",
+        subtitle: "我们仍在开发该产品。如需了解进度，请联系我们。",
+        requested: "你访问的链接",
+        back: "返回产品",
+        email: "邮件联系"
+      },
+      "zh-Hant": {
+        kicker: "產品",
+        title: "此產品仍在開發中",
+        subtitle: "我們仍在開發此產品。如需了解進度，請聯絡我們。",
+        requested: "你訪問的連結",
+        back: "返回產品",
+        email: "電郵聯絡"
+      }
+    };
+
+    function langKeyFromCtx(ctx){
+      if (ctx && ctx.key === "hk-zh") return "zh-Hant";
+      if (ctx && ctx.lang === "zh") return "zh-Hans";
+      return "en";
+    }
+
+    function setText(id, value){
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function render(){
+      const ctx = EzionLocale.getContext();
+      const key = langKeyFromCtx(ctx);
+      const t = TEXT[key] || TEXT.en;
+
+      document.title = `${t.title} | ${EzionLocale.brandName(ctx)}`;
+
+      setText("kicker", t.kicker);
+      setText("title", t.title);
+      setText("subtitle", t.subtitle);
+      setText("hRequested", t.requested);
+      setText("btnBack", t.back);
+      setText("topHomeText", t.back);
+      setText("btnEmail", t.email);
+
+      const path = (location.pathname || "") + (location.search || "") + (location.hash || "");
+      setText("requestedPath", path || "—");
+
+      EzionLocale.applyContactTargets();
+    }
+
+    EzionLocale.init({ onReady: render, onChange: render });
+  </script>
+</body>
 </html>

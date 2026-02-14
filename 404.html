@@ -3,121 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>In development | Ezion</title>
+  <title>Not found | Ezion</title>
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="This product page is still in development." />
+  <meta name="description" content="This page hasn't been published yet." />
 
   <style>
     :root{
-      --bg:#0b0f14;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
-      --shadow:0 28px 70px rgba(0,0,0,.55);
-      --max:980px;
+      --bg: #0b0f14;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --hair: rgba(255,255,255,.16);
+      --shadow: 0 28px 70px rgba(0,0,0,.55);
+      --radius: 22px;
+      --max: 980px;
+
+      /* pills */
+      --pillH: 44px;
+      --pillPadX: 14px;
     }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      overflow-x:hidden;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x: hidden;
     }
+    a{ color: inherit; }
 
     .bg{
-      position:fixed; inset:0;
+      position: fixed;
+      inset: 0;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.58), rgba(0,0,0,.40) 45%, rgba(0,0,0,.68)),
-        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.14), rgba(0,0,0,.74)),
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.20) 45%, rgba(0,0,0,.45)),
+        radial-gradient(1200px 820px at 70% 30%, rgba(0,0,0,.8), rgba(0,0,0,.45)),
         url("hero.jpg") center/cover no-repeat;
-      z-index:-3;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.02);
+      z-index: -3;
     }
     .vignette{
-      position:fixed; inset:0; pointer-events:none;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(900px 520px at 50% 45%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(1400px 900px at 50% 50%, transparent, rgba(0,0,0,.60));
-      opacity:.55;
-      z-index:-2;
+        radial-gradient(
+          700px 420px at 50% 48%,
+          rgba(255,255,255,.14),
+          rgba(255,255,255,.06) 35%,
+          rgba(0,0,0,0) 65%
+        );
+      mix-blend-mode: screen;
+      opacity: .55;
+      z-index: -2;
     }
     .grain{
-      position:fixed; inset:-40%; pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
-      opacity:.10;
-      transform:rotate(6deg);
-      z-index:-1;
+      position: fixed;
+      inset: -40%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+      opacity: .10;
+      transform: rotate(6deg);
+      z-index: -1;
     }
 
-    .wrap{ min-height:100%; display:grid; place-items:center; padding:28px; }
-    .card{
-      width:min(var(--max),100%);
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:var(--shadow);
+    .wrap{
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom: 6px;
-      user-select:none;
-    }
-    .brand img{
-      height: 24px;
-      width: auto;
-      opacity: .95;
-    }
-
-    .kicker{ margin:0 0 10px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.72); }
-    h1{ margin:0 0 10px; font-size:clamp(22px,2.4vw,30px); letter-spacing:.02em; }
-    .sub{ margin:0; color:var(--muted); line-height:1.7; font-size:14px; max-width:78ch; }
-
-    .box{ margin-top:14px; border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px; background:rgba(0,0,0,.14); }
-    .h{ margin:0 0 8px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.78); }
-    .p{ margin:0; color:rgba(255,255,255,.74); line-height:1.7; font-size:14px; }
-    .path{
-      margin-top: 8px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-    .btn{
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.18);
-      color:var(--text);
-      border-radius:999px;
-      padding:10px 14px;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-    .btn:hover{ border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.26); }
-    .btn.secondary{ background:rgba(255,255,255,.06); }
-
-    /* Top-right language/country switch + Home */
+    /* Top-right locale + home (same as index) */
     .lang{
       position: fixed;
       top: 18px;
       right: 18px;
       z-index: 6;
-      display: inline-flex;
+    }
+    .langRow{
+      display: flex;
       align-items: center;
       gap: 10px;
     }
@@ -125,18 +92,33 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      min-height: 44px;
+
+      height: var(--pillH);
+      padding: 0 var(--pillPadX);
+      line-height: 1;
+
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.18);
       color: rgba(255,255,255,.92);
       border-radius: 999px;
-      padding: 10px 14px;
       cursor: pointer;
       backdrop-filter: blur(12px) saturate(1.15);
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
       text-decoration: none;
+      box-sizing: border-box;
+      user-select: none;
     }
-    .langBtn:hover{ transform: translateY(-1px); background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.22); }
+    .langBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .langBtn .iconSpacer{
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      flex: 0 0 28px;
+    }
     .flag{
       width: 28px;
       height: 28px;
@@ -149,10 +131,24 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
       flex: 0 0 28px;
     }
-    .langText{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .langText{
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .homeBtn{
+      padding: 0 14px;
+      gap: 8px;
+      min-width: unset;
+      justify-content: center;
+      letter-spacing: .06em;
+    }
+    .homeBtn .iconSpacer{ display: none; }
+
     .langMenu{
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(var(--pillH) + 10px);
       right: 0;
       min-width: 240px;
       border-radius: 16px;
@@ -163,7 +159,8 @@
       padding: 8px;
       display: none;
     }
-    .lang.open .langMenu{ display:block; }
+    .lang.open .langMenu{ display: block; }
+
     .langItem{
       width: 100%;
       display: grid;
@@ -178,9 +175,147 @@
       cursor: pointer;
       text-align: left;
     }
-    .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
-    .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
-    .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+    .langItem:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .langMeta{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      letter-spacing: .02em;
+    }
+
+    /* 404 content (cards match index panels) */
+    .card{
+      width: min(var(--max), 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      user-select: text;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      margin: 2px 0 6px;
+    }
+    .brand img{
+      width: 42%;
+      height: auto;
+      display: block;
+      opacity: .95;
+    }
+
+    .kicker{
+      margin: 10px 0 10px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      text-align: center;
+      user-select: none;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+      text-align: center;
+    }
+    .sub{
+      margin: 0 auto;
+      color: rgba(255,255,255,.70);
+      line-height: 1.6;
+      font-size: 14px;
+      max-width: 78ch;
+      text-align: center;
+    }
+
+    .box{
+      margin-top: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(0,0,0,.14);
+    }
+    .h{
+      margin: 0 0 8px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .path{
+      margin-top: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .btnRow{
+      margin-top: 12px;
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .btn{
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.26);
+      border-color: rgba(255,255,255,.22);
+    }
+    .btn.secondary{ background: rgba(255,255,255,.06); }
+
+    .footer{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      display: flex;
+      justify-content: center;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.70);
+      z-index: 5;
+    }
+    .footer a{
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      padding-bottom: 1px;
+    }
+    .footer a:hover{ border-bottom-color: rgba(255,255,255,.45); }
   </style>
 </head>
 
@@ -189,29 +324,56 @@
   <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- Top-right language/country switch + Home -->
   <div class="lang" id="lang">
-    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
-      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
-      <span class="langText" id="langText">English</span>
-    </button>
+    <div class="langRow">
+      <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+        <span class="langText" id="langText">English</span>
+      </button>
 
-    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency"></div>
+      <a class="langBtn homeBtn" href="index.html#products" id="topHomeBtn" aria-label="Back to Products">
+        <span class="iconSpacer" aria-hidden="true"></span>
+        <span class="langText" id="topHomeText">Back to Products</span>
+      </a>
+    </div>
 
-    <a class="langBtn homeBtn" href="index.html#products" id="topHomeBtn" aria-label="Back to Products">
-      <span class="langText" id="topHomeText">Back to Products</span>
-    </a>
+    <!-- Keep the same menu structure as index -->
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency">
+      <button class="langItem" role="menuitem" type="button" data-locale="uk-en">
+        <span class="flag">🇬🇧</span><span>English</span><span class="langMeta">GBP · UK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="us-en">
+        <span class="flag">🇺🇸</span><span>English</span><span class="langMeta">USD · US</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-en">
+        <span class="flag">🇸🇬</span><span>English</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="sg-zh">
+        <span class="flag">🇸🇬</span><span>简中</span><span class="langMeta">SGD · SG</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-en">
+        <span class="flag">🇭🇰</span><span>English</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="hk-zh">
+        <span class="flag">🇭🇰</span><span>繁中</span><span class="langMeta">HKD · HK</span>
+      </button>
+      <button class="langItem" role="menuitem" type="button" data-locale="cn-zh">
+        <span class="flag">🇨🇳</span><span>简中</span><span class="langMeta">CNY · CN</span>
+      </button>
+    </div>
   </div>
 
   <main class="wrap">
-    <article class="card">
+    <article class="card" aria-label="Not found">
       <div class="brand" aria-hidden="true">
-        <img src="Ezion_logo_invert.png" alt="" />
+        <img src="Ezion_logo_invert.png" alt="Ezion" />
       </div>
 
       <p class="kicker" id="kicker">Products</p>
       <h1 id="title">This product is still in development</h1>
       <p class="sub" id="subtitle">
-        This page hasn’t been published yet. If you want it prioritised, send us the URL you tried to open.
+        We’re still building this page. If you want it prioritised, send us the URL you tried to open.
       </p>
 
       <div class="box">
@@ -226,13 +388,19 @@
     </article>
   </main>
 
+  <footer class="footer">
+    <div>
+      <a data-contact-email href="#">contact@ezion.uk</a>
+    </div>
+  </footer>
+
   <script src="assets/locale.js"></script>
   <script>
     const TEXT = {
       en: {
         kicker: "Products",
         title: "This product is still in development",
-        subtitle: "We’re still building this product. Contact us for progress.",
+        subtitle: "We’re still building this page. Contact us for progress.",
         requested: "Requested URL",
         back: "Back to Products",
         email: "Email us"
@@ -240,7 +408,7 @@
       "zh-Hans": {
         kicker: "产品",
         title: "此产品仍在开发中",
-        subtitle: "我们仍在开发该产品。如需了解进度，请联系我们。",
+        subtitle: "我们仍在开发该页面。如需了解进度，请联系我们。",
         requested: "你访问的链接",
         back: "返回产品",
         email: "邮件联系"
@@ -248,7 +416,7 @@
       "zh-Hant": {
         kicker: "產品",
         title: "此產品仍在開發中",
-        subtitle: "我們仍在開發此產品。如需了解進度，請聯絡我們。",
+        subtitle: "我們仍在開發此頁面。如需了解進度，請聯絡我們。",
         requested: "你訪問的連結",
         back: "返回產品",
         email: "電郵聯絡"

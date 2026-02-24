@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Use — Ezion Apps</title>
+  <meta name="description" content="Terms of Use and In‑App Purchases & Subscriptions terms for Ezion mobile apps." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#111824;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --hair:rgba(255,255,255,.12);
+      --link:#7dd3fc;
+      --radius:18px;
+      --max:900px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 800px at 20% 0%, #132033 0%, var(--bg) 60%);
+      color:var(--text);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    header{ padding:56px 18px 18px; border-bottom:1px solid var(--hair); }
+    .wrap{max-width:var(--max); margin:0 auto;}
+    .badge{
+      display:inline-block;
+      padding:6px 10px;
+      border:1px solid var(--hair);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    h1{margin:14px 0 6px; font-size:34px; line-height:1.2;}
+    .sub{margin:0; color:var(--muted)}
+    main{padding:22px 18px 56px;}
+    .card{
+      background:rgba(17,24,36,.86);
+      border:1px solid var(--hair);
+      border-radius:var(--radius);
+      padding:18px 18px;
+      margin:14px 0;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    h2{margin:0 0 8px; font-size:20px;}
+    h3{margin:16px 0 8px; font-size:16px; color:var(--text);}
+    ul{margin:8px 0 0 20px; padding:0;}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    footer{ padding:18px; border-top:1px solid var(--hair); color:var(--muted); }
+    .muted{color:var(--muted)}
+    .callout{
+      border-left:3px solid rgba(125,211,252,.7);
+      padding-left:12px;
+      color:var(--muted);
+      margin:10px 0 0;
+    }
+
+    /* Top-right language/country switch + Home */
+    .lang{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .langBtn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(12px) saturate(1.15);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      text-decoration: none;
+    }
+    .langBtn:hover{ transform: translateY(-1px); background: rgba(0,0,0,.26); border-color: rgba(255,255,255,.22); }
+    .flag{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+      flex: 0 0 28px;
+    }
+    .langText{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .langMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 240px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      backdrop-filter: blur(14px) saturate(1.15);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      padding: 8px;
+      display: none;
+    }
+    .lang.open .langMenu{ display: block; }
+    .langItem{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      text-align: left;
+    }
+    .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
+    .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
+    .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+
+    .tiny{ font-size:13px; }
+  </style>
+</head>
+<body>
+  <!-- Top-right language/country switch + Home -->
+  <div class="lang" id="lang">
+    <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
+      <span class="langText" id="langText">GBP</span>
+    </button>
+
+    <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency"></div>
+
+    <a class="langBtn homeBtn" href="index.html" id="topHomeBtn" aria-label="Home">
+      <span class="langText" id="topHomeText">Home</span>
+    </a>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <span class="badge">Ezion Apps • Terms of Use</span>
+      <h1>Terms of Use</h1>
+      <p class="sub">Effective date: <strong>2026-02-24</strong></p>
+      <p class="muted">These Terms govern your use of Ezion mobile applications (the “Apps”) and any in‑app purchases, subscriptions, trials, and consumable purchases.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <div class="card">
+        <h2>Apps Covered</h2>
+        <p class="muted">These Terms apply to:</p>
+        <ul>
+          <li>Yada — Bible Insight</li>
+          <li>Today — Minimalist’s Diary</li>
+          <li>Workmate — Clock In</li>
+          <li>Bible Archive: The Quests</li>
+        </ul>
+        <p class="callout">If you do not agree to these Terms, do not use the Apps or make purchases.</p>
+      </div>
+
+      <div class="card">
+        <h2>1) Who We Are</h2>
+        <p class="muted">The Apps are provided by <strong>Ezion</strong> (“we”, “us”).</p>
+        <p class="muted">Contact: <a href="mailto:contact@ezion.uk">contact@ezion.uk</a></p>
+      </div>
+
+      <div class="card">
+        <h2>2) License & Acceptable Use</h2>
+        <p class="muted">We grant you a personal, non‑exclusive, non‑transferable, revocable license to use the Apps for your own lawful purposes, subject to these Terms.</p>
+        <h3>You agree not to</h3>
+        <ul>
+          <li>Reverse engineer, decompile, or attempt to extract source code except where permitted by law</li>
+          <li>Bypass or interfere with security, paywalls, or entitlement checks</li>
+          <li>Use the Apps for unlawful, harmful, or abusive activity</li>
+          <li>Resell, rent, lease, or sublicense the Apps</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>3) In‑App Purchases (general)</h2>
+        <p class="muted">
+          Purchases are processed by Apple (App Store) and/or Google (Google Play) depending on your device.
+          We do not receive your full payment details. Your purchase is subject to the store’s terms and policies.
+        </p>
+        <ul>
+          <li>Prices may vary by region and may change over time.</li>
+          <li>Purchases are generally tied to your Apple ID / Google account.</li>
+          <li>If supported by the App, you may be able to restore purchases using the store restore mechanism.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>4) Subscriptions</h2>
+        <p class="muted">Some Apps may offer auto‑renewing subscriptions (for example, Pro access).</p>
+        <ul>
+          <li><strong>Auto‑renewal:</strong> subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period (store rules apply).</li>
+          <li><strong>Manage/cancel:</strong> you can manage or cancel subscriptions in your App Store / Google Play account settings.</li>
+          <li><strong>Billing:</strong> payment will be charged to your Apple ID / Google account upon confirmation, and renewals are charged automatically unless cancelled.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>5) Free Trials</h2>
+        <p class="muted">
+          Today and Workmate may offer a <strong>7‑day Pro trial</strong>. Trial availability may vary by device, region, and store.
+        </p>
+        <ul>
+          <li>If the trial is offered as a store subscription trial, it may convert to a paid subscription unless you cancel before the trial ends (store rules apply).</li>
+          <li>If the trial is offered as an in‑app (non‑subscription) time‑limited trial, Pro access will end when the trial ends unless you purchase Pro.</li>
+          <li>After a trial ends (and if Pro is not purchased), the App will revert to the Free tier.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>6) Consumable Purchases (e.g., game currency)</h2>
+        <p class="muted">Bible Archive: The Quests may offer consumable purchases such as game currency.</p>
+        <ul>
+          <li>Consumables have <strong>no cash value</strong>, are not redeemable for money, and are typically not transferable.</li>
+          <li>If you spend a consumable, it is generally not reversible.</li>
+          <li>Refunds (if any) are handled by Apple/Google under their policies.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>7) Product‑Specific Notes</h2>
+        <h3>Yada — Bible Insight</h3>
+        <ul>
+          <li>May offer a one‑time in‑app purchase to unlock Pro features.</li>
+        </ul>
+
+        <h3>Today — Minimalist’s Diary</h3>
+        <ul>
+          <li>May offer Pro via subscription and/or in‑app purchase (depending on platform/build).</li>
+          <li>May include optional cloud sync in Pro.</li>
+        </ul>
+
+        <h3>Workmate — Clock In</h3>
+        <ul>
+          <li>May offer Pro via subscription and/or in‑app purchase (depending on platform/build).</li>
+          <li>May include optional cloud sync in Pro.</li>
+        </ul>
+
+        <h3>Bible Archive: The Quests</h3>
+        <ul>
+          <li>Requires sign‑in for saving/restoring progress.</li>
+          <li>May offer game currency and other consumable/non‑consumable purchases.</li>
+        </ul>
+        <p class="muted tiny">If an App’s paywall or store listing describes a feature differently from this page, the in‑app paywall/store listing controls for that specific offer.</p>
+      </div>
+
+      <div class="card">
+        <h2>8) Disclaimers</h2>
+        <p class="muted">
+          The Apps are provided on an “as is” and “as available” basis.
+          To the maximum extent permitted by law, we disclaim all warranties, express or implied, including merchantability, fitness for a particular purpose, and non‑infringement.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>9) Limitation of Liability</h2>
+        <p class="muted">
+          To the maximum extent permitted by law, Ezion will not be liable for indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, or goodwill, arising out of or related to your use of the Apps.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>10) Changes to These Terms</h2>
+        <p class="muted">We may update these Terms from time to time. We will update the effective date above and publish the new version on this page.</p>
+      </div>
+
+      <div class="card">
+        <h2>11) Governing Law</h2>
+        <p class="muted">These Terms are governed by the laws of <strong>England and Wales</strong>, without regard to conflict of laws principles.</p>
+      </div>
+
+      <div class="card">
+        <h2>Contact</h2>
+        <p class="muted">Email: <a href="mailto:contact@ezion.uk">contact@ezion.uk</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Ezion Ltd. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="assets/locale.js"></script>
+  <script>
+    EzionLocale.init();
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Privacy Policy — Yada</title>
-  <meta name="description" content="Privacy Policy for Yada app." />
+  <title>Privacy Policy — Ezion Apps</title>
+  <meta name="description" content="Privacy Policy for Ezion mobile apps: Yada, Today, Workmate, Bible Archive: The Quests." />
   <style>
     :root{
       --bg:#0b0f14;
@@ -67,14 +67,8 @@
       color:var(--muted);
     }
     .muted{color:var(--muted)}
-    .two{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
-    @media (min-width: 860px){
-      .two{grid-template-columns: 1fr 1fr;}
-    }
+    .two{display:grid; grid-template-columns:1fr; gap:12px;}
+    @media (min-width: 860px){ .two{grid-template-columns: 1fr 1fr;} }
     .callout{
       border-left:3px solid rgba(125,211,252,.7);
       padding-left:12px;
@@ -92,7 +86,6 @@
       align-items: center;
       gap: 10px;
     }
-
     .langBtn{
       display: inline-flex;
       align-items: center;
@@ -108,13 +101,11 @@
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
       text-decoration: none;
     }
-
     .langBtn:hover{
       transform: translateY(-1px);
       background: rgba(0,0,0,.26);
       border-color: rgba(255,255,255,.22);
     }
-
     .flag{
       width: 28px;
       height: 28px;
@@ -127,14 +118,7 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.14);
       flex: 0 0 28px;
     }
-
-    .langText{
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
+    .langText{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
     .langMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -148,9 +132,7 @@
       padding: 8px;
       display: none;
     }
-
     .lang.open .langMenu{ display: block; }
-
     .langItem{
       width: 100%;
       display: grid;
@@ -165,19 +147,12 @@
       cursor: pointer;
       text-align: left;
     }
-
-    .langItem:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.10);
-    }
-
-    .langMeta{
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
-      letter-spacing: .02em;
-    }
-
+    .langItem:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
+    .langMeta{ font-size: 12px; color: rgba(255,255,255,.60); letter-spacing: .02em; }
     .homeBtn{ padding: 0 14px; gap: 8px; min-width: unset; justify-content: center; }
+
+    .toc a{ display:inline-block; margin-right:10px; margin-top:6px; }
+    .tiny{ font-size:13px; }
   </style>
 </head>
 <body>
@@ -185,7 +160,7 @@
   <div class="lang" id="lang">
     <button class="langBtn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false">
       <span class="flag" id="langFlag" aria-hidden="true">🇬🇧</span>
-      <span class="langText" id="langText">English</span>
+      <span class="langText" id="langText">GBP</span>
     </button>
 
     <div class="langMenu" id="langMenu" role="menu" aria-label="Select language and currency"></div>
@@ -197,10 +172,13 @@
 
   <header>
     <div class="wrap">
-      <span class="badge">Yada • Privacy Policy</span>
+      <span class="badge">Ezion Apps • Privacy Policy</span>
       <h1>Privacy Policy</h1>
-      <p class="sub">Effective date: <strong>2026-01-06</strong></p>
-      <p class="muted">This Privacy Policy explains how Yada (“we”, “us”) handles information when you use the Yada mobile application (the “App”).</p>
+      <p class="sub">Effective date: <strong>2026-02-24</strong></p>
+      <p class="muted">
+        This Privacy Policy explains how Ezion (“we”, “us”) handles information when you use our mobile applications (the “Apps”).
+        This policy applies to: <strong>Yada — Bible Insight</strong>, <strong>Today — Minimalist’s Diary</strong>, <strong>Workmate — Clock In</strong>, and <strong>Bible Archive: The Quests</strong>.
+      </p>
     </div>
   </header>
 
@@ -208,66 +186,100 @@
     <div class="wrap">
 
       <div class="card">
-        <h2>Summary</h2>
+        <h2>Quick Summary</h2>
         <ul>
-          <li><strong>No account required.</strong> We do not require you to create an account to use the App.</li>
-          <li><strong>Minimal data.</strong> The App primarily stores your preferences on your device (e.g., theme, Pro entitlement flag).</li>
-          <li><strong>No sale of personal data.</strong> We do not sell personal information.</li>
-          <li><strong>Notifications are optional.</strong> If you enable reminders, your device schedules them locally.</li>
+          <li><strong>No third‑party analytics SDKs.</strong> We do not embed third‑party analytics or advertising SDKs in the Apps.</li>
+          <li><strong>Notifications are optional.</strong> If enabled, notifications are controlled by your device and can be turned off any time.</li>
+          <li><strong>Sign‑in is required for Bible Archive: The Quests.</strong> This is used to identify your account and save progress.</li>
+          <li><strong>Cloud sync is available for Pro features in Today and Workmate.</strong> When enabled, your data may be uploaded to sync across devices.</li>
+          <li><strong>Purchases are processed by Apple/Google.</strong> We do not receive your full payment details.</li>
+          <li><strong>We do not sell your personal data.</strong></li>
         </ul>
-        <p class="callout">If you have questions, contact: <a href="mailto:contact@ezion.uk">contact@ezion.uk</a></p>
+        <p class="callout">Questions or requests? Contact: <a href="mailto:contact@ezion.uk">contact@ezion.uk</a></p>
+      </div>
+
+      <div class="card" id="apps">
+        <h2>Apps Covered</h2>
+        <p class="muted">This Privacy Policy covers the following Apps:</p>
+        <ul>
+          <li><a href="#yada">Yada — Bible Insight</a></li>
+          <li><a href="#today">Today — Minimalist’s Diary</a></li>
+          <li><a href="#workmate">Workmate — Clock In</a></li>
+          <li><a href="#bible-archive">Bible Archive: The Quests</a></li>
+        </ul>
       </div>
 
       <div class="card">
         <h2>Information We Collect</h2>
 
         <h3>1) Information you provide</h3>
-        <p class="muted">The App does not require you to submit personal information (such as name, phone number, address, or account credentials).</p>
+        <p class="muted">Depending on the App and features you use, you may provide information such as:</p>
+        <ul>
+          <li><strong>Account information</strong> (Bible Archive: The Quests): identifiers needed for sign‑in (for example, an email address, a username, or a platform sign‑in token).</li>
+          <li><strong>User content</strong>: content you create in the Apps (for example, diary entries, time records, notes, game progress).</li>
+          <li><strong>Support communications</strong>: if you email us, we receive the information you send (such as your email address and message).</li>
+        </ul>
 
         <h3>2) Information stored on your device</h3>
-        <p class="muted">Yada stores certain settings locally on your device to make the App work smoothly. Examples include:</p>
+        <p class="muted">The Apps may store settings and app data locally on your device to function correctly. Examples include:</p>
         <ul>
           <li>Theme preference (e.g., <code>light</code>, <code>dark</code>, <code>system</code>)</li>
-          <li>Pro entitlement status flag (e.g., <code>proEntitlement</code>)</li>
-          <li>Other app settings you choose to enable</li>
+          <li>Notification preferences</li>
+          <li>Feature flags / entitlement state (e.g., Pro access status)</li>
+          <li>App data you create (depending on the App and your settings)</li>
         </ul>
-        <p class="muted">This data is stored locally (for example, using platform storage such as preferences). It is not designed to identify you.</p>
 
-        <h3>3) Notifications</h3>
-        <p class="muted">If you opt in to reminders/notifications, the App requests permission from your operating system. Notifications are scheduled on your device and can be disabled anytime in your device settings.</p>
+        <h3>3) Cloud sync (Today Pro, Workmate Pro)</h3>
+        <p class="muted">
+          If you enable cloud sync for Pro features, the App may upload and store your app data to allow syncing across your devices.
+          The types of data synced depend on the App (for example diary entries in Today, and time records in Workmate).
+        </p>
+        <p class="muted tiny">
+          Note: If you do not enable cloud sync (or if it is not available in your region/build), your data may remain only on your device.
+        </p>
 
-        <h3>4) Analytics / tracking</h3>
-        <p class="muted"><strong>By default, Yada does not use third-party analytics SDKs or tracking technology.</strong> If this changes, we will update this policy before enabling such services.</p>
+        <h3>4) Purchases and receipts</h3>
+        <p class="muted">
+          In‑app purchases, subscriptions, free trials, and consumable purchases (such as game currency) are processed by Apple (App Store) and/or Google (Google Play).
+          We may receive limited information necessary to validate your purchase (for example, an anonymised transaction identifier or receipt status).
+        </p>
+
+        <h3>5) Notifications</h3>
+        <p class="muted">If you opt in to reminders/notifications, the App requests permission from your operating system. You can disable notifications any time in your device settings.</p>
+
+        <h3>6) Analytics / tracking</h3>
+        <p class="muted"><strong>We do not use third‑party analytics or advertising SDKs in the Apps.</strong> If this changes, we will update this policy before enabling such services.</p>
       </div>
 
       <div class="card">
         <h2>How We Use Information</h2>
         <p class="muted">We use information only to:</p>
         <ul>
-          <li>Operate and improve core App functionality (e.g., remember your theme setting)</li>
-          <li>Enable Pro features if you purchased access</li>
-          <li>Deliver optional reminders if you enable notifications</li>
-          <li>Maintain security and prevent abuse</li>
+          <li>Provide and operate App functionality (including saving your settings and content)</li>
+          <li>Enable and restore Pro features and purchases</li>
+          <li>Provide optional cloud sync (where enabled)</li>
+          <li>Maintain security, prevent abuse, and troubleshoot issues</li>
+          <li>Respond to support requests</li>
         </ul>
       </div>
 
       <div class="card">
         <h2>Sharing of Information</h2>
-        <p class="muted">We do not sell your personal information. We share information only in these limited cases:</p>
+        <p class="muted">We do not sell personal information. We share information only in limited cases:</p>
         <ul>
-          <li><strong>Legal requirements</strong> (e.g., to comply with applicable law or lawful requests)</li>
-          <li><strong>Service providers</strong> only if needed to run the App (for example, App Store / Play Store purchase processing is handled by Apple/Google)</li>
+          <li><strong>Apple / Google</strong> for purchase processing and subscription management</li>
+          <li><strong>Infrastructure providers</strong> (only where needed for cloud sync or account features)</li>
+          <li><strong>Legal requirements</strong> (to comply with applicable laws or lawful requests)</li>
         </ul>
       </div>
 
       <div class="card">
-        <h2>In-App Purchases</h2>
-        <p class="muted">If you purchase Pro access, the transaction is processed by Apple (App Store) and/or Google (Play). We do not receive your full payment details. We may store a local flag to reflect entitlement status on your device.</p>
-      </div>
-
-      <div class="card">
         <h2>Data Retention</h2>
-        <p class="muted">Settings stored locally remain on your device until you remove the App or clear the App’s data/storage. We do not operate a user database for Yada at this time.</p>
+        <ul>
+          <li><strong>Local device data:</strong> remains until you delete it, uninstall the App, or clear the App’s storage (device dependent).</li>
+          <li><strong>Cloud sync data:</strong> retained for as long as cloud sync is enabled and reasonably necessary to provide syncing. You may request deletion (see Contact).</li>
+          <li><strong>Account data (Bible Archive: The Quests):</strong> retained while your account is active and as needed to provide the service, comply with law, and prevent fraud/abuse.</li>
+        </ul>
       </div>
 
       <div class="card">
@@ -275,23 +287,60 @@
         <div class="two">
           <div>
             <h3>Notifications</h3>
-            <p class="muted">You can enable/disable notifications anytime via your device settings.</p>
+            <p class="muted">Enable/disable notifications in your device settings.</p>
+
+            <h3>Purchases & subscriptions</h3>
+            <p class="muted">Manage or cancel subscriptions via your App Store / Google Play account settings.</p>
           </div>
           <div>
-            <h3>Local app data</h3>
-            <p class="muted">You can remove the App to delete locally stored settings.</p>
+            <h3>Cloud sync</h3>
+            <p class="muted">If cloud sync is offered in your App version, you can turn it off in the App. Turning it off may stop syncing across devices.</p>
+
+            <h3>Account deletion</h3>
+            <p class="muted">For Bible Archive: The Quests (and any future account-enabled apps), you can request account deletion by contacting us.</p>
           </div>
         </div>
       </div>
 
       <div class="card">
         <h2>Children’s Privacy</h2>
-        <p class="muted">Yada is not intended for children under 13. We do not knowingly collect personal information from children. If you believe a child provided personal data, contact us and we will address it.</p>
+        <p class="muted">Our Apps are not intended for children under 13. We do not knowingly collect personal information from children. If you believe a child provided personal data, contact us and we will address it.</p>
       </div>
 
       <div class="card">
         <h2>International Users</h2>
-        <p class="muted">If you use the App outside your home country, your device may process data under local laws. Because Yada primarily stores settings locally, cross-border transfer is generally not applicable unless we add online services in the future.</p>
+        <p class="muted">If you use the Apps outside your home country, your information may be processed in other countries depending on where you are located and whether you enable cloud features.</p>
+      </div>
+
+      <div class="card">
+        <h2>App Notes (by product)</h2>
+
+        <h3 id="yada">Yada — Bible Insight</h3>
+        <ul>
+          <li>Designed to work without an account.</li>
+          <li>May store preferences locally on your device.</li>
+          <li>Pro access may be unlocked via a one‑time in‑app purchase (processed by Apple/Google).</li>
+        </ul>
+
+        <h3 id="today">Today — Minimalist’s Diary</h3>
+        <ul>
+          <li>Diary content is created by you in the App.</li>
+          <li>Pro may include optional cloud sync to access your diary across devices.</li>
+          <li>A 7‑day Pro trial may be offered; if Pro is not purchased, the App may revert to the Free tier.</li>
+        </ul>
+
+        <h3 id="workmate">Workmate — Clock In</h3>
+        <ul>
+          <li>Time/shift records are created by you in the App.</li>
+          <li>Pro may include optional cloud sync to access your data across devices.</li>
+          <li>A 7‑day Pro trial may be offered; if Pro is not purchased, the App may revert to the Free tier.</li>
+        </ul>
+
+        <h3 id="bible-archive">Bible Archive: The Quests</h3>
+        <ul>
+          <li>Requires sign‑in to save and restore game progress.</li>
+          <li>May offer consumable purchases such as game currency (processed by Apple/Google).</li>
+        </ul>
       </div>
 
       <div class="card">
@@ -303,8 +352,9 @@
         <h2>Contact</h2>
         <p class="muted">
           Email: <a href="mailto:contact@ezion.uk">contact@ezion.uk</a><br/>
-          App: Yada
+          Company: Ezion Ltd
         </p>
+        <p class="muted tiny">If you are contacting us about an account deletion request, please include the App name and the email/identifier used to sign in (if applicable).</p>
       </div>
 
     </div>
@@ -318,9 +368,7 @@
 
   <script src="assets/locale.js"></script>
   <script>
-    // Wire locale selector (site-wide ordering + Malaysia option provided by assets/locale.js)
     EzionLocale.init();
-
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>

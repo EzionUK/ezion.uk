@@ -373,7 +373,11 @@
       }
       el.style.display = "";
       el.textContent = phone;
-      el.href = `tel:${String(phone).replace(/\s+/g, "")}`;
+      const tel = String(phone)
+        .trim()
+        .replace(/[^\d+]/g, "")
+        .replace(/(?!^)\+/g, "");
+      el.href = `tel:${tel}`;
     });
 
     document.querySelectorAll("[data-whatsapp]").forEach(el => {
@@ -431,9 +435,18 @@
     // Ensure all pages share the exact same selector options + ordering
     renderLangMenu(menu);
 
+    function setOpen(next){
+      const isOpen = !!next;
+      wrap.classList.toggle("open", isOpen);
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+
+    // Ensure a deterministic initial state (prevents stale aria-expanded)
+    setOpen(false);
+
     btn.onclick = (e) => {
       e.stopPropagation();
-      wrap.classList.toggle("open");
+      setOpen(!wrap.classList.contains("open"));
     };
 
     menu.onclick = (e) => {
@@ -449,11 +462,11 @@
       document.documentElement.lang = htmlLangFromCtx(ctx);
 
       onChange && onChange(ctx);
-      wrap.classList.remove("open");
+      setOpen(false);
     };
 
-    document.addEventListener("click", () => wrap.classList.remove("open"));
-    document.addEventListener("keydown", (e) => e.key === "Escape" && wrap.classList.remove("open"));
+    document.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (e) => e.key === "Escape" && setOpen(false));
   }
 
   // -----------------------------

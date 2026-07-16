@@ -164,6 +164,10 @@
     .footer a:hover{
       border-bottom-color: rgba(255,255,255,.45);
     }
+    .footer a[data-contact-email]:hover{
+      color: #f1d39a;
+      border-bottom-color: rgba(241,211,154,.55);
+    }
 
     .actions{
       margin-top: 18px;
@@ -620,8 +624,8 @@
         </div>
 
         <div class="card">
-          <div class="h">Recognition</div>
-          <p class="p">Ezion is one of the 2026 winners of the SME UK Enterprise Awards.</p>
+          <div class="h" id="recognitionTitle">Recognition</div>
+          <p class="p" id="recognitionBody">Ezion is one of the 2026 winners of the SME UK Enterprise Awards.</p>
           <a class="recognitionLink" href="https://smenews.digital/winners/ezion-ltd/" target="_blank" rel="noopener" aria-label="View Ezion on SME News">
             <img class="recognitionLogo" src="assets/sme-uk-enterprise-awards-2026.png" alt="SME UK Enterprise Awards 2026 winner logo" />
           </a>
@@ -757,6 +761,8 @@
       homeBlurb: "We build practical products, lightweight software, and operational tools — designed to reduce friction and keep working.",
       aboutTitle: "ABOUT US",
       aboutBody: "Ezion develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
+      recognitionTitle: "Recognition",
+      recognitionBody: "Ezion is one of the 2026 winners of the SME UK Enterprise Awards.",
       principles: "Principles",
       contact: "Contact",
       contactSub: "General enquiries",
@@ -846,6 +852,8 @@
       homeBlurb: "我们打造实用产品、轻量软件与运营工具，减少摩擦，并长期稳定运行。",
       aboutTitle: "关于我们",
       aboutBody: "Ezion 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表低效率，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
+      recognitionTitle: "荣誉认可",
+      recognitionBody: "Ezion 是 2026 年 SME UK Enterprise Awards 获奖企业之一。",
       principles: "原则",
       contact: "联系",
       contactSub: "一般咨询",
@@ -934,6 +942,8 @@
       homeBlurb: "我們打造實用產品、輕量軟件與營運工具，減少摩擦，並長期穩定運行。",
       aboutTitle: "關於我們",
       aboutBody: "Ezion 研發並營運消費產品、數碼工具與營運系統。<br/><br/>小團隊不代表更少，而是更清晰。我們偏好簡單、可靠、影響深遠的產品。",
+      recognitionTitle: "榮譽認可",
+      recognitionBody: "Ezion 是 2026 年 SME UK Enterprise Awards 獲獎企業之一。",
       principles: "原則",
       contact: "聯絡",
       contactSub: "一般查詢",
@@ -1037,6 +1047,8 @@
     
       setText("aboutTitle", t.aboutTitle);
       setText("aboutBody", t.aboutBody, true);
+      setText("recognitionTitle", t.recognitionTitle);
+      setText("recognitionBody", t.recognitionBody);
       setText("aboutPrinciplesTitle", t.principles);
     
       setText("contactTitle", t.contact);

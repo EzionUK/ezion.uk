@@ -120,6 +120,26 @@
       color: rgba(255,255,255,.70);
       line-height: 1.6;
     }
+    .brandLine{
+      color: #f1d39a;
+      font-family: Montserrat, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.35;
+    }
+    #homeMotto.brandLine{
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: 450;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    .aboutBrandPhrase{
+      margin: 0 0 12px;
+      color: #f1d39a;
+      font-size: 13px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
 
     .footer{
       position: fixed;
@@ -311,51 +331,6 @@
       display: none;
     }
     
-    /* Slide-over About panel */
-    .panel{
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: end center;
-      padding: 18px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .20s ease;
-      z-index: 10;
-    }
-    .panel.open{ opacity: 1; pointer-events: auto; }
-
-    .panel-backdrop{
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,.52);
-      backdrop-filter: blur(10px) saturate(1.1);
-    }
-
-    .sheet{
-      position: relative;
-      width: min(var(--max), calc(100vw - 36px));
-      max-height: min(78vh, 720px);
-      overflow: auto;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(20,22,28,.68), rgba(8,10,14,.62));
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      transform: translateY(10px);
-      transition: transform .20s ease;
-    }
-    .panel.open .sheet{ transform: translateY(0); }
-
-    .sheet-header{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 6px 6px 12px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-    }
-
     .grid{
       display: grid;
       gap: 14px;
@@ -371,6 +346,9 @@
       border-radius: 18px;
       padding: 16px;
     }
+    @media (min-width: 920px){
+      .aboutIntroCard{ grid-row: span 2; }
+    }
     .h{
       margin: 0 0 8px;
       font-size: 12px;
@@ -385,7 +363,7 @@
       line-height: 1.7;
     }
 
-    /* About panel: Focus block */
+    /* About page: Focus block */
     .focusSub{
       margin: 0 0 12px;
       font-size: 14px;
@@ -413,6 +391,24 @@
       font-size: 13px;
       color: rgba(255,255,255,.70);
       line-height: 1.6;
+    }
+    .recognitionLink{
+      display: block;
+      margin-top: 14px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.18);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .recognitionLink:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.35);
+    }
+    .recognitionLogo{
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     /* Views */
@@ -579,16 +575,109 @@
         <span class="srOnly">Ezion UK</span>
       </h1>
 
-      <div class="sub" id="homeSub">
-        Quietly building useful ventures.
-      </div>
+      <div class="sub brandLine" id="homeMotto">Make everyone's life easier</div>
 
       <div class="sub" id="homeBlurb" style="margin-top:12px;">We build practical products, lightweight software, and operational tools — designed to reduce friction and keep working.</div>
 
       <div class="actions">
-        <button class="btn" type="button" id="openInfo" aria-haspopup="dialog" aria-controls="panel" aria-expanded="false">About Us</button>
+        <a class="btn" href="#about" aria-label="Open about us" id="openInfo">About Us</a>
         <a class="btn" href="#products" aria-label="Open products" id="btnProducts">Products</a>
         <a class="btn" href="#services" aria-label="Open services" id="btnServices">Services</a>
+      </div>
+    </section>
+
+    <!-- ABOUT VIEW -->
+    <section class="products view" id="view-about" aria-label="About Ezion">
+      <div class="topbar">
+        <div class="titleRow">
+          <strong id="aboutTitle">ABOUT US</strong>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card aboutIntroCard">
+          <div class="aboutBrandPhrase">QUIETLY BUILDING USEFUL VENTURES</div>
+          <p class="p" id="aboutBody">
+            Ezion Ltd develops and manages consumer products, digital tools, and operational systems. <br/><br/>
+            Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.
+          </p>
+
+          <div class="h" style="margin-top:14px;" id="aboutPrinciplesTitle">Principles</div>
+          <div class="focusList">
+            <div class="focusItem">
+              <strong id="p1Title">Clarity</strong>
+              <span id="p1Body">Simple positioning, clean execution, minimal maintenance.</span>
+            </div>
+            <div class="focusItem">
+              <strong id="p2Title">Durability</strong>
+              <span id="p2Body">Fewer moving parts. Systems that keep working.</span>
+            </div>
+            <div class="focusItem">
+              <strong id="p3Title">Leverage</strong>
+              <span id="p3Body">Repeatable processes and compounding improvements.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="h">Recognition</div>
+          <p class="p">Ezion is one of the 2026 winners of the SME UK Enterprise Awards.</p>
+          <a class="recognitionLink" href="https://smenews.digital/winners/ezion-ltd/" target="_blank" rel="noopener" aria-label="View Ezion on SME News">
+            <img class="recognitionLogo" src="assets/sme-uk-enterprise-awards-2026.png" alt="SME UK Enterprise Awards 2026 winner logo" />
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="h" id="contactTitle">Contact</div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <div>
+                <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
+                <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
+              </div>
+              <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn secondary" data-phone href="#">Call</a>
+              <a class="btn secondary" data-whatsapp href="#" style="display:none;">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="h" id="focusTitle">Focus</div>
+          <p class="focusSub" id="focusSub">A concise snapshot (broad by design).</p>
+
+          <div class="focusList">
+            <div class="focusItem">
+              <strong id="f1Title">Brand & product incubation</strong>
+              <span id="f1Body">From concept to early validation and launch readiness.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f2Title">Digital tools and internal systems</strong>
+              <span id="f2Body">Automation, operations tooling, and lightweight software.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f3Title">Operations, logistics, and process design</strong>
+              <span id="f3Body">Reducing friction and increasing reliability.</span>
+            </div>
+
+            <div class="focusItem">
+              <strong id="f4Title">Research & development</strong>
+              <span id="f4Body">Iterating and testing ideas for consumer applications.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
+          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
+            © <span id="year"></span> Ezion Ltd. All rights reserved.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -645,116 +734,6 @@
     </div>
   </footer>
 
-  <!-- About Us panel -->
-  <section class="panel" id="panel" aria-hidden="true">
-    <div class="panel-backdrop" id="backdrop" aria-hidden="true"></div>
-
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="About Ezion">
-      <div class="sheet-header">
-        <div class="sheet-title">
-          <div>
-            <strong id="aboutTitle">ABOUT US</strong><br/>
-          </div>
-        </div>
-        <button class="btn secondary" type="button" id="closeInfo">Close</button>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <p class="p" id="aboutBody">
-            Ezion Ltd develops and manages consumer products, digital tools, and operational systems. <br/><br/>
-            Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.
-          </p>
-
-          <div class="h" style="margin-top:14px;" id="aboutPrinciplesTitle">Principles</div>
-          <div class="focusList">
-            <div class="focusItem">
-              <strong id="p1Title">Clarity</strong>
-              <span id="p1Body">Simple positioning, clean execution, minimal maintenance.</span>
-            </div>
-            <div class="focusItem">
-              <strong id="p2Title">Durability</strong>
-              <span id="p2Body">Fewer moving parts. Systems that keep working.</span>
-            </div>
-            <div class="focusItem">
-              <strong id="p3Title">Leverage</strong>
-              <span id="p3Body">Repeatable processes and compounding improvements.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="h" id="contactTitle">Contact</div>
-
-          <div style="display:flex; flex-direction:column; gap:10px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); margin-top:10px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-              <div>
-                <div><a data-contact-email href="#" style="text-decoration:none; font-weight:650;">contact@ezion.uk</a></div>
-                <div style="font-size:12px; color: rgba(255,255,255,.62); margin-top:2px;" id="contactSub">General enquiries</div>
-              </div>
-              <button class="btn" type="button" data-copy="contact@ezion.uk" data-copy-email id="copyBtn">Copy</button>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn secondary" data-phone href="#">Call</a>
-              <a class="btn secondary" data-whatsapp href="#" style="display:none;">WhatsApp</a>
-            </div>
-          </div>
-
-          <!-- <div class="h" style="margin-top:14px;" id="companyTitle">Company</div>
-          <p class="p" id="companyBlock">
-            <strong id="companyLegalLabel">Legal name:</strong>
-            <span id="companyLegal"></span><br/>
-
-            <strong id="companyJurisdictionLabel">Jurisdiction:</strong>
-            <span id="companyJurisdiction"></span><br/>
-
-            <strong id="companyStatusLabel">Status:</strong>
-            <span id="companyStatus"></span>
-          </p>
-
-          <p class="p" id="companyReg" style="margin-top:10px; color: rgba(255,255,255,.62);">
-            <span id="companyRegLabel"></span>:
-            <span id="companyRegValue"></span>
-          </p>-->
-        </div>
-
-        <div class="card" style="grid-column: 1 / -1;">
-          <div class="h" id="focusTitle">Focus</div>
-          <p class="focusSub" id="focusSub">A concise snapshot (broad by design).</p>
-
-          <div class="focusList">
-            <div class="focusItem">
-              <strong id="f1Title">Brand & product incubation</strong>
-              <span id="f1Body">From concept to early validation and launch readiness.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f2Title">Digital tools and internal systems</strong>
-              <span id="f2Body">Automation, operations tooling, and lightweight software.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f3Title">Operations, logistics, and process design</strong>
-              <span id="f3Body">Reducing friction and increasing reliability.</span>
-            </div>
-
-            <div class="focusItem">
-              <strong id="f4Title">Research & development</strong>
-              <span id="f4Body">Iterating and testing ideas for consumer applications.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="grid-column: 1 / -1; background: rgba(0,0,0,.10);">
-          <p class="p" style="margin:0; color: rgba(255,255,255,.60); font-size:13px;">
-            © <span id="year"></span> Ezion Ltd. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
 
   <script src="assets/locale.js"></script>
@@ -775,7 +754,6 @@
       requestQuote: "Request a quote",
       notes: "Notes",
       servicesNotes: "For custom scopes, request a quote on the service page.",
-      homeSub: "Quietly building useful ventures.",
       homeBlurb: "We build practical products, lightweight software, and operational tools — designed to reduce friction and keep working.",
       aboutTitle: "ABOUT US",
       aboutBody: "Ezion develops and manages consumer products, digital tools, and operational systems.<br/><br/>Small is not less. We prefer small teams, clear processes, and quiet products that have big impacts.",
@@ -865,7 +843,6 @@
       requestQuote: "索取报价",
       notes: "备注",
       servicesNotes: "如需定制范围，请在服务页面提交报价请求。",
-      homeSub: "低调打造实用项目。",
       homeBlurb: "我们打造实用产品、轻量软件与运营工具，减少摩擦，并长期稳定运行。",
       aboutTitle: "关于我们",
       aboutBody: "Ezion 研发并运营消费产品、数字工具与运营系统。<br/><br/>小团队不代表低效率，而是更清晰。我们偏好简单、可靠、影响深远的产品。",
@@ -954,7 +931,6 @@
       requestQuote: "索取報價",
       notes: "備註",
       servicesNotes: "如需自訂範圍，請於服務頁面提出報價要求。",
-      homeSub: "低調打造實用項目。",
       homeBlurb: "我們打造實用產品、輕量軟件與營運工具，減少摩擦，並長期穩定運行。",
       aboutTitle: "關於我們",
       aboutBody: "Ezion 研發並營運消費產品、數碼工具與營運系統。<br/><br/>小團隊不代表更少，而是更清晰。我們偏好簡單、可靠、影響深遠的產品。",
@@ -1057,7 +1033,6 @@
       setText("servicesNotesTitle", t.notes);
       setText("servicesNotesText", t.servicesNotes);
     
-      setText("homeSub", t.homeSub, true);
       setText("homeBlurb", t.homeBlurb);
     
       setText("aboutTitle", t.aboutTitle);
@@ -1088,8 +1063,6 @@
       setText("companyJurisdictionLabel", t.jurisdictionLabel);
       setText("companyStatusLabel", t.statusLabel);
     
-      setText("closeInfo", t.close);
-
       setText("topHomeText", t.home);
     
       const copyBtn = document.getElementById("copyBtn");
@@ -1098,81 +1071,6 @@
       document.querySelectorAll("[data-phone]").forEach(a => { a.textContent = t.call; });
       document.querySelectorAll("[data-whatsapp]").forEach(a => { a.textContent = t.whatsapp; });
     }
-
-  // -----------------------------
-  // About panel open/close
-  // -----------------------------
-  const panel = document.getElementById("panel");
-  const openInfo = document.getElementById("openInfo");
-  const closeInfo = document.getElementById("closeInfo");
-  const backdrop = document.getElementById("backdrop");
-
-  const sheet = panel ? panel.querySelector(".sheet") : null;
-  let lastFocusedEl = null;
-
-  function getFocusable(root){
-    if (!root) return [];
-    return Array.from(root.querySelectorAll(
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )).filter(el => {
-      // basic visibility check
-      const style = window.getComputedStyle(el);
-      return style.display !== "none" && style.visibility !== "hidden";
-    });
-  }
-
-  function openPanel(){
-    lastFocusedEl = document.activeElement;
-
-    panel.classList.add("open");
-    panel.setAttribute("aria-hidden", "false");
-    openInfo && openInfo.setAttribute("aria-expanded", "true");
-
-    document.body.style.overflow = "hidden";
-
-    const focusables = getFocusable(sheet || panel);
-    const target = focusables.find(el => el.id === "closeInfo") || focusables[0];
-    setTimeout(() => target && target.focus(), 0);
-  }
-
-  function closePanel(){
-    panel.classList.remove("open");
-    panel.setAttribute("aria-hidden", "true");
-    openInfo && openInfo.setAttribute("aria-expanded", "false");
-
-    document.body.style.overflow = "";
-
-    if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-      setTimeout(() => lastFocusedEl.focus(), 0);
-    }
-  }
-
-  // Focus trap (Tab/Shift+Tab) while dialog is open
-  panel && panel.addEventListener("keydown", (e) => {
-    if (e.key !== "Tab" || !panel.classList.contains("open")) return;
-
-    const focusables = getFocusable(sheet || panel);
-    if (!focusables.length) return;
-
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    const active = document.activeElement;
-
-    if (e.shiftKey && active === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && active === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  });
-
-  openInfo.addEventListener("click", openPanel);
-  closeInfo.addEventListener("click", closePanel);
-  backdrop.addEventListener("click", closePanel);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && panel.classList.contains("open")) closePanel();
-  });
 
   // -----------------------------
   // Copy + toast (localized)
@@ -1197,21 +1095,23 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 
   // -----------------------------
-  // Router: #products / #services / home
+  // Router: #about / #products / #services / home
   // -----------------------------
   const viewHome = document.getElementById("view-home");
+  const viewAbout = document.getElementById("view-about");
   const viewProducts = document.getElementById("view-products");
   const viewServices = document.getElementById("view-services");
 
   function setView(name){
+    const isAbout = name === "about";
     const isProducts = name === "products";
     const isServices = name === "services";
 
-    viewHome.classList.toggle("active", !(isProducts || isServices));
+    viewHome.classList.toggle("active", !(isAbout || isProducts || isServices));
+    viewAbout.classList.toggle("active", isAbout);
     viewProducts.classList.toggle("active", isProducts);
     viewServices.classList.toggle("active", isServices);
 
-    if (panel.classList.contains("open")) closePanel();
     document.body.style.overflow = "";
   }
     
@@ -1227,7 +1127,8 @@
     
   function onRoute(){
     const hash = (location.hash || "").replace("#", "").trim().toLowerCase();
-    if (hash === "products") setView("products");
+    if (hash === "about") setView("about");
+    else if (hash === "products") setView("products");
     else if (hash === "services") setView("services");
     else setView("home");
   
@@ -1249,8 +1150,8 @@
   // -----------------------------
   const PRODUCTS = [
     { category:"products", key:"workmate", price:{ type:"fixed", amount:9.99, currency:"GBP" }, page:"products/workmate-pro.html" },
-    { category:"products", key:"enzydrain", price:{ type:"fixed", amount:8.50, currency:"GBP" }, page:"products/enzydrain.html" },
     { category:"products", key:"prints", price:{ type:"from", amount:1.49, currency:"GBP" }, page:"products/prints.html", onlyCountries: ["UK"] },
+    { category:"products", key:"enzydrain", price:{ type:"fixed", amount:8.50, currency:"GBP" }, page:"products/enzydrain.html" },
 
     //{ category:"apps", key:"today", price:{ type:"from", amount:0.00, currency:"GBP" }, page:"products/today.html", priceDisplayOverride:"free_to_from" },//
     { category:"apps", key:"yada", price:{ type:"from", amount:1.79, currency:"GBP" }, page:"products/yada.html", priceDisplayOverride:"free_to_from" },
@@ -1260,11 +1161,11 @@
   ];
 
   const SERVICES = [
-    { key:"appdev", price:{ type:"from", amount:499, currency:"GBP" }, page:"services/appdev.html" },
-    { key:"automation", price:{ type:"from", amount:199, currency:"GBP" }, page:"services/automation.html" },
     { key:"accounting", price:{ type:"from", amount:149, currency:"GBP" }, page:"services/accounting.html" },
-    { key:"AIconsult", price:{ type:"from", amount:149, currency:"GBP" }, page:"services/AIconsult.html" },
-    { key:"custom3d", price:{ type:"from", amount:50, currency:"GBP" }, page:"services/custom3d.html", onlyCountries: ["UK"] }
+    { key:"automation", price:{ type:"from", amount:199, currency:"GBP" }, page:"services/automation.html" },
+    { key:"appdev", price:{ type:"from", amount:499, currency:"GBP" }, page:"services/appdev.html" },
+    { key:"custom3d", price:{ type:"from", amount:50, currency:"GBP" }, page:"services/custom3d.html", onlyCountries: ["UK"] },
+    { key:"AIconsult", price:{ type:"from", amount:149, currency:"GBP" }, page:"services/AIconsult.html" }
   ];
 
   // Visibility helper: show item only if allowed for current country
